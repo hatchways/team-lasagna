@@ -37,10 +37,10 @@ app.use(function(err, req, res, next) {
   res.json({ error: err });
 });
 
-mongoose.connect(process.env.MONGODB_URI, (err)=> {
-      if (err){
-        return console.log(err)
-      }
-      console.log("connected to mongodb")
-    });
+mongoose.connect(process.env.MONGODB_URI, err => {
+  if (err) {
+    return console.log(err);
+  }
+  console.log("connected to mongodb");
+});
 module.exports = app;
