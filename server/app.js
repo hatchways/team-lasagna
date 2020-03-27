@@ -37,10 +37,14 @@ app.use(function(err, req, res, next) {
   res.json({ error: err });
 });
 // connect to mongodb
-mongoose.connect(process.env.MONGODB_URI, err => {
-  if (err) {
-    return console.log(err);
+mongoose.connect(
+  process.env.MONGODB_URI,
+  { useNewUrlParser: true, useUnifiedTopology: true },
+  err => {
+    if (err) {
+      return console.log(err);
+    }
+    console.log("connected to mongodb");
   }
-  console.log("connected to mongodb");
-});
+);
 module.exports = app;
