@@ -7,6 +7,7 @@ const mongoose = require("mongoose");
 
 const indexRouter = require("./routes/index");
 const pingRouter = require("./routes/ping");
+const profileRouter = require("./routes/profileRouter");
 
 const { json, urlencoded } = express;
 
@@ -20,6 +21,7 @@ app.use(express.static(join(__dirname, "public")));
 
 app.use("/", indexRouter);
 app.use("/ping", pingRouter);
+app.use("/profile", profileRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
