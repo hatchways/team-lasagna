@@ -3,11 +3,9 @@ const mongoose = require('mongoose');
 const profileSchema = new mongoose.Schema({
   firstName: {
     type: String,
-    required: true
   },
   lastName: {
     type: String,
-    required: true
   },
   gender: {
     type: String,
@@ -23,7 +21,8 @@ const profileSchema = new mongoose.Schema({
   },
   user: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "User"
+    ref: "User", 
+    required: true
   }
 });
 
