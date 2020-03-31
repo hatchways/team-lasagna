@@ -13,14 +13,27 @@ router.post(
       .withMessage("not a valid email")
       .normalizeEmail()
   ],
-  (req, res) => {
+  async (req, res) => {
     const errors = validationResult(req);
+    //check validators
     if (!errors.isEmpty()) {
       console.log(errors);
       return res.send({ message: "invalid submission", errors: errors });
     }
     const email = req.body.email;
     const password = req.body.password;
+    try {
+      const hashedpwd = await bcrypt.hash(password, 10);
+      const user = new User({
+        email: email,
+        password: hashedpwd
+      });
+      const newUser = await user.save();
+      return res.status(200).send(newUser);
+    } catch (err) {
+      console.log(err);
+      res.status(400).send(err);
+    }
   }
 );
 
