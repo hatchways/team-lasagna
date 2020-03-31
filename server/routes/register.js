@@ -20,7 +20,7 @@ router.post(
       console.log(errors);
       return res
         .status(400)
-        .send({ message: "invalid submission", errors: errors });
+        .send({ message: "Invalid submission", errors: errors });
     }
     const email = req.body.email;
     const password = req.body.password;
@@ -37,7 +37,7 @@ router.post(
       console.log(err);
       if (err.code == 11000) {
         return res.status(500).send({
-          message: "User already registerd",
+          message: "User already registered",
           err: err
         });
       }
