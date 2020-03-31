@@ -3,8 +3,8 @@ import React, { Component } from "react";
 import { Typography, withStyles, CssBaseline, Grid} from "@material-ui/core";
 //import { Route, Link } from "react-router-dom";
 
-import Navbar from '../components/Navbar'
-import MenuListComposition from '../components/SideMenu'
+import Navbar from '../Components/shared/Navbar'
+import MenuListComposition from '../Components/shared/SideMenu'
 import UserProfile from '../pages/UserProfile'
 
 const landinPageStyle = theme => ({
