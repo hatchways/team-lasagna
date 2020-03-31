@@ -18,9 +18,7 @@ router.post(
     //check validators
     if (!errors.isEmpty()) {
       console.log(errors);
-      return res
-        .status(400)
-        .send({ message: "Invalid submission", errors: errors });
+      return res.status(400).send({ msg: "Must be at least 6 characters" });
     }
     const email = req.body.email;
     const password = req.body.password;
@@ -37,8 +35,7 @@ router.post(
       console.log(err);
       if (err.code == 11000) {
         return res.status(500).send({
-          message: "User already registered",
-          err: err
+          msg: "User already registered"
         });
       }
       return res.status(400).send(err);
