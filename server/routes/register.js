@@ -8,7 +8,9 @@ router.post(
   "/",
   [
     //declare validators
-    check("password").isLength({ min: 6 }),
+    check("password")
+      .isLength({ min: 6 })
+      .withMessage("minimum 6 characters"),
     check("email")
       .isEmail()
       .withMessage("not a valid email")
