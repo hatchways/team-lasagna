@@ -7,6 +7,7 @@ const { check, validationResult } = require("express-validator");
 router.post(
   "/",
   [
+    //declare validators
     check("password").isLength({ min: 6 }),
     check("email")
       .isEmail()
@@ -18,12 +19,14 @@ router.post(
     //check validators
     if (!errors.isEmpty()) {
       console.log(errors);
-      return res.status(400).send({ msg: "Must be at least 6 characters" });
+      return res
+        .status(400)
+        .send({ msg: "Invalid submission", errors: errors });
     }
     const email = req.body.email;
     const password = req.body.password;
     try {
-      //
+      //hash password and save to mongodb
       const hashedpwd = await bcrypt.hash(password, 10);
       const user = new User({
         email: email,
@@ -34,6 +37,7 @@ router.post(
     } catch (err) {
       console.log(err);
       if (err.code == 11000) {
+        // user already exists
         return res.status(500).send({
           msg: "User already registered"
         });
