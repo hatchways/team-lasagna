@@ -18,11 +18,14 @@ router.post(
     //check validators
     if (!errors.isEmpty()) {
       console.log(errors);
-      return res.send({ message: "invalid submission", errors: errors });
+      return res
+        .status(400)
+        .send({ message: "invalid submission", errors: errors });
     }
     const email = req.body.email;
     const password = req.body.password;
     try {
+      //
       const hashedpwd = await bcrypt.hash(password, 10);
       const user = new User({
         email: email,
