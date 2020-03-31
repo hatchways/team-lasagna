@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import { Typography, withStyles, CssBaseline} from "@material-ui/core";
+import { Typography, withStyles, CssBaseline, Grid} from "@material-ui/core";
 //import { Route, Link } from "react-router-dom";
 
 import Navbar from '../shared/Navbar'
@@ -39,8 +39,7 @@ class LandingPage extends Component {
     step: 0
   };
 
-  componentDidMount() {
-  }
+  componentDidMount() {}
 
   // incrementStep = () => {
   //   this.setState(prevState => ({ step: (prevState.step += 1) }));
@@ -50,16 +49,22 @@ class LandingPage extends Component {
     const { classes } = this.props;
     return (
       <div className={classes.landingContainer}>
-        <div >
-        <CssBaseline />
-        <nav >
-          <Navbar />
-        </nav>
-          <MenuListComposition />
-        <Typography >
-          <UserProfile />
-        </Typography>
-      </div>
+      <div>
+          <CssBaseline />
+
+          <nav>
+            <Navbar />
+          </nav>
+
+          <Grid container style={{ margin: "0 auto", maxWidth: 960 }}>
+            <Grid item xs={4}>
+              <MenuListComposition />
+            </Grid>
+            <Grid item xs={8}>
+              <UserProfile />
+            </Grid>
+          </Grid>
+        </div>
       </div>
     );
   }

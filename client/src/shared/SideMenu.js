@@ -11,6 +11,7 @@ const useStyles = makeStyles((theme) => ({
   paper: {
     marginRight: theme.spacing(2),
   },
+  width: "100%"
 }));
 
 export default function MenuListComposition() {
