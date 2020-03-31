@@ -25,6 +25,11 @@ const profileSchema = new mongoose.Schema({
     default: ""
   },
   availability: {
+    type: [Boolean],
+    trim: true,
+    default: [0,0,0,0,0,0,0]
+  },
+  profilePic: {
     type: String,
     trim: true,
     default: ""
@@ -32,7 +37,6 @@ const profileSchema = new mongoose.Schema({
   user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User", 
-    required: true
   }
 });
 
