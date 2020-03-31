@@ -36,8 +36,7 @@ router.post(
     } catch (err) {
       console.log(err);
       if (err.code == 11000) {
-        return res.send({
-          status: 500,
+        return res.status(500).send({
           message: "User already registerd",
           err: err
         });
