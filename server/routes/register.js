@@ -35,6 +35,13 @@ router.post(
       return res.status(200).send(newUser);
     } catch (err) {
       console.log(err);
+      if (err.code == 11000) {
+        return res.send({
+          status: 500,
+          message: "User already registerd",
+          err: err
+        });
+      }
       res.status(400).send(err);
     }
   }
