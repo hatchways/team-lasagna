@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const profileSchema = new mongoose.Schema({
   firstName: {
@@ -17,7 +17,7 @@ const profileSchema = new mongoose.Schema({
     default: ""
   },
   birthDate: {
-    type: Date,
+    type: Date
   },
   description: {
     type: String,
@@ -27,7 +27,7 @@ const profileSchema = new mongoose.Schema({
   availability: {
     type: [Boolean],
     trim: true,
-    default: [0,0,0,0,0,0,0]
+    default: [0, 0, 0, 0, 0, 0, 0]
   },
   profilePic: {
     type: String,
@@ -36,8 +36,9 @@ const profileSchema = new mongoose.Schema({
   },
   user: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "User", 
+    ref: "User",
+    required: true
   }
 });
 
-module.exports = Profile = mongoose.model('Profile', profileSchema);
+module.exports = Profile = mongoose.model("Profile", profileSchema);

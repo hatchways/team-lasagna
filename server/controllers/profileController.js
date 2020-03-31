@@ -1,4 +1,5 @@
 const Profile = require("../models/Profile");
+const { validationResult } = require("express-validator");
 
 module.exports.getProfileList = async (req, res, next) => {
   try {
@@ -56,6 +57,12 @@ module.exports.updateProfile = async (req, res, next) => {
 };
 
 module.exports.createProfile = async (req, res, next) => {
+  const errors = validationResult(req);
+  //check validators
+  if (!errors.isEmpty()) {
+    console.log(errors);
+    return res.status(400).send({ msg: "Invalid submission", errors });
+  }
   const data = {
     firstName: req.body.firstName,
     lastName: req.body.lastName,
