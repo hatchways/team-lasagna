@@ -1,14 +1,11 @@
 import React, { Component } from "react";
 
 import { Typography, withStyles, CssBaseline} from "@material-ui/core";
-//import { withStyles } from "@material-ui/core/styles";
 //import { Route, Link } from "react-router-dom";
 
 import Navbar from '../shared/Navbar'
 import MenuListComposition from '../shared/SideMenu'
 import UserProfile from '../pages/UserProfile'
-
-//const drawerWidth = 256;
 
 const landinPageStyle = theme => ({
   landingContainer: {
@@ -45,9 +42,9 @@ class LandingPage extends Component {
   componentDidMount() {
   }
 
-  incrementStep = () => {
-    this.setState(prevState => ({ step: (prevState.step += 1) }));
-  };
+  // incrementStep = () => {
+  //   this.setState(prevState => ({ step: (prevState.step += 1) }));
+  // };
 
   render() {
     const { classes } = this.props;
