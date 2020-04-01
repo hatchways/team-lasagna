@@ -4,22 +4,61 @@ const profileSchema = new mongoose.Schema({
   firstName: {
     type: String,
     trim: true,
-    default: ""
+    default: "",
+    required: true
   },
   lastName: {
     type: String,
     trim: true,
-    default: ""
+    default: "",
+    required: true
   },
   gender: {
-    trim: true,
     type: String,
+    trim: true,
     default: ""
+  },
+  phone: {
+    type: String,
+    trim: true,
+    default: ""
+  },
+  address: {
+    address1: {
+      type: String,
+      trim: true,
+      default: ""
+    },
+    address2: {
+      type: String,
+      trim: true,
+      default: ""
+    },
+    city: {
+      type: String,
+      trim: true,
+      default: ""
+    },
+    province: {
+      type: String,
+      trim: true,
+      default: ""
+    },
+    zipCode: {
+      type: String,
+      trim: true,
+      default: ""
+    },
+    country: {
+      type: String,
+      trim: true,
+      default: ""
+    }
   },
   birthDate: {
     type: Date
   },
-  description: {
+  about: {
     type: String,
     trim: true,
     default: ""
@@ -36,8 +75,7 @@ const profileSchema = new mongoose.Schema({
   },
   user: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
-    required: true
+    ref: "User"
   }
 });
 
