@@ -6,6 +6,7 @@ import { Typography, withStyles, CssBaseline, Grid} from "@material-ui/core";
 import Navbar from '../Components/shared/Navbar'
 import MenuListComposition from '../Components/shared/SideMenu'
 import UserProfile from '../pages/UserProfile'
+//import Register from '../Components/Register/Register'
 
 const landinPageStyle = theme => ({
   landingContainer: {
@@ -51,11 +52,9 @@ class LandingPage extends Component {
       <div className={classes.landingContainer}>
       <div>
           <CssBaseline />
-
           <nav>
             <Navbar />
           </nav>
-
           <Grid container style={{ margin: "0 auto", maxWidth: 960 }}>
             <Grid item xs={4}>
               <MenuListComposition />
