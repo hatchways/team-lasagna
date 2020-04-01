@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import { Typography, withStyles, CssBaseline, Grid} from "@material-ui/core";
+import { withStyles, CssBaseline, Grid} from "@material-ui/core";
 //import { Route, Link } from "react-router-dom";
 
 import Navbar from '../Components/shared/Navbar'
@@ -11,7 +11,6 @@ import UserProfile from '../pages/UserProfile'
 const landinPageStyle = theme => ({
   landingContainer: {
     margin: theme.spacing.unit * 2
-    //margin: theme.spacing(2)
   },
   root: {
     display: 'flex',

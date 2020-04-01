@@ -1,44 +1,50 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-//import DateFnsUtils from '@date-io/date-fns';
-import { Grid, TextField, FormControlLabel, Checkbox, Card, FormControl, 
-          InputLabel, Select, MenuItem, CardActions, Button } from '@material-ui/core'
+import { Grid, TextField, Card, FormControl, 
+          InputLabel, Select, MenuItem, Button, CardContent } from '@material-ui/core'
 import Typography from '@material-ui/core/Typography';
-import {
-  KeyboardTimePicker,
-  KeyboardDatePicker,
-} from '@material-ui/pickers';
+import { KeyboardTimePicker, KeyboardDatePicker } from '@material-ui/pickers';
  
 const useStyles = makeStyles({
   root: {
+    flexGrow: 1,
     minWidth: 275,
     margin: '4px 4px',
-    padding: '10px 10px'
-  },
-  bullet: {
-    display: 'inline-block',
-    margin: '0 2px',
-    transform: 'scale(0.8)',
+    padding: '10px 10px',
+    direction: "column",
+    alignItems: "center",
+    justify: "center"
   },
   title: {
-    fontSize: 14,
-  },
-  pos: {
-    marginBottom: 12,
+    fontSize: 22,
+    fontWeight: "bold",
+    textAlign: 'center'
   },
   formControl: {
     margin: '4px 4px',
     minWidth: 120,
   },
   selectEmpty: {
-    marginTop: '4px',
+    marginTop: '4%',
   },
 });
 
 export default function UserProfile() {
   const classes = useStyles();
-  const [gender, setGender] = React.useState('');
-  const [selectedDate, setSelectedDate] = React.useState(new Date('2000-08-18T21:11:54'));
+  const [firstName, setFirstName] = useState('')
+  const [lastName, setLastName] = useState('')
+  const [gender, setGender] = useState('')
+  const [selectedDate, setSelectedDate] = useState(new Date('2000-01-01T21:11:54'))
+  const [emailAddress, setEmailAddress] = useState('')
+  const [phoneNumber, setPhoneNumber] = useState('')
+  const [addressOne, setAddressOne] = useState('')
+  const [addressTwo, setAddressTwo] = useState('')
+  const [city, setCity] = useState('')
+  const [province, setProvince] = useState('')
+  const [zipCode, setZipCode] = useState('')
+  const [country, setCountry] = useState('')
+  const [aboutme, setAboutMe] = useState('Tell Us about yourself')
+  
 
   const handleDateChange = (date) => {
     setSelectedDate(date);
@@ -50,18 +56,35 @@ export default function UserProfile() {
 
   const handleSubmitForm = (event) => {
     event.preventDefault()
-    
+    const userProfile = {
+      firstName,
+      lastName,
+      gender,
+      DateOfBirth: selectedDate,
+      email: emailAddress,
+      phoneNumber,
+      address: {
+        addressOne,
+        addressTwo,
+        city,
+        province,
+        zipCode,
+        country
+      },
+      aboutme
+    }
+    console.log(userProfile)
   }
-
-  const bull = <span className={classes.bullet}>•</span>;
 
   return (
     <React.Fragment>
     <Card className={classes.root}>
-    <Typography variant="h6" gutterBottom>
-      Edit Profile
+      <CardContent>
+        <Typography className={classes.title} variant="h5" component="h2" gutterBottom>
+          Edit Profile
+        </Typography>
+      </CardContent>
     <form onSubmit={handleSubmitForm}> 
-    
     <Grid container spacing={3}>
       <Grid item xs={12}>
         <TextField
@@ -71,6 +94,10 @@ export default function UserProfile() {
           label="First name"
           fullWidth
           autoComplete="fname"
+          value={firstName}
+          onChange={event => {
+            setFirstName(event.target.value)
+          }}
         />
         </Grid>
         <Grid item xs={12}>
@@ -81,6 +108,10 @@ export default function UserProfile() {
           label="Last name"
           fullWidth
           autoComplete="lname"
+          value={lastName}
+          onChange={event => {
+            setLastName(event.target.value)
+          }}
         />
         </Grid>
         <Grid item xs={12}>
@@ -102,7 +133,7 @@ export default function UserProfile() {
         <KeyboardDatePicker
           margin="normal"
           id="date-picker-dialog"
-          label="Date picker dialog"
+          label="Birth Date"
           format="MM/dd/yyyy"
           value={selectedDate}
           onChange={handleDateChange}
@@ -119,9 +150,13 @@ export default function UserProfile() {
           label="Email Address"
           fullWidth
           autoComplete="email address"
+          value={emailAddress}
+          onChange={event => {
+            setEmailAddress(event.target.value)
+          }}
         />
       </Grid>
-      <Grid item xs={12}>
+      <Grid item xs={12} sm={6}>
         <TextField
           required
           id="phoneNumber"
@@ -129,6 +164,10 @@ export default function UserProfile() {
           label="Phone Number"
           fullWidth
           autoComplete="phone number"
+          value={phoneNumber}
+          onChange={event => {
+            setPhoneNumber(event.target.value)
+          }}
         />
       </Grid>
       <Grid item xs={12}>
@@ -139,6 +178,10 @@ export default function UserProfile() {
           label="Address line 1"
           fullWidth
           autoComplete="billing address-line1"
+          value={addressOne}
+          onChange={event => {
+            setAddressOne(event.target.value)
+          }}
         />
       </Grid>
       <Grid item xs={12}>
@@ -148,6 +191,10 @@ export default function UserProfile() {
           label="Address line 2"
           fullWidth
           autoComplete="billing address-line2"
+          value={addressTwo}
+          onChange={event => {
+            setAddressTwo(event.target.value)
+          }}
         />
       </Grid>
       <Grid item xs={12} sm={6}>
@@ -157,11 +204,24 @@ export default function UserProfile() {
           name="city"
           label="City"
           fullWidth
-          autoComplete="billing address-level2"
+          autoComplete="city"
+          value={city}
+          onChange={event => {
+            setCity(event.target.value)
+          }}
         />
       </Grid>
       <Grid item xs={12} sm={6}>
-        <TextField id="state" name="state" label="State/Province/Region" fullWidth />
+        <TextField 
+          id="state" 
+          name="state" 
+          label="State/Province/Region" 
+          fullWidth 
+          value={province}
+          onChange={event => {
+            setProvince(event.target.value)
+          }}
+        />
       </Grid>
       <Grid item xs={12} sm={6}>
         <TextField
@@ -171,6 +231,10 @@ export default function UserProfile() {
           label="Zip / Postal code"
           fullWidth
           autoComplete="billing postal-code"
+          value={zipCode}
+          onChange={event => {
+            setZipCode(event.target.value)
+          }}
         />
       </Grid>
       <Grid item xs={12} sm={6}>
@@ -181,24 +245,33 @@ export default function UserProfile() {
           label="Country"
           fullWidth
           autoComplete="billing country"
+          value={country}
+          onChange={event => {
+            setCountry(event.target.value)
+          }}
         />
       </Grid>
       <Grid item xs={12}>
       <TextField
+        fullWidth
         id="aboutme"
         label="Tell us about yourself"
         multiline
         rows="4"
-        defaultValue="Tell Us about yourself"
         variant="outlined"
+        value={aboutme}
+        onChange={event => {
+          setAboutMe(event.target.value)
+        }}
       />
       </Grid>
     </Grid>
-    <CardActions>
-      <Button size="small">Save</Button>
-    </CardActions>
+      <Button 
+        type='submit'
+        className={classes.selectEmpty} 
+        varaint="contained" color="secondary" size="large">
+      Save</Button>
     </form>
-    </Typography>
     </Card>
   </React.Fragment>
   );

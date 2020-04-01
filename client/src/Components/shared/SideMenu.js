@@ -10,8 +10,10 @@ const useStyles = makeStyles((theme) => ({
   },
   paper: {
     marginRight: theme.spacing(2),
+    padding: "6%",
+    width: "80%"
   },
-  width: "100%"
+  
 }));
 
 export default function MenuListComposition() {
