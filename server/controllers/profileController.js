@@ -27,13 +27,22 @@ module.exports.getProfileById = async (req, res, next) => {
 
 module.exports.updateProfile = async (req, res, next) => {
   const data = {
-    firsName: req.body.firsName,
+    firstName: req.body.firstName,
     lastName: req.body.lastName,
     gender: req.body.gender,
     birthDate: req.body.birthDate,
-    description: req.body.description,
+    phone: req.body.phone,
+    address: {
+      address1: req.body.address1,
+      address2: req.body.address2,
+      city: req.body.city,
+      province: req.body.province,
+      zipCode: req.body.zipCode,
+      country: req.body.country
+    },
     availability: req.body.availability,
     profilePic: req.body.profilePic,
+    about: req.body.about,
     user: req.body.user
   };
   try {
