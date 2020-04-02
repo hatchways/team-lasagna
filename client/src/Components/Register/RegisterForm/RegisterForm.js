@@ -15,8 +15,14 @@ class RegisterForm extends React.Component {
             variant="outlined"
           ></TextField>
           <TextField
-            id="name"
-            label="Your name"
+            id="firstName"
+            label="Your first name"
+            type="string"
+            variant="outlined"
+          ></TextField>
+          <TextField
+            id="lastName"
+            label="Your last name"
             type="string"
             variant="outlined"
           ></TextField>
