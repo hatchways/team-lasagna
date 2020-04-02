@@ -1,30 +1,16 @@
 import React, { Component } from "react";
-
-import { Typography, withStyles, CssBaseline, Grid} from "@material-ui/core";
-//import { Route, Link } from "react-router-dom";
+import { withStyles, CssBaseline, Grid} from "@material-ui/core";
 
 import Navbar from '../Components/shared/Navbar'
+import Footer from '../Components/shared/Footer'
 import MenuListComposition from '../Components/shared/SideMenu'
 import UserProfile from '../pages/UserProfile'
+import Register from '../Components/Register/Register'
+import ProfilePhoto from '../pages/ProfilePhoto'
 
 const landinPageStyle = theme => ({
   landingContainer: {
     margin: theme.spacing.unit * 2
-    //margin: theme.spacing(2)
-  },
-  root: {
-    display: 'flex',
-    minHeight: '100vh',
-  },
-  app: {
-    flex: 1,
-    display: 'flex',
-    flexDirection: 'column',
-  },
-  main: {
-    flex: 1,
-    padding: theme.spacing(6, 4),
-    background: '#eaeff1',
   },
   footer: {
     padding: theme.spacing(2),
@@ -34,8 +20,6 @@ const landinPageStyle = theme => ({
  
 class LandingPage extends Component {
   state = {
-    welcomeMessage: "Welcome to Dogs",
-    open: false,
     step: 0
   };
 
@@ -47,23 +31,38 @@ class LandingPage extends Component {
 
   render() {
     const { classes } = this.props;
+
+    const pathName = () => {
+      switch (this.props.pathName) {
+      case 'signup':
+        return <Register />
+      case 'dashboard':
+        return <UserProfile />
+      case 'profilephoto':
+        return <ProfilePhoto />
+      case '/':
+        return <UserProfile />
+      default: 
+        throw new Error('should not get here!')
+      }
+    }
+
     return (
       <div className={classes.landingContainer}>
       <div>
           <CssBaseline />
-
           <nav>
             <Navbar />
           </nav>
-
           <Grid container style={{ margin: "0 auto", maxWidth: 960 }}>
             <Grid item xs={4}>
               <MenuListComposition />
             </Grid>
             <Grid item xs={8}>
-              <UserProfile />
+              {pathName()}
             </Grid>
           </Grid>
+          <Footer />
         </div>
       </div>
     );
