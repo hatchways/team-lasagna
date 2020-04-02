@@ -14,10 +14,6 @@ const validate = [
       // simple validation for length and 10 digits or empty string
       return (value.length === 10 && value.match(/^\d{10}$/)) || value === "";
     })
-    .withMessage("Must have 10 digits"),
-  check("availability")
-    .optional()
-    .isArray({ min: 7, max: 7 })
 ];
 
 module.exports = validate;
