@@ -15,13 +15,13 @@ function App() {
       <MuiPickersUtilsProvider utils={DateFnsUtils}>
       <BrowserRouter>
         <Switch>
-          <Route path='/signup' 
+          <Route exact path='/signup' 
             render={(props) => <LandingPage {...props} pathName="signup" isAuthed={false} />}
           />
-          <Route path='/dashboard' 
+          <Route exact path='/dashboard' 
             render={(props) => <LandingPage {...props} pathName="dashboard" isAuthed={false} />}
           />
-          <Route path='/profilephoto' 
+          <Route exact path='/profilephoto' 
             render={(props) => <LandingPage {...props} pathName="profilephoto" isAuthed={false} />}
           />
           <Route path='/' 

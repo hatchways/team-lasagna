@@ -60,7 +60,7 @@ export default function UserProfile() {
       firstName,
       lastName,
       gender,
-      DateOfBirth: selectedDate,
+      dateOfBirth: selectedDate,
       email: emailAddress,
       phoneNumber,
       address: {

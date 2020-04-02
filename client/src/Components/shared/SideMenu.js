@@ -1,5 +1,5 @@
 import React from 'react';
-import Paper from '@material-ui/core/Paper';
+import {Paper, Typography, Link} from '@material-ui/core';
 import MenuItem from '@material-ui/core/MenuItem';
 import MenuList from '@material-ui/core/MenuList';
 import { makeStyles } from '@material-ui/core/styles';
@@ -13,24 +13,14 @@ const useStyles = makeStyles((theme) => ({
     padding: "6%",
     width: "80%"
   },
-  
+  menuitem: {
+
+  }
 }));
 
 export default function MenuListComposition() {
   const classes = useStyles();
-  const [open, setOpen] = React.useState(false);
-  const anchorRef = React.useRef(null);
-
-  // return focus to the button when we transitioned from !open -> open
-  const prevOpen = React.useRef(open);
-  React.useEffect(() => {
-    if (prevOpen.current === true && open === false) {
-      anchorRef.current.focus();
-    }
-
-    prevOpen.current = open;
-  }, [open]);
-
+  
   return (
     <div className={classes.root}>
       <Paper className={classes.paper}>

@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { withStyles, CssBaseline, Grid} from "@material-ui/core";
 
 import Navbar from '../Components/shared/Navbar'
+import Footer from '../Components/shared/Footer'
 import MenuListComposition from '../Components/shared/SideMenu'
 import UserProfile from '../pages/UserProfile'
 import Register from '../Components/Register/Register'
@@ -61,6 +62,7 @@ class LandingPage extends Component {
               {pathName()}
             </Grid>
           </Grid>
+          <Footer />
         </div>
       </div>
     );
