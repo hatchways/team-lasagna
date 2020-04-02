@@ -6,7 +6,6 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 
 import { theme } from "./themes/theme";
 import LandingPage from "./pages/Landing";
-import Register from "./Components/Register/Register"
 
 import "./App.css";
 
@@ -16,8 +15,18 @@ function App() {
       <MuiPickersUtilsProvider utils={DateFnsUtils}>
       <BrowserRouter>
         <Switch>
-          <Route path="/signup" component={Register} />
-          <Route path="/" component={LandingPage} />
+          <Route path='/signup' 
+            render={(props) => <LandingPage {...props} pathName="signup" isAuthed={false} />}
+          />
+          <Route path='/dashboard' 
+            render={(props) => <LandingPage {...props} pathName="dashboard" isAuthed={false} />}
+          />
+          <Route path='/profilephoto' 
+            render={(props) => <LandingPage {...props} pathName="profilephoto" isAuthed={false} />}
+          />
+          <Route path='/' 
+            render={(props) => <LandingPage {...props} pathName="dashboard" isAuthed={false} />}
+          />
         </Switch>
       </BrowserRouter>
       </MuiPickersUtilsProvider>
