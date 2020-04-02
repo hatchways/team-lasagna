@@ -1,53 +1,209 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import Button from '@material-ui/core/Button';
+import { Grid, TextField, Card, FormControl, 
+          InputLabel, Select, MenuItem, Button, CardContent } from '@material-ui/core'
 import Typography from '@material-ui/core/Typography';
-
+import { KeyboardTimePicker, KeyboardDatePicker } from '@material-ui/pickers';
+import TextFieldInput from '../Components/shared/TextFieldInput'
+ 
 const useStyles = makeStyles({
   root: {
+    flexGrow: 1,
     minWidth: 275,
-  },
-  bullet: {
-    display: 'inline-block',
-    margin: '0 2px',
-    transform: 'scale(0.8)',
+    margin: '4px 4px',
+    padding: '10px 10px',
+    direction: "column",
+    alignItems: "center",
+    justify: "center"
   },
   title: {
-    fontSize: 14,
+    fontSize: 22,
+    fontWeight: "bold",
+    textAlign: 'center'
   },
-  pos: {
-    marginBottom: 12,
+  formControl: {
+    margin: '4px 4px',
+    minWidth: 120,
+  },
+  selectEmpty: {
+    marginTop: '4%',
   },
 });
 
 export default function UserProfile() {
   const classes = useStyles();
-  const bull = <span className={classes.bullet}>•</span>;
+  const [firstName, setFirstName] = useState('')
+  const [lastName, setLastName] = useState('')
+  const [gender, setGender] = useState('')
+  const [selectedDate, setSelectedDate] = useState(new Date('2000-01-01T21:11:54'))
+  const [emailAddress, setEmailAddress] = useState('')
+  const [phoneNumber, setPhoneNumber] = useState('')
+  const [addressOne, setAddressOne] = useState('')
+  const [addressTwo, setAddressTwo] = useState('')
+  const [city, setCity] = useState('')
+  const [province, setProvince] = useState('')
+  const [zipCode, setZipCode] = useState('')
+  const [country, setCountry] = useState('')
+  const [aboutme, setAboutMe] = useState('Tell Us about yourself')
+  
+
+  const handleDateChange = (date) => {
+    setSelectedDate(date);
+  };
+
+  const handleGenderChange = (event) => {
+    setGender(event.target.value);
+  };
+
+  const handleSubmitForm = (event) => {
+    event.preventDefault()
+    const userProfile = {
+      firstName,
+      lastName,
+      gender,
+      dateOfBirth: selectedDate,
+      email: emailAddress,
+      phoneNumber,
+      address: {
+        addressOne,
+        addressTwo,
+        city,
+        province,
+        zipCode,
+        country
+      },
+      aboutme
+    }
+    console.log(userProfile)
+  }
 
   return (
+    <React.Fragment>
     <Card className={classes.root}>
       <CardContent>
-        <Typography className={classes.title} color="textSecondary" gutterBottom>
-          Word of the Day
-        </Typography>
-        <Typography variant="h5" component="h2">
-          be{bull}nev{bull}o{bull}lent
-        </Typography>
-        <Typography className={classes.pos} color="textSecondary">
-          adjective
-        </Typography>
-        <Typography variant="body2" component="p">
-          well meaning and kindly.
-          <br />
-          {'"a benevolent smile"'}
+        <Typography className={classes.title} variant="h5" component="h2" gutterBottom>
+          Edit Profile
         </Typography>
       </CardContent>
-      <CardActions>
-        <Button size="small">Learn More</Button>
-      </CardActions>
+    <form onSubmit={handleSubmitForm}> 
+    <Grid container spacing={3}>
+      <Grid item xs={12}>
+        <TextFieldInput id="firstName" name="firstName" label="First name" value={firstName}
+          onChange={event => {
+            setFirstName(event.target.value)
+          }}
+        />
+        </Grid>
+        <Grid item xs={12}>
+        <TextFieldInput id="lastName" name="lastName" label="Last name" value={lastName}
+          onChange={event => {
+            setLastName(event.target.value)
+          }}
+        />
+        </Grid>
+        <Grid item xs={12}>
+        <FormControl variant="outlined" className={classes.formControl}>
+        <InputLabel id="demo-simple-select-outlined">Gender</InputLabel>
+        <Select
+          id="demo-simple-select-outlined"
+          value={gender}
+          onChange={handleGenderChange}
+          label="Gender"
+        >
+          <MenuItem value={'male'}>Male</MenuItem>
+          <MenuItem value={'female'}>Female</MenuItem>
+          <MenuItem value={'other'}>Other</MenuItem>
+        </Select>
+        </FormControl>
+        </Grid>
+        <Grid item xs={12}>
+        <KeyboardDatePicker
+          margin="normal"
+          id="date-picker-dialog"
+          label="Birth Date"
+          format="MM/dd/yyyy"
+          value={selectedDate}
+          onChange={handleDateChange}
+          KeyboardButtonProps={{
+            'aria-label': 'change date',
+          }}
+        />
+        </Grid>
+      <Grid item xs={12}>
+        <TextFieldInput id="email" name="email" label="Email Address" value={emailAddress}
+          onChange={event => {
+            setEmailAddress(event.target.value)
+          }}
+        />
+      </Grid>
+      <Grid item xs={12} sm={6}>
+        <TextFieldInput id="phoneNumber" name="phoneNumber" label="Phone Number" value={phoneNumber}
+          onChange={event => {
+            setPhoneNumber(event.target.value)
+          }}
+        />
+      </Grid>
+      <Grid item xs={12}>
+        <TextFieldInput id="address1" name="address1" label="Address line 1" value={addressOne}
+          onChange={event => {
+            setAddressOne(event.target.value)
+          }}
+        />
+      </Grid>
+      <Grid item xs={12}>
+        <TextFieldInput id="address2" name="address2" label="Address line 2" value={addressTwo}
+          onChange={event => {
+            setAddressTwo(event.target.value)
+          }}
+        />
+      </Grid>
+      <Grid item xs={12} sm={6}>
+        <TextFieldInput id="city" name="city" label="City" value={city}
+          onChange={event => {
+            setCity(event.target.value)
+          }}
+        />
+      </Grid>
+      <Grid item xs={12} sm={6}>
+        <TextFieldInput id="state" name="state" label="State/Province/Region" value={province}
+          onChange={event => {
+            setProvince(event.target.value)
+          }}
+        />
+      </Grid>
+      <Grid item xs={12} sm={6}>
+        <TextFieldInput id="zip" name="zip" label="Zip / Postal code" value={zipCode}
+          onChange={event => {
+            setZipCode(event.target.value)
+          }}
+        />
+      </Grid>
+      <Grid item xs={12} sm={6}>
+        <TextFieldInput id="country" name="country" label="Country" value={country}
+          onChange={event => {
+            setCountry(event.target.value)
+          }}
+        />
+      </Grid>
+      <Grid item xs={12}>
+      <TextField id="aboutme" label="Tell us about yourself"
+        multiline
+        rows="4"
+        variant="outlined"
+        value={aboutme}
+        onChange={event => {
+          setAboutMe(event.target.value)
+        }}
+      />
+      </Grid>
+    </Grid>
+      <Button 
+        type='submit'
+        className={classes.selectEmpty} 
+        varaint="contained" color="secondary" size="large">
+      Save</Button>
+    </form>
     </Card>
+  </React.Fragment>
   );
 }

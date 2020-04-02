@@ -29,31 +29,38 @@ export default function Header(props) {
   const [sections, setSections] = useState(
     [{
         "id": 0,
-        "title": "Health",
-        "url": "/dogs"
+        "title": "photo",
+        "url": "/profilephoto"
       }, {
         "id": 1,
-        "title": "LifeStyle",
-        "url": "/dogs"
+        "title": "Availability",
+        "url": "/availability"
       }, {
         "id": 2,
-        "title": "Travel",
-        "url": "/dogs"
+        "title": "Payment",
+        "url": "/payment"
       }, {
         "id": 3,
-        "title": "Science",
-        "url": "/dogs"
-      }, {
+        "title": "Security",
+        "url": "/security"
+      },{
         "id": 4,
-        "title": "Business",
-        "url": "/dogs"
-      }]
+        "title": "Settings",
+        "url": "/setting"
+      } ]
   )
+
+  const handleSignUp = (event) => {
+    console.log('signup clicked')
+
+  }
 
   return (
     <React.Fragment>
       <Toolbar className={classes.toolbar}>
-        <img src={'../assets/logo.png'} alt={"dogs"} />
+        <a href="/">
+          <img src={'../assets/logo.png'} alt={"dogs"} href="/dashboard" />
+        </a>
         <Typography
           component="h2"
           variant="h5"
@@ -67,7 +74,7 @@ export default function Header(props) {
         <IconButton>
           <SearchIcon />
         </IconButton>
-        <Button variant="outlined" size="small">
+        <Button variant="outlined" size="small" href="/signup">
           Sign up
         </Button>
       </Toolbar>
