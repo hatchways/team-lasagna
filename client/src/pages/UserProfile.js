@@ -4,6 +4,7 @@ import { Grid, TextField, Card, FormControl,
           InputLabel, Select, MenuItem, Button, CardContent } from '@material-ui/core'
 import Typography from '@material-ui/core/Typography';
 import { KeyboardTimePicker, KeyboardDatePicker } from '@material-ui/pickers';
+import TextFieldInput from '../Components/shared/TextFieldInput'
  
 const useStyles = makeStyles({
   root: {
@@ -87,28 +88,14 @@ export default function UserProfile() {
     <form onSubmit={handleSubmitForm}> 
     <Grid container spacing={3}>
       <Grid item xs={12}>
-        <TextField
-          required
-          id="firstName"
-          name="firstName"
-          label="First name"
-          fullWidth
-          autoComplete="fname"
-          value={firstName}
+        <TextFieldInput id="firstName" name="firstName" label="First name" value={firstName}
           onChange={event => {
             setFirstName(event.target.value)
           }}
         />
         </Grid>
         <Grid item xs={12}>
-        <TextField
-          required
-          id="lastName"
-          name="lastName"
-          label="Last name"
-          fullWidth
-          autoComplete="lname"
-          value={lastName}
+        <TextFieldInput id="lastName" name="lastName" label="Last name" value={lastName}
           onChange={event => {
             setLastName(event.target.value)
           }}
@@ -143,119 +130,63 @@ export default function UserProfile() {
         />
         </Grid>
       <Grid item xs={12}>
-        <TextField
-          required
-          id="email"
-          name="email"
-          label="Email Address"
-          fullWidth
-          autoComplete="email address"
-          value={emailAddress}
+        <TextFieldInput id="email" name="email" label="Email Address" value={emailAddress}
           onChange={event => {
             setEmailAddress(event.target.value)
           }}
         />
       </Grid>
       <Grid item xs={12} sm={6}>
-        <TextField
-          required
-          id="phoneNumber"
-          name="phoneNumber"
-          label="Phone Number"
-          fullWidth
-          autoComplete="phone number"
-          value={phoneNumber}
+        <TextFieldInput id="phoneNumber" name="phoneNumber" label="Phone Number" value={phoneNumber}
           onChange={event => {
             setPhoneNumber(event.target.value)
           }}
         />
       </Grid>
       <Grid item xs={12}>
-        <TextField
-          required
-          id="address1"
-          name="address1"
-          label="Address line 1"
-          fullWidth
-          autoComplete="billing address-line1"
-          value={addressOne}
+        <TextFieldInput id="address1" name="address1" label="Address line 1" value={addressOne}
           onChange={event => {
             setAddressOne(event.target.value)
           }}
         />
       </Grid>
       <Grid item xs={12}>
-        <TextField
-          id="address2"
-          name="address2"
-          label="Address line 2"
-          fullWidth
-          autoComplete="billing address-line2"
-          value={addressTwo}
+        <TextFieldInput id="address2" name="address2" label="Address line 2" value={addressTwo}
           onChange={event => {
             setAddressTwo(event.target.value)
           }}
         />
       </Grid>
       <Grid item xs={12} sm={6}>
-        <TextField
-          required
-          id="city"
-          name="city"
-          label="City"
-          fullWidth
-          autoComplete="city"
-          value={city}
+        <TextFieldInput id="city" name="city" label="City" value={city}
           onChange={event => {
             setCity(event.target.value)
           }}
         />
       </Grid>
       <Grid item xs={12} sm={6}>
-        <TextField 
-          id="state" 
-          name="state" 
-          label="State/Province/Region" 
-          fullWidth 
-          value={province}
+        <TextFieldInput id="state" name="state" label="State/Province/Region" value={province}
           onChange={event => {
             setProvince(event.target.value)
           }}
         />
       </Grid>
       <Grid item xs={12} sm={6}>
-        <TextField
-          required
-          id="zip"
-          name="zip"
-          label="Zip / Postal code"
-          fullWidth
-          autoComplete="billing postal-code"
-          value={zipCode}
+        <TextFieldInput id="zip" name="zip" label="Zip / Postal code" value={zipCode}
           onChange={event => {
             setZipCode(event.target.value)
           }}
         />
       </Grid>
       <Grid item xs={12} sm={6}>
-        <TextField
-          required
-          id="country"
-          name="country"
-          label="Country"
-          fullWidth
-          autoComplete="billing country"
-          value={country}
+        <TextFieldInput id="country" name="country" label="Country" value={country}
           onChange={event => {
             setCountry(event.target.value)
           }}
         />
       </Grid>
       <Grid item xs={12}>
-      <TextField
-        fullWidth
-        id="aboutme"
-        label="Tell us about yourself"
+      <TextField id="aboutme" label="Tell us about yourself"
         multiline
         rows="4"
         variant="outlined"

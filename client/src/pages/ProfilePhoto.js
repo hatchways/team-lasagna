@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-//import clsx from 'clsx';
-import { Card, Grid, CardHeader, Avatar, CardContent, Typography, Button, IconButton,  } from '@material-ui/core';
-//import CardActions from '@material-ui/core/CardActions';
+import { Card, 
+        Grid, CardHeader, Avatar, CardContent, Typography, 
+        Button, 
+        IconButton  } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { red } from '@material-ui/core/colors';
-
 
 const useStyles = makeStyles((theme) => ({
   root: {
