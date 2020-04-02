@@ -26,24 +26,43 @@ module.exports.getProfileById = async (req, res, next) => {
 };
 
 module.exports.updateProfile = async (req, res, next) => {
+  const errors = validationResult(req);
+  //check validators
+  if (!errors.isEmpty()) {
+    console.log(errors);
+    return res.status(400).send({ msg: "Invalid submission", errors });
+  }
+
+  const {
+    firstName,
+    lastName,
+    gender,
+    birthDate,
+    phone,
+    address,
+    availability,
+    profilePic,
+    about,
+    user
+  } = req.body;
   const data = {
-    firstName: req.body.firstName,
-    lastName: req.body.lastName,
-    gender: req.body.gender,
-    birthDate: req.body.birthDate,
-    phone: req.body.phone,
+    firstName: firstName,
+    lastName: lastName,
+    gender: gender,
+    birthDate: birthDate,
+    phone: phone,
     address: {
-      address1: req.body.address1,
-      address2: req.body.address2,
-      city: req.body.city,
-      province: req.body.province,
-      zipCode: req.body.zipCode,
-      country: req.body.country
+      address1: address.address1,
+      address2: address.address2,
+      city: address.city,
+      province: address.province,
+      zipCode: address.zipCode,
+      country: address.country
     },
-    availability: req.body.availability,
-    profilePic: req.body.profilePic,
-    about: req.body.about,
-    user: req.body.user
+    availability: availability,
+    profilePic: profilePic,
+    about: about,
+    user: user
   };
   try {
     const updatedProfile = await Profile.findByIdAndUpdate(
@@ -72,24 +91,38 @@ module.exports.createProfile = async (req, res, next) => {
     console.log(errors);
     return res.status(400).send({ msg: "Invalid submission", errors });
   }
+
+  const {
+    firstName,
+    lastName,
+    gender,
+    birthDate,
+    phone,
+    address,
+    availability,
+    profilePic,
+    about,
+    user
+  } = req.body;
+
   const data = {
-    firstName: req.body.firstName,
-    lastName: req.body.lastName,
-    gender: req.body.gender,
-    birthDate: req.body.birthDate,
-    phone: req.body.phone,
+    firstName: firstName,
+    lastName: lastName,
+    gender: gender,
+    birthDate: birthDate,
+    phone: phone,
     address: {
-      address1: req.body.address1,
-      address2: req.body.address2,
-      city: req.body.city,
-      province: req.body.province,
-      zipCode: req.body.zipCode,
-      country: req.body.country
+      address1: address.address1,
+      address2: address.address2,
+      city: address.city,
+      province: address.province,
+      zipCode: address.zipCode,
+      country: address.country
     },
-    availability: req.body.availability,
-    profilePic: req.body.profilePic,
-    about: req.body.about,
-    user: req.body.user
+    availability: availability,
+    profilePic: profilePic,
+    about: about,
+    user: user
   };
   try {
     const newProfile = await Profile.create(data);
