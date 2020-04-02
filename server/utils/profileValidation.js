@@ -12,11 +12,7 @@ const validate = [
     .custom(value => {
       // false if does not pass
       // simple validation for length and 10 digits or empty string
-      if ((value.length === 10 && value.match(/^\d{10}$/)) || value === "") {
-        return true;
-      } else {
-        return false;
-      }
+      return (value.length === 10 && value.match(/^\d{10}$/)) || value === "";
     })
     .withMessage("Must have 10 digits"),
   check("availability")
