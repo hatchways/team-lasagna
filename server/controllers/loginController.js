@@ -9,7 +9,7 @@ module.exports.authenticateUser = async (req, res) => {
   try {
     const user = await User.findOne({ email: email });
     if (!user) {
-      return res.status(400).send({ msg: "User not found" });
+      return res.status(400).send({ msg: "Email not found" });
     }
     //console.log(user);
     isMatch = await User.comparePassword(password, user.password);
