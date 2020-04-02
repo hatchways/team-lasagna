@@ -3,6 +3,6 @@ const router = express.Router();
 
 const imgUploadController = require("../controllers/imgUploadController");
 
-router.post("/", imgUploadController.imgUpload);
+router.post("/:userId", imgUploadController.imgUpload);
 
 module.exports = router;
