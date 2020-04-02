@@ -18,6 +18,9 @@ module.exports.imgUpload = (req, res, err) => {
         new: true
       }
     );
+    if (!profile) {
+      return res.status(404).json({ msg: "Profile not found" });
+    }
     return res.status(200).json(profile);
   });
 };
