@@ -52,7 +52,24 @@ class LandingPage extends Component {
 
     let sideMenuBar = ''
     if(this.props.showSideBar) {
-      sideMenuBar = <MenuListComposition />
+      sideMenuBar = (
+        <Grid container style={{ margin: "0 auto", maxWidth: 960 }}>
+        <Grid item xs={2}>
+          <MenuListComposition />
+        </Grid>
+        <Grid item xs={10} className={classes.content}>
+          {pathName()}
+        </Grid>
+      </Grid>
+      )
+    } else {
+      sideMenuBar = (
+        <Grid container style={{ margin: "0 auto", maxWidth: 960 }}>
+          <Grid item xs={12} className={classes.content}>
+            {pathName()}
+          </Grid>
+        </Grid>
+      )
     }
 
     return (
@@ -62,14 +79,7 @@ class LandingPage extends Component {
           <nav>
             <Navbar />
           </nav>
-          <Grid container style={{ margin: "0 auto", maxWidth: 960 }}>
-            <Grid item xs={2}>
-              {sideMenuBar}
-            </Grid>
-            <Grid item xs={10} className={classes.content}>
-              {pathName()}
-            </Grid>
-          </Grid>
+            {sideMenuBar}
           <Footer />
         </div>
       </div>
