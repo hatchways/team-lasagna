@@ -16,16 +16,16 @@ function App() {
       <BrowserRouter>
         <Switch>
           <Route exact path='/signup' 
-            render={(props) => <LandingPage {...props} pathName="signup" isAuthed={false} />}
+            render={(props) => <LandingPage {...props} pathName="signup" showSideBar={false} isAuthed={false} />}
           />
           <Route exact path='/dashboard' 
-            render={(props) => <LandingPage {...props} pathName="dashboard" isAuthed={false} />}
+            render={(props) => <LandingPage {...props} pathName="dashboard" showSideBar={true} isAuthed={false} />}
           />
           <Route exact path='/profilephoto' 
-            render={(props) => <LandingPage {...props} pathName="profilephoto" isAuthed={false} />}
+            render={(props) => <LandingPage {...props} pathName="profilephoto" showSideBar={true} isAuthed={false} />}
           />
           <Route path='/' 
-            render={(props) => <LandingPage {...props} pathName="dashboard" isAuthed={false} />}
+            render={(props) => <LandingPage {...props} pathName="dashboard"  showSideBar={true} isAuthed={false} />}
           />
         </Switch>
       </BrowserRouter>

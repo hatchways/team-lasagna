@@ -16,6 +16,9 @@ const landinPageStyle = theme => ({
     padding: theme.spacing(2),
     background: '#eaeff1',
   },
+  content: {
+    marginTop: theme.spacing.unit * 4
+  }
 });
  
 class LandingPage extends Component {
@@ -47,6 +50,11 @@ class LandingPage extends Component {
       }
     }
 
+    let sideMenuBar = ''
+    if(this.props.showSideBar) {
+      sideMenuBar = <MenuListComposition />
+    }
+
     return (
       <div className={classes.landingContainer}>
       <div>
@@ -55,10 +63,10 @@ class LandingPage extends Component {
             <Navbar />
           </nav>
           <Grid container style={{ margin: "0 auto", maxWidth: 960 }}>
-            <Grid item xs={4}>
-              <MenuListComposition />
+            <Grid item xs={2}>
+              {sideMenuBar}
             </Grid>
-            <Grid item xs={8}>
+            <Grid item xs={10} className={classes.content}>
               {pathName()}
             </Grid>
           </Grid>
