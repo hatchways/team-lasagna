@@ -38,6 +38,7 @@ module.exports.updateProfile = async (req, res, next) => {
     lastName,
     gender,
     birthDate,
+    hourlyRate,
     phone,
     address: { address1, address2, city, province, zipCode, country } = {},
     availability,
@@ -50,6 +51,7 @@ module.exports.updateProfile = async (req, res, next) => {
     lastName: lastName,
     gender: gender,
     birthDate: birthDate,
+    hourlyRate: hourlyRate,
     phone: phone,
     address: {
       address1: address1,
@@ -97,6 +99,7 @@ module.exports.createProfile = async (req, res, next) => {
     lastName,
     gender,
     birthDate,
+    hourlyRate,
     phone,
     address: { address1, address2, city, province, zipCode, country } = {},
     availability,
@@ -104,12 +107,12 @@ module.exports.createProfile = async (req, res, next) => {
     about,
     user
   } = req.body;
-
   const data = {
     firstName: firstName,
     lastName: lastName,
     gender: gender,
     birthDate: birthDate,
+    hourlyRate: hourlyRate,
     phone: phone,
     address: {
       address1: address1,
@@ -124,6 +127,7 @@ module.exports.createProfile = async (req, res, next) => {
     about: about,
     user: user
   };
+
   try {
     const newProfile = await Profile.create(data);
     res.status(200).json({ newProfile, msg: "Profile created successfully" });
