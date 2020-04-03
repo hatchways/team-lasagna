@@ -18,14 +18,29 @@ function App() {
           <Route exact path='/signup' 
             render={(props) => <LandingPage {...props} pathName="signup" showSideBar={false} isAuthed={false} />}
           />
-          <Route exact path='/dashboard' 
-            render={(props) => <LandingPage {...props} pathName="dashboard" showSideBar={true} isAuthed={false} />}
+          <Route exact path='/login' 
+            render={(props) => <LandingPage {...props} pathName="login" showSideBar={false} isAuthed={false} />}
+          />
+          <Route exact path='/editprofile' 
+            render={(props) => <LandingPage {...props} pathName="editprofile" showSideBar={true} isAuthed={true} />}
           />
           <Route exact path='/profilephoto' 
-            render={(props) => <LandingPage {...props} pathName="profilephoto" showSideBar={true} isAuthed={false} />}
+            render={(props) => <LandingPage {...props} pathName="profilephoto" showSideBar={true} isAuthed={true} />}
+          />
+          <Route exact path='/availability' 
+            render={(props) => <LandingPage {...props} pathName="availability" showSideBar={true} isAuthed={true} />}
+          />
+          <Route exact path='/payment' 
+            render={(props) => <LandingPage {...props} pathName="payment" showSideBar={true} isAuthed={true} />}
+          />
+          <Route exact path='/security' 
+            render={(props) => <LandingPage {...props} pathName="security" showSideBar={true} isAuthed={true} />}
+          />
+          <Route exact path='/settings' 
+            render={(props) => <LandingPage {...props} pathName="settings" showSideBar={true} isAuthed={true} />}
           />
           <Route path='/' 
-            render={(props) => <LandingPage {...props} pathName="dashboard"  showSideBar={true} isAuthed={false} />}
+            render={(props) => <LandingPage {...props} pathName="editprofile"  showSideBar={true} isAuthed={false} />}
           />
         </Switch>
       </BrowserRouter>

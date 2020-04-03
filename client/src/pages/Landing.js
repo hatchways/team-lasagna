@@ -39,14 +39,15 @@ class LandingPage extends Component {
       switch (this.props.pathName) {
       case 'signup':
         return <Register />
-      case 'dashboard':
+      case 'editprofile':
         return <UserProfile />
       case 'profilephoto':
         return <ProfilePhoto />
       case '/':
         return <UserProfile />
       default: 
-        throw new Error('should not get here!')
+        return <UserProfile />
+        //throw new Error('should not get here!')
       }
     }
 
@@ -77,7 +78,7 @@ class LandingPage extends Component {
       <div>
           <CssBaseline />
           <nav>
-            <Navbar />
+            <Navbar isAuthenticated={this.props.isAuthed}/>
           </nav>
             {sideMenuBar}
           <Footer />

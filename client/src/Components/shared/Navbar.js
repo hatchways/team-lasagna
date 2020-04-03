@@ -59,7 +59,36 @@ export default function Header(props) {
         "title": "Settings",
         "url": "/setting"
       } ]
-  )
+    )
+
+    let menuList = ''
+
+  if(props.isAuthenticated) {
+    menuList = (
+      <React.Fragment>
+        <Link href="#" className={classes.toolbarLink}>
+          My Jobs
+        </Link>
+        <Link href="#" className={classes.toolbarLink}>
+          Messages
+        </Link>
+      </React.Fragment>
+    )
+  } else {
+    menuList = (
+      <React.Fragment>
+      <Link href="#" className={classes.toolbarLink}>
+        Become a Sitter
+      </Link>
+      <Button variant="outlined" size="small" href="/signup" className={clsx(classes.myButton)}>
+        Sign up
+      </Button>
+      <Button variant="outlined" size="small" href="/login" className={clsx(classes.myButton)}>
+        Login
+      </Button>
+      </React.Fragment>
+    )
+  }
 
   const handleSignUp = (event) => {
     console.log('signup clicked')
@@ -85,15 +114,7 @@ export default function Header(props) {
         <IconButton>
           <SearchIcon />
         </IconButton>
-        <Link href="#" className={classes.toolbarLink}>
-          Become a Sitter
-        </Link>
-        <Button variant="outlined" size="small" href="/signup" className={clsx(classes.myButton)}>
-          Sign up
-        </Button>
-        <Button variant="outlined" size="small" href="/login" className={clsx(classes.myButton)}>
-          Login
-        </Button>
+        {menuList}
       </Toolbar>
       
     </React.Fragment>
