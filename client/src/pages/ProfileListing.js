@@ -3,10 +3,11 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Grid, Typography, TextField, InputAdornment } from "@material-ui/core";
 import ProfileItem from "../Components/ProfileListing/ProfileItem";
 import SearchIcon from "@material-ui/icons/Search";
+const axios = require("axios");
 
 const useStyles = makeStyles(theme => ({
   root: {
-    overflowX: "hidden"
+    overflow: "hidden"
   },
   title: { textAlign: "center", paddingTop: "10px" },
   container: {
@@ -33,15 +34,10 @@ export default function ProfileListing() {
 
   async function getProfiles() {
     try {
-      const fetchedProfiles = await fetch("http://localhost:3001/profile/", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json"
-        }
-      });
-      const json = await fetchedProfiles.json();
-      if (json) {
-        setProfiles(json);
+      const fetchedProfiles = await axios.get("http://localhost:3001/profile/");
+      console.log(fetchedProfiles);
+      if (fetchedProfiles.data) {
+        setProfiles(fetchedProfiles.data);
       }
     } catch (err) {
       console.log(err);
