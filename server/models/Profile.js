@@ -58,6 +58,10 @@ const profileSchema = new mongoose.Schema({
   birthDate: {
     type: Date
   },
+  hourlyRate: {
+    type: Number,
+    default: 0
+  },
   about: {
     type: String,
     trim: true,
