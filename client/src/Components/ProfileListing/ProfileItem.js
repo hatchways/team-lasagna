@@ -7,31 +7,32 @@ import {
   CardContent,
   Typography,
   Box,
-  Divider
+  Divider,
 } from "@material-ui/core";
 import { red } from "@material-ui/core/colors";
+import Rating from "@material-ui/lab/Rating";
 import RoomIcon from "@material-ui/icons/Room";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {},
   card: {
-    padding: "40px 0 0 0"
+    padding: "40px 0 0 0",
   },
   large: {
     width: theme.spacing(12),
-    height: theme.spacing(12)
+    height: theme.spacing(12),
   },
   avatar: {
-    backgroundColor: red[500]
+    backgroundColor: red[500],
   },
   name: {
-    margin: "0"
+    margin: "0",
   },
   footer: {
     display: "flex",
     justifyContent: "space-between",
-    lineHeight: "2.5"
-  }
+    lineHeight: "2.5",
+  },
 }));
 
 export default function ProfileListring({ profile }) {
@@ -46,17 +47,28 @@ export default function ProfileListring({ profile }) {
         </Grid>
         <Grid item xs={12}>
           <CardContent style={{ textAlign: "center" }}>
-            <Typography
-              gutterBottom
-              variant="h5"
-              component="h2"
-              className={classes.name}
-            >
-              {profile.firstName + " " + profile.lastName}
-            </Typography>
-            <Typography variant="subtitle1" color="textSecondary" component="p">
-              About me: {profile.about}
-            </Typography>
+            <Box>
+              <Typography
+                gutterBottom
+                variant="h5"
+                component="h2"
+                className={classes.name}
+              >
+                {profile.firstName + " " + profile.lastName}
+              </Typography>
+            </Box>
+            <Box>
+              <Typography
+                variant="subtitle1"
+                color="textSecondary"
+                component="p"
+              >
+                {profile.about}
+              </Typography>
+            </Box>
+            <Box>
+              <Rating name="read-only" defaultValue={4} readOnly />
+            </Box>
           </CardContent>
           <Divider />
           <CardContent>
