@@ -5,7 +5,7 @@ import RegisterForm from "./RegisterForm/RegisterForm";
 function Register() {
   return (
     <div>
-      <h1>Register</h1>
+      <h1>Sign up</h1>
       <RegisterForm />
     </div>
   );
