@@ -1,20 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import "./RegisterForm.css";
 import { useForm } from "react-hook-form";
 import { RHFInput } from "react-hook-form-input";
 import { TextField, Button } from "@material-ui/core";
+import { Alert } from "@material-ui/lab";
 
 function RegisterForm() {
-  const { register, handleSubmit, setValue, reset } = useForm();
+  const [registerError, setRegisterError] = useState(false);
+  const [errMsg, setErrMsg] = useState("");
+  const { register, handleSubmit, setValue, errors } = useForm();
+
   const onSubmit = async data => {
-    const createUserRes = await axios.post("http://localhost:3001/register", {
+    const payload = {
       email: data.email,
       password: data.password
-    });
-    console.log(createUserRes.data._id);
-
-    if (createUserRes.status === 200) {
+    };
+    try {
+      const createUserRes = await axios.post(
+        "http://localhost:3001/register",
+        payload
+      );
       const createProfileRes = await axios.post(
         "http://localhost:3001/profile",
         {
@@ -23,9 +29,20 @@ function RegisterForm() {
           user: createUserRes.data._id
         }
       );
+      //if createProfileRes with status 200 redirect to /login
+      // else display error message
+      if (createProfileRes.status === 200) {
+        //breaks atm no login route
+        return this.props.history.push("/login");
+      }
+    } catch (err) {
+      setRegisterError(true);
+      setErrMsg(err.response.data.msg);
     }
   };
-  //console.log(watch("example"));
+  function resetError() {
+    setRegisterError(false);
+  }
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div class="flex-container">
@@ -38,6 +55,7 @@ function RegisterForm() {
           label="Your Email"
           variant="outlined"
         />
+        {errors.email && <Alert severity="error">Last name is required </Alert>}
         <RHFInput
           as={<TextField />}
           register={register}
@@ -46,7 +64,12 @@ function RegisterForm() {
           name="firstName"
           label="Your first name"
           variant="outlined"
+          className="register-input"
+          m={0.5}
         />
+        {errors.firstName && (
+          <Alert severity="error">Last name is required </Alert>
+        )}
         <RHFInput
           as={<TextField />}
           register={register}
@@ -55,20 +78,39 @@ function RegisterForm() {
           name="lastName"
           label="Your last name"
           variant="outlined"
+          className="register-input"
+          m={0.5}
         />
+        {errors.lastName && (
+          <Alert severity="error">Last name is required </Alert>
+        )}
         <RHFInput
           as={<TextField type="password" />}
           register={register}
           setValue={setValue}
-          rules={{ required: true, min: 6 }}
+          rules={{ required: true, minLength: 6 }}
           name="password"
           label="Create a password"
           variant="outlined"
+          className="register-input"
+          m={0.5}
         />
+        {errors.password && errors.password.type === "required" && (
+          <Alert severity="error">password is required</Alert>
+        )}
+        {errors.password && errors.password.type === "minLength" && (
+          <Alert severity="error">must be at least 6 characters long</Alert>
+        )}
       </div>
-      <Button variant="contained" color="red" type="submit">
+      <Button
+        variant="contained"
+        color="red"
+        onClick={resetError}
+        type="submit"
+      >
         SIGN UP
       </Button>
+      {registerError && <Alert severity="error">{errMsg}</Alert>}
     </form>
   );
 }

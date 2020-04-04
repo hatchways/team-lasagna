@@ -25,10 +25,10 @@ module.exports.registerUser = async (req, res) => {
     console.log(err);
     if (err.code == 11000) {
       // user already exists
-      return res.status(500).send({
-        msg: "User already registered"
+      return res.status(400).send({
+        msg: "Email already registered"
       });
     }
-    return res.status(400).send(err);
+    return res.status(500).send(err);
   }
 };
