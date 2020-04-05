@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -10,6 +10,7 @@ import Typography from '@material-ui/core/Typography';
 const useStyles = makeStyles((theme) => ({
   toolbar: {
     borderBottom: `1px solid ${theme.palette.divider}`,
+    width: '100%'
   },
   toolbarTitle: {
     flex: 1,
@@ -21,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
   toolbarLink: {
     padding: theme.spacing(1),
     flexShrink: 0,
-    marginRight: '4%'
+    marginRight: '20px'
   },
   myButton: {
     background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
@@ -31,37 +32,14 @@ const useStyles = makeStyles((theme) => ({
     height: 42,
     padding: '0 25px',
     boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
-    marginRight: '1%'
+    marginRight: '10px'
   },
 }));
 
 export default function Header(props) {
   const classes = useStyles();
-  const [sections, setSections] = useState(
-    [{
-        "id": 0,
-        "title": "photo",
-        "url": "/profilephoto"
-      }, {
-        "id": 1,
-        "title": "Availability",
-        "url": "/availability"
-      }, {
-        "id": 2,
-        "title": "Payment",
-        "url": "/payment"
-      }, {
-        "id": 3,
-        "title": "Security",
-        "url": "/security"
-      },{
-        "id": 4,
-        "title": "Settings",
-        "url": "/setting"
-      } ]
-    )
 
-    let menuList = ''
+  let menuList = ''
 
   if(props.isAuthenticated) {
     menuList = (
@@ -90,14 +68,13 @@ export default function Header(props) {
     )
   }
 
-  const handleSignUp = (event) => {
-    console.log('signup clicked')
-
-  }
+  // const handleSignUp = (event) => {
+  //   console.log('signup clicked')
+  // }
 
   return (
     <React.Fragment>
-      <Toolbar className={classes.toolbar}>
+      <Toolbar disableGutters={false} className={classes.toolbar}>
         <a href="/">
           <img src={'../assets/logo.png'} alt={"dogs"} href="/dashboard" />
         </a>
@@ -116,7 +93,6 @@ export default function Header(props) {
         </IconButton>
         {menuList}
       </Toolbar>
-      
     </React.Fragment>
   );
 }

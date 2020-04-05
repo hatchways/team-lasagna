@@ -7,6 +7,7 @@ import MenuListComposition from '../Components/shared/SideMenu'
 import UserProfile from '../pages/UserProfile'
 import Register from '../Components/Register/Register'
 import ProfilePhoto from '../pages/ProfilePhoto'
+import NotFound from '../pages/NotFound'
 
 const landinPageStyle = theme => ({
   landingContainer: {
@@ -39,14 +40,14 @@ class LandingPage extends Component {
       switch (this.props.pathName) {
       case 'signup':
         return <Register />
-      case 'editprofile':
+      case 'editProfile':
         return <UserProfile />
-      case 'profilephoto':
+      case 'profilePhoto':
         return <ProfilePhoto />
       case '/':
         return <UserProfile />
       default: 
-        return <UserProfile />
+        return <NotFound />
         //throw new Error('should not get here!')
       }
     }
@@ -55,13 +56,13 @@ class LandingPage extends Component {
     if(this.props.showSideBar) {
       sideMenuBar = (
         <Grid container style={{ margin: "0 auto", maxWidth: 960 }}>
-        <Grid item xs={2}>
-          <MenuListComposition />
+          <Grid item xs={2}>
+            <MenuListComposition />
+          </Grid>
+          <Grid item xs={10} className={classes.content}>
+            {pathName()}
+          </Grid>
         </Grid>
-        <Grid item xs={10} className={classes.content}>
-          {pathName()}
-        </Grid>
-      </Grid>
       )
     } else {
       sideMenuBar = (

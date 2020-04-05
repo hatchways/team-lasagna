@@ -33,12 +33,12 @@ export default function MenuListComposition() {
     [{
         "id": 0,
         "title": "Edit Profile",
-        "url": "/editprofile",
+        "url": "/editProfile",
         "active": false
       },{
         "id": 1,
         "title": "Profile Photo",
-        "url": "/profilephoto",
+        "url": "/profilePhoto",
         "active": false
       }, {
         "id": 2,
@@ -58,7 +58,7 @@ export default function MenuListComposition() {
       },{
         "id": 5,
         "title": "Settings",
-        "url": "/setting",
+        "url": "/settings",
         "active": false
       } ]
   )
