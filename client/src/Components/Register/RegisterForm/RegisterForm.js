@@ -66,7 +66,6 @@ function RegisterForm() {
           rules={{ required: true }}
           name="email"
           label="Your Email"
-          variant="outlined"
         />
         {errors.email && <Alert severity="error">Last name is required </Alert>}
         <RHFInput
@@ -76,7 +75,6 @@ function RegisterForm() {
           rules={{ required: true }}
           name="firstName"
           label="Your first name"
-          variant="outlined"
         />
         {errors.firstName && (
           <Alert severity="error">Last name is required </Alert>
@@ -88,7 +86,6 @@ function RegisterForm() {
           rules={{ required: true }}
           name="lastName"
           label="Your last name"
-          variant="outlined"
         />
         {errors.lastName && (
           <Alert severity="error">Last name is required </Alert>
@@ -100,7 +97,6 @@ function RegisterForm() {
           rules={{ required: true, minLength: 6 }}
           name="password"
           label="Create a password"
-          variant="outlined"
         />
         {errors.password && errors.password.type === "required" && (
           <Alert severity="error">password is required</Alert>
