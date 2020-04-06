@@ -5,13 +5,13 @@ import ProfileItem from "../Components/ProfileListing/ProfileItem";
 import SearchIcon from "@material-ui/icons/Search";
 const axios = require("axios");
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
-    overflow: "hidden"
+    overflow: "hidden",
   },
   title: { textAlign: "center", paddingTop: "10px" },
   container: {
-    padding: "40px"
+    padding: "40px",
   },
   roomIcon: {
     padding: theme.spacing(0, 2),
@@ -20,22 +20,39 @@ const useStyles = makeStyles(theme => ({
     pointerEvents: "none",
     display: "flex",
     alignItems: "center",
-    justifyContent: "center"
-  }
+    justifyContent: "center",
+  },
 }));
 
 export default function ProfileListing() {
   const classes = useStyles();
   const [profiles, setProfiles] = useState([]);
+  const [search, setSearch] = useState("");
+  const [filteredProfiles, setFilteredProfiles] = useState(profiles);
 
   useEffect(() => {
     getProfiles();
   }, []);
 
+  useEffect(() => {
+    setFilteredProfiles(
+      profiles.filter((profile) => {
+        return (
+          profile.firstName.includes(search) ||
+          profile.lastName.includes(search)
+        );
+      })
+    );
+  }, [search, profiles]);
+
+  const onChange = (e) => {
+    setSearch(e.target.value);
+  };
+
   async function getProfiles() {
     try {
       const fetchedProfiles = await axios.get("http://localhost:3001/profile/");
-      console.log(fetchedProfiles);
+      // console.log(fetchedProfiles);
       if (fetchedProfiles.data) {
         setProfiles(fetchedProfiles.data);
       }
@@ -57,17 +74,19 @@ export default function ProfileListing() {
         <TextField
           placeholder="Search…"
           variant="outlined"
+          value={search}
+          onChange={onChange}
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">
                 <SearchIcon />
               </InputAdornment>
-            )
+            ),
           }}
         />
       </div>
       <Grid container className={classes.container} spacing={7}>
-        {profiles.map((profile, key) => (
+        {filteredProfiles.map((profile, key) => (
           <ProfileItem key={key} profile={profile} />
         ))}
       </Grid>

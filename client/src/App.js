@@ -18,7 +18,7 @@ function App() {
             <Route
               exact
               path="/signup"
-              render={props => (
+              render={(props) => (
                 <LandingPage
                   {...props}
                   pathName="signup"
@@ -29,32 +29,92 @@ function App() {
             />
             <Route
               exact
-              path="/dashboard"
-              render={props => (
+              path="/login"
+              render={(props) => (
                 <LandingPage
                   {...props}
-                  pathName="dashboard"
-                  showSideBar={true}
+                  pathName="login"
+                  showSideBar={false}
                   isAuthed={false}
                 />
               )}
             />
             <Route
               exact
-              path="/profilephoto"
-              render={props => (
+              path="/editProfile"
+              render={(props) => (
                 <LandingPage
                   {...props}
-                  pathName="profilephoto"
+                  pathName="editProfile"
                   showSideBar={true}
-                  isAuthed={false}
+                  isAuthed={true}
+                />
+              )}
+            />
+            <Route
+              exact
+              path="/profilePhoto"
+              render={(props) => (
+                <LandingPage
+                  {...props}
+                  pathName="profilePhoto"
+                  showSideBar={true}
+                  isAuthed={true}
+                />
+              )}
+            />
+            <Route
+              exact
+              path="/availability"
+              render={(props) => (
+                <LandingPage
+                  {...props}
+                  pathName="availability"
+                  showSideBar={true}
+                  isAuthed={true}
+                />
+              )}
+            />
+            <Route
+              exact
+              path="/payment"
+              render={(props) => (
+                <LandingPage
+                  {...props}
+                  pathName="payment"
+                  showSideBar={true}
+                  isAuthed={true}
+                />
+              )}
+            />
+            <Route
+              exact
+              path="/security"
+              render={(props) => (
+                <LandingPage
+                  {...props}
+                  pathName="security"
+                  showSideBar={true}
+                  isAuthed={true}
+                />
+              )}
+            />
+            <Route
+              exact
+              path="/settings"
+              render={(props) => (
+                <LandingPage
+                  {...props}
+                  pathName="settings"
+                  showSideBar={true}
+                  isAuthed={true}
                 />
               )}
             />
             <Route
               exact
               path="/profile-listing"
-              render={props => (
+              render={(props) => (
                 <LandingPage
                   {...props}
                   pathName="profile-listing"
@@ -64,12 +124,22 @@ function App() {
               )}
             />
             <Route
+              exact
               path="/"
-              render={props => (
+              render={(props) => (
                 <LandingPage
                   {...props}
-                  pathName="dashboard"
+                  pathName="editProfile"
                   showSideBar={true}
+                  isAuthed={false}
+                />
+              )}
+            />
+            <Route
+              render={() => (
+                <LandingPage
+                  pathName="notFound"
+                  showSideBar={false}
                   isAuthed={false}
                 />
               )}
