@@ -5,10 +5,21 @@ import { RHFInput } from "react-hook-form-input";
 import { TextField, Button } from "@material-ui/core";
 import { Alert } from "@material-ui/lab";
 import { makeStyles } from "@material-ui/core/styles";
-const useStyles = makeStyles({});
+import { authenticationService } from "../../../services/auth.service";
+import { Redirect } from "react-router-dom";
+const useStyles = makeStyles({
+  input: {
+    marginTop: `5px`,
+    marginBottom: `5px`,
+  },
+  button: {
+    margin: `5px`,
+    maxWidth: `200px `,
+  },
+});
 
 function LoginForm() {
-  const classes = useStyles();
+  const classes = useStyles({});
   const { register, handleSubmit, setValue, errors } = useForm();
   const [loginError, setLoginError] = useState(false);
   const [errMsg, setErrMsg] = useState("");
@@ -16,12 +27,17 @@ function LoginForm() {
     setLoginError(false);
   }
   const onSubmit = async (data) => {
-    console.log(data);
-    const loginRes = await axios.post("http://localhost:3001/login", {
-      email: data.email,
-      password: data.password,
-    });
-    console.log(loginRes);
+    try {
+      const res = await authenticationService.login(data.email, data.password);
+      console.log(res);
+      if (res) {
+        setLoginError(true);
+        setErrMsg(res);
+      }
+      return <Redirect to="/" />;
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
@@ -35,7 +51,9 @@ function LoginForm() {
           name="email"
           label="Your Email"
         />
-        {errors.email && <Alert severity="error">Last name is required </Alert>}
+        {errors.email && (
+          <Alert severity="error">Please enter your email </Alert>
+        )}
         <RHFInput
           register={register}
           as={<TextField type="password" className={classes.input} />}
@@ -45,11 +63,9 @@ function LoginForm() {
           label="Your password"
         />
         {errors.password && errors.password.type === "required" && (
-          <Alert severity="error">password is required</Alert>
+          <Alert severity="error">Please enter your password</Alert>
         )}
-        {errors.password && errors.password.type === "minLength" && (
-          <Alert severity="error">must be at least 6 characters long</Alert>
-        )}
+
         <Button
           variant="contained"
           color="red"
