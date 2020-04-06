@@ -21,7 +21,7 @@ async function login(email, password) {
       email: email,
       password: password,
     });
-    sessionStorage.setItem("jwt", JSON.stringify(res));
+    localStorage.setItem("jwt", JSON.stringify(res));
     currentUserSubject.next(res);
     const errMsg = "";
     return errMsg;
