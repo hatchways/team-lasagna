@@ -1,0 +1,22 @@
+a {
+  color: #f04040;
+}
+.grid-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 2fr 1fr 1fr 1fr;
+  grid-template-areas:
+    ". . . h . . ."
+    ". . r r r . ."
+    ". . . s . . .";
+}
+form {
+  grid-area: r;
+}
+.heading {
+  grid-area: h;
+  text-align: center;
+}
+.login-link {
+  grid-area: s;
+  text-align: center;
+}
