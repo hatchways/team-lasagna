@@ -15,8 +15,13 @@ function LoginForm() {
   function resetError() {
     setLoginError(false);
   }
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     console.log(data);
+    const loginRes = await axios.post("http://localhost:3001/login", {
+      email: data.email,
+      password: data.password,
+    });
+    console.log(loginRes);
   };
 
   return (
@@ -29,17 +34,15 @@ function LoginForm() {
           rules={{ required: true }}
           name="email"
           label="Your Email"
-          variant="outlined"
         />
         {errors.email && <Alert severity="error">Last name is required </Alert>}
         <RHFInput
           register={register}
-          as={<TextField className={classes.input} />}
+          as={<TextField type="password" className={classes.input} />}
           setValue={setValue}
           rules={{ required: true }}
           name="password"
           label="Your password"
-          variant="outlined"
         />
         {errors.password && errors.password.type === "required" && (
           <Alert severity="error">password is required</Alert>

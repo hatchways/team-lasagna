@@ -6,6 +6,7 @@ import Footer from '../Components/shared/Footer'
 import MenuListComposition from '../Components/shared/SideMenu'
 import UserProfile from '../pages/UserProfile'
 import Register from '../Components/Register/Register'
+import Login from '../Components/login/Login'
 import ProfilePhoto from '../pages/ProfilePhoto'
 import NotFound from '../pages/NotFound'
 
@@ -40,6 +41,8 @@ class LandingPage extends Component {
       switch (this.props.pathName) {
       case 'signup':
         return <Register />
+      case 'login':
+        return <Login />
       case 'editProfile':
         return <UserProfile />
       case 'profilePhoto':
