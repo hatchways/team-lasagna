@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Card, 
         Grid, CardHeader, Avatar, CardContent, Typography, 
-        Button, 
-        IconButton  } from '@material-ui/core';
+        Button, IconButton  } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { red } from '@material-ui/core/colors';
 
@@ -11,7 +10,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: '100%',
     minHeight: '100%',
-    margin: '4% 4%'
+    margin: '20px 20px'
   },
   large: {
     width: theme.spacing(20),
@@ -22,8 +21,8 @@ const useStyles = makeStyles((theme) => ({
   },
   margin: {
     //margin: theme.spacing(1),
-    margin: '6% 6%',
-    padding: '4% 4%'
+    margin: '25px 25px',
+    padding: '20px 20px'
   },
   fileInput: {
     display: 'none',
@@ -79,10 +78,10 @@ export default function ProfilePhoto() {
         />
         <label htmlFor="contained-button-file">
             <Button 
-                variant="outlined" 
-                color="secondary" 
-                className={classes.margin} 
-                component="span"
+              variant="outlined" 
+              color="secondary" 
+              className={classes.margin} 
+              component="span"
             >
             Upload a file from your device
             </Button>

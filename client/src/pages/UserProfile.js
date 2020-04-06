@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import { Grid, Card, FormControl, 
           InputLabel, Select, MenuItem, Button, CardContent } from '@material-ui/core'
@@ -26,8 +27,19 @@ const useStyles = makeStyles({
     minWidth: 120,
   },
   selectEmpty: {
-    marginTop: '4%',
+    marginTop: '8%',
   },
+  myButton: {
+    background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
+    borderRadius: 3,
+    border: 0,
+    color: 'white',
+    height: 48,
+    padding: '0 30px',
+    boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
+    marginTop: '8%',
+  },
+
 });
 
 export default function UserProfile() {
@@ -102,7 +114,7 @@ export default function UserProfile() {
         </Typography>
       </CardContent>
     <form onSubmit={handleSubmitForm}> 
-    <Grid container spacing={3}>
+    <Grid container spacing={4} >
       <Grid item xs={12}>
         <TextFieldInput id="firstName" name="firstName" label="First name" value={firstName}
           onChange={event => {
@@ -152,7 +164,7 @@ export default function UserProfile() {
           }}
         />
       </Grid>
-      <Grid item xs={12} sm={6}>
+      <Grid item xs={12}>
         <TextFieldInput id="phoneNumber" name="phoneNumber" label="Phone Number" value={phoneNumber}
           onChange={event => {
             setPhoneNumber(event.target.value)
@@ -209,12 +221,16 @@ export default function UserProfile() {
         }}
       />
       </Grid>
-    </Grid>
-      <Button 
-        type='submit'
-        className={classes.selectEmpty} 
-        varaint="contained" color="secondary" size="large">
-      Save</Button>
+      </Grid>
+      <CardContent>
+      <Typography className={classes.title} variant="h5" component="h2" gutterBottom>
+        <Button varaint="contained" size="large" color="secondary" 
+          type='submit'
+          className={clsx(classes.myButton)}>
+          SAVE
+        </Button>
+      </Typography>
+      </CardContent>
     </form>
     </Card>
   </React.Fragment>

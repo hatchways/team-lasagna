@@ -1,13 +1,13 @@
 import React, { Component } from "react";
 import { withStyles, CssBaseline, Grid } from "@material-ui/core";
 
-import Navbar from "../Components/shared/Navbar";
-import Footer from "../Components/shared/Footer";
-import MenuListComposition from "../Components/shared/SideMenu";
-import UserProfile from "../pages/UserProfile";
-import Register from "../Components/Register/Register";
-import Login from "../Components/login/Login";
-import ProfilePhoto from "../pages/ProfilePhoto";
+import Navbar from '../Components/shared/Navbar'
+import Footer from '../Components/shared/Footer'
+import MenuListComposition from '../Components/shared/SideMenu'
+import UserProfile from '../pages/UserProfile'
+import Register from '../Components/Register/Register'
+import ProfilePhoto from '../pages/ProfilePhoto'
+import NotFound from '../pages/NotFound'
 
 const landinPageStyle = (theme) => ({
   landingContainer: {
@@ -38,24 +38,40 @@ class LandingPage extends Component {
 
     const pathName = () => {
       switch (this.props.pathName) {
-        case "signup":
-          return <Register />;
-        case "login":
-          return <Login />;
-        case "dashboard":
-          return <UserProfile />;
-        case "profilephoto":
-          return <ProfilePhoto />;
-        case "/":
-          return <UserProfile />;
-        default:
-          throw new Error("should not get here!");
+      case 'signup':
+        return <Register />
+      case 'editProfile':
+        return <UserProfile />
+      case 'profilePhoto':
+        return <ProfilePhoto />
+      case '/':
+        return <UserProfile />
+      default: 
+        return <NotFound />
+        //throw new Error('should not get here!')
       }
     };
 
-    let sideMenuBar = "";
-    if (this.props.showSideBar) {
-      sideMenuBar = <MenuListComposition />;
+    let sideMenuBar = ''
+    if(this.props.showSideBar) {
+      sideMenuBar = (
+        <Grid container style={{ margin: "0 auto", maxWidth: 960 }}>
+          <Grid item xs={2}>
+            <MenuListComposition />
+          </Grid>
+          <Grid item xs={10} className={classes.content}>
+            {pathName()}
+          </Grid>
+        </Grid>
+      )
+    } else {
+      sideMenuBar = (
+        <Grid container style={{ margin: "0 auto", maxWidth: 960 }}>
+          <Grid item xs={12} className={classes.content}>
+            {pathName()}
+          </Grid>
+        </Grid>
+      )
     }
 
     return (
@@ -63,16 +79,9 @@ class LandingPage extends Component {
         <div>
           <CssBaseline />
           <nav>
-            <Navbar />
+            <Navbar isAuthenticated={this.props.isAuthed}/>
           </nav>
-          <Grid container style={{ margin: "0 auto", maxWidth: 960 }}>
-            <Grid item xs={2}>
-              {sideMenuBar}
-            </Grid>
-            <Grid item xs={10} className={classes.content}>
-              {pathName()}
-            </Grid>
-          </Grid>
+            {sideMenuBar}
           <Footer />
         </div>
       </div>
