@@ -18,6 +18,9 @@ function App() {
           <Route exact path='/signup' 
             render={(props) => <LandingPage {...props} pathName="signup" showSideBar={false} isAuthed={false} />}
           />
+          <Route exact path='/login' 
+            render={(props) => <LandingPage {...props} pathName="login" showSideBar={false} isAuthed={false} />}
+          />
           <Route exact path='/dashboard' 
             render={(props) => <LandingPage {...props} pathName="dashboard" showSideBar={true} isAuthed={false} />}
           />
