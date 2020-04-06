@@ -21,18 +21,14 @@ async function login(email, password) {
       email: email,
       password: password,
     });
-    if (res.status !== 200) {
-      logout();
-      console.log(res);
-      const errMsg = res.data.msg;
-      return errMsg;
-    }
     sessionStorage.setItem("jwt", JSON.stringify(res));
     currentUserSubject.next(res);
     const errMsg = "";
     return errMsg;
   } catch (err) {
-    return console.log(err);
+    console.log(err);
+    logout();
+    return err.response.data.msg;
   }
 }
 

@@ -23,17 +23,18 @@ function LoginForm() {
   const { register, handleSubmit, setValue, errors } = useForm();
   const [loginError, setLoginError] = useState(false);
   const [errMsg, setErrMsg] = useState("");
+  const [loggedIn, setLoggedIn] = useState(false);
   function resetError() {
     setLoginError(false);
   }
   const onSubmit = async (data) => {
     try {
       const res = await authenticationService.login(data.email, data.password);
-      console.log(res);
       if (res) {
         setLoginError(true);
         setErrMsg(res);
       }
+      setLoggedIn(true);
       return <Redirect to="/" />;
     } catch (err) {
       console.log(err);
@@ -76,6 +77,7 @@ function LoginForm() {
           LOGIN
         </Button>
         {loginError && <Alert severity="error">{errMsg}</Alert>}
+        {loggedIn && <Redirect to="/" />}
       </div>
     </form>
   );
