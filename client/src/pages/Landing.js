@@ -7,6 +7,7 @@ import MenuListComposition from '../Components/shared/SideMenu'
 import UserProfile from '../pages/UserProfile'
 import Register from '../Components/Register/Register'
 import ProfilePhoto from '../pages/ProfilePhoto'
+import NotFound from '../pages/NotFound'
 
 const landinPageStyle = theme => ({
   landingContainer: {
@@ -16,6 +17,9 @@ const landinPageStyle = theme => ({
     padding: theme.spacing(2),
     background: '#eaeff1',
   },
+  content: {
+    marginTop: theme.spacing.unit * 4
+  }
 });
  
 class LandingPage extends Component {
@@ -36,15 +40,38 @@ class LandingPage extends Component {
       switch (this.props.pathName) {
       case 'signup':
         return <Register />
-      case 'dashboard':
+      case 'editProfile':
         return <UserProfile />
-      case 'profilephoto':
+      case 'profilePhoto':
         return <ProfilePhoto />
       case '/':
         return <UserProfile />
       default: 
-        throw new Error('should not get here!')
+        return <NotFound />
+        //throw new Error('should not get here!')
       }
+    }
+
+    let sideMenuBar = ''
+    if(this.props.showSideBar) {
+      sideMenuBar = (
+        <Grid container style={{ margin: "0 auto", maxWidth: 960 }}>
+          <Grid item xs={2}>
+            <MenuListComposition />
+          </Grid>
+          <Grid item xs={10} className={classes.content}>
+            {pathName()}
+          </Grid>
+        </Grid>
+      )
+    } else {
+      sideMenuBar = (
+        <Grid container style={{ margin: "0 auto", maxWidth: 960 }}>
+          <Grid item xs={12} className={classes.content}>
+            {pathName()}
+          </Grid>
+        </Grid>
+      )
     }
 
     return (
@@ -52,16 +79,9 @@ class LandingPage extends Component {
       <div>
           <CssBaseline />
           <nav>
-            <Navbar />
+            <Navbar isAuthenticated={this.props.isAuthed}/>
           </nav>
-          <Grid container style={{ margin: "0 auto", maxWidth: 960 }}>
-            <Grid item xs={4}>
-              <MenuListComposition />
-            </Grid>
-            <Grid item xs={8}>
-              {pathName()}
-            </Grid>
-          </Grid>
+            {sideMenuBar}
           <Footer />
         </div>
       </div>
