@@ -15,7 +15,11 @@ const useStyles = makeStyles({
   },
   button: {
     margin: `5px`,
-    maxWidth: `200px `,
+    width: `130px `,
+    height: `45px`,
+    background: `#f04040`,
+    alignSelf: `center`,
+    color: `white`
   },
 });
 

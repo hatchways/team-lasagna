@@ -4,9 +4,12 @@ import RegisterForm from "./RegisterForm/RegisterForm";
 
 function Register() {
   return (
-    <div>
-      <h1>Sign up</h1>
-      <RegisterForm />
+    <div class="grid-container">
+      <h1 class="heading">Sign up</h1>
+      <RegisterForm class="register" />
+      <div class="login-link">
+        Already a member? <a href="/login">Login</a>
+      </div>
     </div>
   );
 }
