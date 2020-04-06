@@ -6,6 +6,7 @@ import { RHFInput } from "react-hook-form-input";
 import { TextField, Button } from "@material-ui/core";
 import { Alert } from "@material-ui/lab";
 import { makeStyles } from "@material-ui/core/styles";
+import { Redirect } from "react-router-dom";
 
 const useStyles = makeStyles({
   input: {
@@ -23,6 +24,7 @@ function RegisterForm() {
   const [registerError, setRegisterError] = useState(false);
   const [errMsg, setErrMsg] = useState("");
   const { register, handleSubmit, setValue, errors } = useForm();
+  const [isRegistered, setIsRegistered] = useState(false);
 
   const onSubmit = async (data) => {
     const payload = {
@@ -46,7 +48,7 @@ function RegisterForm() {
       // else display error message
       if (createProfileRes.status === 200) {
         //breaks atm no login route
-        return this.props.history.push("/login");
+        setIsRegistered(true);
       }
     } catch (err) {
       setRegisterError(true);
@@ -114,6 +116,7 @@ function RegisterForm() {
           SIGN UP
         </Button>
         {registerError && <Alert severity="error">{errMsg}</Alert>}
+        {isRegistered && <Redirect to="/login" />}
       </div>
     </form>
   );
