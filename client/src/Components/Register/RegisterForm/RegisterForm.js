@@ -19,7 +19,7 @@ const useStyles = makeStyles({
     height: `45px`,
     background: `#f04040`,
     alignSelf: `center`,
-    color: `white`
+    color: `white`,
   },
 });
 
@@ -36,18 +36,12 @@ function RegisterForm() {
       password: data.password,
     };
     try {
-      const createUserRes = await axios.post(
-        "http://localhost:3001/register",
-        payload
-      );
-      const createProfileRes = await axios.post(
-        "http://localhost:3001/profile",
-        {
-          firstName: data.firstName,
-          lastName: data.lastName,
-          user: createUserRes.data._id,
-        }
-      );
+      const createUserRes = await axios.post("/register", payload);
+      const createProfileRes = await axios.post("/profile", {
+        firstName: data.firstName,
+        lastName: data.lastName,
+        user: createUserRes.data._id,
+      });
       //if createProfileRes with status 200 redirect to /login
       // else display error message
       if (createProfileRes.status === 200) {
