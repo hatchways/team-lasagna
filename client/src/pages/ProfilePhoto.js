@@ -39,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function ProfilePhoto() {
   const classes = useStyles();
-  const [profile, setProfile] = useState();
+  const [profile, setProfile] = useState({});
 
   useEffect(() => {
     // getProfile();
