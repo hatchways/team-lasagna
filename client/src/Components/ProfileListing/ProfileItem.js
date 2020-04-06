@@ -79,7 +79,9 @@ export default function ProfileListring({ profile }) {
                 component="span"
               >
                 <RoomIcon fontSize="small"></RoomIcon>
-                {profile.address.city + ", " + profile.address.province}
+                {profile.address.city && profile.address.province
+                  ? profile.address.city + ", " + profile.address.province
+                  : ""}
               </Typography>
               <Typography
                 variant="body1"
