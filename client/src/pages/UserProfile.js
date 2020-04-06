@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
+import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
-import { Grid, TextField, Card, FormControl, 
+import { Grid, Card, FormControl, 
           InputLabel, Select, MenuItem, Button, CardContent } from '@material-ui/core'
 import Typography from '@material-ui/core/Typography';
 import { KeyboardTimePicker, KeyboardDatePicker } from '@material-ui/pickers';
@@ -26,8 +27,19 @@ const useStyles = makeStyles({
     minWidth: 120,
   },
   selectEmpty: {
-    marginTop: '4%',
+    marginTop: '8%',
   },
+  myButton: {
+    background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
+    borderRadius: 3,
+    border: 0,
+    color: 'white',
+    height: 48,
+    padding: '0 30px',
+    boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
+    marginTop: '8%',
+  },
+
 });
 
 export default function UserProfile() {
@@ -45,7 +57,23 @@ export default function UserProfile() {
   const [zipCode, setZipCode] = useState('')
   const [country, setCountry] = useState('')
   const [aboutme, setAboutMe] = useState('Tell Us about yourself')
-  
+
+  // const [ inputState, setInputState ] = useState({
+  //   firstName: '', 
+  //   lastName: '',
+  //   gender: '',
+  //   selectedDate: new Date('2000-01-01T21:11:54'),
+  //   emailAddress: '',
+  //   phoneNumber: '',
+  //   addressOne: '',
+  //   addressTwo: '',
+  //   city: '',
+  //   province: '',
+  //   zipCode: '',
+  //   country: '',
+  //   aboutme: 'Tell Us about yourself'
+  //   })
+
 
   const handleDateChange = (date) => {
     setSelectedDate(date);
@@ -86,22 +114,22 @@ export default function UserProfile() {
         </Typography>
       </CardContent>
     <form onSubmit={handleSubmitForm}> 
-    <Grid container spacing={3}>
+    <Grid container spacing={4} >
       <Grid item xs={12}>
         <TextFieldInput id="firstName" name="firstName" label="First name" value={firstName}
           onChange={event => {
             setFirstName(event.target.value)
           }}
         />
-        </Grid>
-        <Grid item xs={12}>
-        <TextFieldInput id="lastName" name="lastName" label="Last name" value={lastName}
-          onChange={event => {
-            setLastName(event.target.value)
-          }}
-        />
-        </Grid>
-        <Grid item xs={12}>
+      </Grid>
+      <Grid item xs={12}>
+      <TextFieldInput id="lastName" name="lastName" label="Last name" value={lastName}
+        onChange={event => {
+          setLastName(event.target.value)
+        }}
+      />
+      </Grid>
+      <Grid item xs={12}>
         <FormControl variant="outlined" className={classes.formControl}>
         <InputLabel id="demo-simple-select-outlined">Gender</InputLabel>
         <Select
@@ -115,8 +143,8 @@ export default function UserProfile() {
           <MenuItem value={'other'}>Other</MenuItem>
         </Select>
         </FormControl>
-        </Grid>
-        <Grid item xs={12}>
+      </Grid>
+      <Grid item xs={12}>
         <KeyboardDatePicker
           margin="normal"
           id="date-picker-dialog"
@@ -128,7 +156,7 @@ export default function UserProfile() {
             'aria-label': 'change date',
           }}
         />
-        </Grid>
+      </Grid>
       <Grid item xs={12}>
         <TextFieldInput id="email" name="email" label="Email Address" value={emailAddress}
           onChange={event => {
@@ -136,7 +164,7 @@ export default function UserProfile() {
           }}
         />
       </Grid>
-      <Grid item xs={12} sm={6}>
+      <Grid item xs={12}>
         <TextFieldInput id="phoneNumber" name="phoneNumber" label="Phone Number" value={phoneNumber}
           onChange={event => {
             setPhoneNumber(event.target.value)
@@ -186,22 +214,23 @@ export default function UserProfile() {
         />
       </Grid>
       <Grid item xs={12}>
-      <TextField id="aboutme" label="Tell us about yourself"
-        multiline
-        rows="4"
-        variant="outlined"
+      <TextFieldInput id="aboutme" label="Tell us about yourself" rows="4" variant="outlined" 
         value={aboutme}
         onChange={event => {
           setAboutMe(event.target.value)
         }}
       />
       </Grid>
-    </Grid>
-      <Button 
-        type='submit'
-        className={classes.selectEmpty} 
-        varaint="contained" color="secondary" size="large">
-      Save</Button>
+      </Grid>
+      <CardContent>
+      <Typography className={classes.title} variant="h5" component="h2" gutterBottom>
+        <Button varaint="contained" size="large" color="secondary" 
+          type='submit'
+          className={clsx(classes.myButton)}>
+          SAVE
+        </Button>
+      </Typography>
+      </CardContent>
     </form>
     </Card>
   </React.Fragment>
