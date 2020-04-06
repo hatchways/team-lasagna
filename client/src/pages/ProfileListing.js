@@ -38,8 +38,8 @@ export default function ProfileListing() {
     setFilteredProfiles(
       profiles.filter((profile) => {
         return (
-          profile.firstName.includes(search) ||
-          profile.lastName.includes(search)
+          profile.firstName.toLowerCase().includes(search.toLowerCase()) ||
+          profile.lastName.toLowerCase().includes(search.toLowerCase())
         );
       })
     );
