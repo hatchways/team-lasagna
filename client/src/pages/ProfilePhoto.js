@@ -40,14 +40,22 @@ const useStyles = makeStyles((theme) => ({
 export default function ProfilePhoto() {
   const classes = useStyles();
   const [profile, setProfile] = useState({});
+  const [id, setId] = useState("");
 
   useEffect(() => {
-    // getProfile();
-  }, []);
+    setId(JSON.parse(localStorage.getItem("profile"))._id);
+    getProfile();
+  }, [id]);
+
+  // useEffect(() => {
+  //   getProfile();
+  // }, [id]);
 
   async function getProfile() {
     try {
-      const fetchedProfile = await axios.get("http://localhost:3001/profile/");
+      const fetchedProfile = await axios.get(
+        "http://localhost:3001/profile/" + id
+      );
       // console.log(fetchedProfiles);
       if (fetchedProfile.data) {
         setProfile(fetchedProfile.data);
@@ -64,10 +72,18 @@ export default function ProfilePhoto() {
     data.append("image", event.target.files[0], event.target.files[0].name);
     // send file to server and call
     try {
-      const res = await axios.post(
-        "http://localhost:3001/img-upload/5e878926720f86f9a9bea24b",
-        data
-      );
+      const res = await axios.post("http://localhost:3001/img/" + id, data);
+      setProfile(res.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const handleRemovePic = async (event) => {
+    console.log("file upload started");
+    // send file to server and call
+    try {
+      const res = await axios.delete("http://localhost:3001/img/" + id);
       setProfile(res.data);
     } catch (err) {
       console.log(err);
@@ -83,7 +99,7 @@ export default function ProfilePhoto() {
       </Grid>
       <Grid item xs={12} align="center">
         <Avatar
-          alt="userphot"
+          alt="userphoto"
           src={profile.profilePic}
           className={classes.large}
         />
@@ -116,7 +132,11 @@ export default function ProfilePhoto() {
         </label>
       </Grid>
       <Grid item xs={12} align="center">
-        <IconButton aria-label="delete" className={classes.margin}>
+        <IconButton
+          aria-label="delete"
+          onClick={handleRemovePic}
+          className={classes.margin}
+        >
           <DeleteIcon fontSize="large" />
         </IconButton>
       </Grid>
