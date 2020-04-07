@@ -2,9 +2,12 @@ import React from "react";
 import LoginForm from "./LoginForm/LoginForm";
 function Login() {
   return (
-    <div>
-      <h1>Login</h1>
+    <div class="grid-container">
+      <h1 class="heading">Login</h1>
       <LoginForm />
+      <div class="login-link">
+        Already a member? <a href="/signup">Sign up</a>
+      </div>
     </div>
   );
 }
