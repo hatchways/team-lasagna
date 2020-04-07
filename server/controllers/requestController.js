@@ -107,7 +107,7 @@ module.exports.payRequest = async (req, res, next) => {
     try {
         const updatedRequest = await Request.findByIdAndUpdate(
           req.params.id,
-          { paid: true}
+          { paid: true}, {new: true}
         );
         if (!updatedRequest) {
           return res.status(404).json({ msg: "Request not found" });
