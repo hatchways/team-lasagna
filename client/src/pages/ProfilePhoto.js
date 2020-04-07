@@ -11,6 +11,7 @@ import {
 } from "@material-ui/core";
 import DeleteIcon from "@material-ui/icons/Delete";
 import { red } from "@material-ui/core/colors";
+import { Alert } from "@material-ui/lab";
 import axios from "axios";
 
 const useStyles = makeStyles((theme) => ({
@@ -41,6 +42,9 @@ export default function ProfilePhoto() {
   const classes = useStyles();
   const [profile, setProfile] = useState({});
   const [id, setId] = useState("");
+  const [processing, setProcessing] = useState(false);
+  const [error, setError] = useState(false);
+  const [success, setSuccess] = useState(false);
 
   useEffect(() => {
     setId(JSON.parse(localStorage.getItem("profile"))._id);
@@ -66,26 +70,37 @@ export default function ProfilePhoto() {
   }
 
   const handleFileUpload = async (event) => {
-    console.log("file upload started");
-    console.log(event.target.files[0]);
+    setProcessing(true);
     const data = new FormData();
     data.append("image", event.target.files[0], event.target.files[0].name);
     // send file to server and call
     try {
       const res = await axios.post("http://localhost:3001/img/" + id, data);
+      setProcessing(false);
       setProfile(res.data);
+      setSuccess(true);
+      setError(false);
     } catch (err) {
+      setSuccess(false);
+      setProcessing(false);
+      setError(true);
       console.log(err);
     }
   };
 
   const handleRemovePic = async (event) => {
-    console.log("file upload started");
+    setProcessing(true);
     // send file to server and call
     try {
       const res = await axios.delete("http://localhost:3001/img/" + id);
+      setProcessing(false);
+      setSuccess(true);
       setProfile(res.data);
+      setError(false);
     } catch (err) {
+      setSuccess(false);
+      setProcessing(false);
+      setError(true);
       console.log(err);
     }
   };
@@ -139,6 +154,15 @@ export default function ProfilePhoto() {
         >
           <DeleteIcon fontSize="large" />
         </IconButton>
+        <Grid item xs={5} align="center">
+          {processing && <Alert severity="info">Loading...</Alert>}
+          {error && <Alert severity="error">Error! Please try again...</Alert>}
+          {success && (
+            <Alert severity="success">
+              Profile picture successfully updated!
+            </Alert>
+          )}
+        </Grid>
       </Grid>
     </Card>
   );
