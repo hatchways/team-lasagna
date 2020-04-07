@@ -9,11 +9,11 @@ import { Redirect } from "react-router-dom";
 
 const useStyles = makeStyles({
   input: {
-    marginTop: "5px",
-    marginBottom: "5px",
+    marginTop: "10px",
+    marginBottom: "10px",
   },
   button: {
-    margin: "5px",
+    margin: "20px",
     width: "130px ",
     height: "45px",
     background: "#f04040",

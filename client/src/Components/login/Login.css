@@ -13,10 +13,13 @@ form {
   grid-area: r;
 }
 .heading {
+  padding-top: 1em;
   grid-area: h;
   text-align: center;
 }
 .login-link {
   grid-area: s;
   text-align: center;
+  margin: 1em;
+  padding-bottom: 3em;
 }
