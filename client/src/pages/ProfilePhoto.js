@@ -70,16 +70,17 @@ export default function ProfilePhoto() {
   }
 
   const handleFileUpload = async (event) => {
+    setSuccess(false);
+    setError(false);
     setProcessing(true);
     const data = new FormData();
-    data.append("image", event.target.files[0], event.target.files[0].name);
     // send file to server and call
     try {
+      data.append("image", event.target.files[0], event.target.files[0].name);
       const res = await axios.post("http://localhost:3001/img/" + id, data);
       setProcessing(false);
       setProfile(res.data);
       setSuccess(true);
-      setError(false);
     } catch (err) {
       setSuccess(false);
       setProcessing(false);
@@ -89,6 +90,8 @@ export default function ProfilePhoto() {
   };
 
   const handleRemovePic = async (event) => {
+    setSuccess(false);
+    setError(false);
     setProcessing(true);
     // send file to server and call
     try {
@@ -96,7 +99,6 @@ export default function ProfilePhoto() {
       setProcessing(false);
       setSuccess(true);
       setProfile(res.data);
-      setError(false);
     } catch (err) {
       setSuccess(false);
       setProcessing(false);
