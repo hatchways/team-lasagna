@@ -24,7 +24,7 @@ export const authService = {
 
 async function login(email, password) {
   try {
-    const res = await axios.post("http://localhost:3001/login", {
+    const res = await axios.post("/login", {
       email: email,
       password: password,
     });
