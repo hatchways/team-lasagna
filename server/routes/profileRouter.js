@@ -5,6 +5,7 @@ const validation = require("../utils/profileValidation");
 
 router.get("/", profileController.getProfileList);
 router.get("/:id", profileController.getProfileById);
+router.get("/user/:id", profileController.getProfileByUserId);
 router.post("/", validation, profileController.createProfile);
 router.put("/:id", validation, profileController.updateProfile);
 

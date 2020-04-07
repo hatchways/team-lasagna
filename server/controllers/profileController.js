@@ -25,6 +25,18 @@ module.exports.getProfileById = async (req, res, next) => {
   }
 };
 
+module.exports.getProfileByUserId = async (req, res, next) => {
+  try {
+    const profile = await Profile.findOne({ user: req.params.id });
+    if (!profile) {
+      return res.status(404).json({ msg: "Profile not found" });
+    }
+    res.status(200).json(profile);
+  } catch (err) {
+    res.status(400).json("Unable to retreive profile");
+  }
+};
+
 module.exports.updateProfile = async (req, res, next) => {
   const errors = validationResult(req);
   //check validators
@@ -44,7 +56,7 @@ module.exports.updateProfile = async (req, res, next) => {
     availability,
     profilePic,
     about,
-    user
+    user,
   } = req.body;
   const data = {
     firstName: firstName,
@@ -59,12 +71,12 @@ module.exports.updateProfile = async (req, res, next) => {
       city: city,
       province: province,
       zipCode: zipCode,
-      country: country
+      country: country,
     },
     availability: availability,
     profilePic: profilePic,
     about: about,
-    user: user
+    user: user,
   };
   try {
     const updatedProfile = await Profile.findByIdAndUpdate(
@@ -72,7 +84,7 @@ module.exports.updateProfile = async (req, res, next) => {
       data,
       {
         new: true,
-        runValidators: true
+        runValidators: true,
       }
     );
     if (!updatedProfile) {
@@ -105,7 +117,7 @@ module.exports.createProfile = async (req, res, next) => {
     availability,
     profilePic,
     about,
-    user
+    user,
   } = req.body;
   const data = {
     firstName: firstName,
@@ -120,12 +132,12 @@ module.exports.createProfile = async (req, res, next) => {
       city: city,
       province: province,
       zipCode: zipCode,
-      country: country
+      country: country,
     },
     availability: availability,
     profilePic: profilePic,
     about: about,
-    user: user
+    user: user,
   };
 
   try {

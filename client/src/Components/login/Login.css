@@ -1,14 +1,6 @@
 a {
   color: #f04040;
 }
-.paper-grid {
-  display: grid;
-  grid-template-columns: 1fr 4fr 1fr;
-  grid-template-areas: ". p .";
-}
-.MuiPaper-root.MuiPaper-elevation1.MuiPaper-rounded {
-  grid-area: p;
-}
 .grid-container {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 2fr 1fr 1fr 1fr;
@@ -20,7 +12,6 @@ a {
 form {
   grid-area: r;
 }
-
 .heading {
   padding-top: 1em;
   grid-area: h;
