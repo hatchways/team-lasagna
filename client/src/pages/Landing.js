@@ -1,14 +1,15 @@
 import React, { Component } from "react";
 import { withStyles, CssBaseline, Grid } from "@material-ui/core";
 
-import Navbar from '../Components/shared/Navbar'
-import Footer from '../Components/shared/Footer'
-import MenuListComposition from '../Components/shared/SideMenu'
-import UserProfile from '../pages/UserProfile'
-import Register from '../Components/Register/Register'
+import Navbar from "../Components/shared/Navbar";
+import Footer from "../Components/shared/Footer";
+import MenuListComposition from "../Components/shared/SideMenu";
+import UserProfile from "../pages/UserProfile";
+import Register from "../Components/Register/Register";
 import Login from '../Components/login/Login'
-import ProfilePhoto from '../pages/ProfilePhoto'
-import NotFound from '../pages/NotFound'
+import ProfilePhoto from "../pages/ProfilePhoto";
+import ProfileListing from "../pages/ProfileListing";
+import NotFound from "../pages/NotFound";
 
 const landinPageStyle = (theme) => ({
   landingContainer: {
@@ -39,24 +40,25 @@ class LandingPage extends Component {
 
     const pathName = () => {
       switch (this.props.pathName) {
-      case 'signup':
-        return <Register />
-      case 'login':
-        return <Login />
-      case 'editProfile':
-        return <UserProfile />
-      case 'profilePhoto':
-        return <ProfilePhoto />
-      case '/':
-        return <UserProfile />
-      default: 
-        return <NotFound />
-        //throw new Error('should not get here!')
+        case "signup":
+          return <Register />;
+        case 'login':
+          return <Login />
+        case "editProfile":
+          return <UserProfile />;
+        case "profilePhoto":
+          return <ProfilePhoto />;
+        case "profile-listing":
+          return <ProfileListing />;
+        case "/":
+          return <UserProfile />;
+        default:
+          return <NotFound />;
       }
     };
 
-    let sideMenuBar = ''
-    if(this.props.showSideBar) {
+    let sideMenuBar = "";
+    if (this.props.showSideBar) {
       sideMenuBar = (
         <Grid container style={{ margin: "0 auto", maxWidth: 960 }}>
           <Grid item xs={2}>
@@ -66,7 +68,7 @@ class LandingPage extends Component {
             {pathName()}
           </Grid>
         </Grid>
-      )
+      );
     } else {
       sideMenuBar = (
         <Grid container style={{ margin: "0 auto", maxWidth: 960 }}>
@@ -74,7 +76,7 @@ class LandingPage extends Component {
             {pathName()}
           </Grid>
         </Grid>
-      )
+      );
     }
 
     return (
@@ -82,9 +84,9 @@ class LandingPage extends Component {
         <div>
           <CssBaseline />
           <nav>
-            <Navbar isAuthenticated={this.props.isAuthed}/>
+            <Navbar isAuthenticated={this.props.isAuthed} />
           </nav>
-            {sideMenuBar}
+          {sideMenuBar}
           <Footer />
         </div>
       </div>
