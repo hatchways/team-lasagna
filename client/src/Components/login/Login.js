@@ -6,7 +6,7 @@ function Login() {
       <h1 class="heading">Login</h1>
       <LoginForm />
       <div class="login-link">
-        Already a member? <a href="/signup">Sign up</a>
+        Not a member? <a href="/signup">Sign up</a>
       </div>
     </div>
   );
