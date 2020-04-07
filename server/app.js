@@ -12,6 +12,7 @@ const profileRouter = require("./routes/profileRouter");
 const registerRouter = require("./routes/register");
 const loginRouter = require("./routes/login");
 const imgUploadRouter = require("./routes/image-upload");
+const requestRouter = require("./routes/requestRouter")
 
 const { json, urlencoded } = express;
 
@@ -32,7 +33,8 @@ app.use("/profile", profileRouter);
 app.use("/login", loginRouter);
 app.use("/register", registerRouter);
 app.use("/img-upload", imgUploadRouter);
-
+app.use("/request", requestRouter)
+ 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
