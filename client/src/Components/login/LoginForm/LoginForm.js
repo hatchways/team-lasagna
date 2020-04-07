@@ -6,18 +6,19 @@ import { Alert } from "@material-ui/lab";
 import { makeStyles } from "@material-ui/core/styles";
 import { authService } from "../../../services/auth.service";
 import { Redirect } from "react-router-dom";
+
 const useStyles = makeStyles({
   input: {
-    marginTop: `5px`,
-    marginBottom: `5px`,
+    marginTop: "5px",
+    marginBottom: "5px",
   },
   button: {
-    margin: `5px`,
-    width: `130px `,
-    height: `45px`,
-    background: `#f04040`,
-    alignSelf: `center`,
-    color: `white`,
+    margin: "5px",
+    width: "130px ",
+    height: "45px",
+    background: "#f04040",
+    alignSelf: "center",
+    color: "white",
   },
 });
 
