@@ -32,10 +32,9 @@ function LoginForm() {
       const res = await authenticationService.login(data.email, data.password);
       if (res) {
         setLoginError(true);
-        setErrMsg(res);
+        return setErrMsg(res);
       }
       setLoggedIn(true);
-      return <Redirect to="/" />;
     } catch (err) {
       console.log(err);
     }
