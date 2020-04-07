@@ -61,7 +61,9 @@ async function getUserProfile() {
     const jwt = currentUser.token;
     const decoded = jwtDecode(jwt);
     try {
-      const profileRes = await axios.get("/profile/user/" + decoded._id);
+      const profileRes = await axios.get("/profile/user/" + decoded._id, {
+        headers: authHeader(),
+      });
       localStorage.setItem("profile", JSON.stringify(profileRes.data));
     } catch (err) {
       console.log(err);
