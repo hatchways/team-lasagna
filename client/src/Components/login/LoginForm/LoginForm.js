@@ -1,11 +1,10 @@
 import React, { useState } from "react";
-import axios from "axios";
 import { useForm } from "react-hook-form";
 import { RHFInput } from "react-hook-form-input";
 import { TextField, Button } from "@material-ui/core";
 import { Alert } from "@material-ui/lab";
 import { makeStyles } from "@material-ui/core/styles";
-import { authenticationService } from "../../../services/auth.service";
+import { authService } from "../../../services/auth.service";
 import { Redirect } from "react-router-dom";
 const useStyles = makeStyles({
   input: {
@@ -29,7 +28,7 @@ function LoginForm() {
   }
   const onSubmit = async (data) => {
     try {
-      const res = await authenticationService.login(data.email, data.password);
+      const res = await authService.login(data.email, data.password);
       if (res) {
         setLoginError(true);
         return setErrMsg(res);

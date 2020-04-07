@@ -37,10 +37,11 @@ function RegisterForm() {
     };
     try {
       const createUserRes = await axios.post("/register", payload);
+      const userId = createUserRes.data._id.toString();
       const createProfileRes = await axios.post("/profile", {
         firstName: data.firstName,
         lastName: data.lastName,
-        user: createUserRes.data._id,
+        user: userId,
       });
       //if createProfileRes with status 200 redirect to /login
       // else display error message
