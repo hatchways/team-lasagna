@@ -16,7 +16,7 @@ module.exports.checkout = async (req, res) => {
       },
     ],
     success_url: "http://localhost:3000/success/{CHECKOUT_SESSION_ID}",
-    cancel_url: "http://localhost:3000/cancel/",
+    cancel_url: "http://localhost:3000/payment/",
   });
   res.json(session);
 };
