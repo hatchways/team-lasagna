@@ -6,7 +6,7 @@ import { Grid, Card, FormControl, FormLabel, RadioGroup, FormControlLabel, Radio
 import Typography from '@material-ui/core/Typography';
 import { KeyboardTimePicker, KeyboardDatePicker } from '@material-ui/pickers';
 import TextFieldInput from './TextFieldInput'
-import Checkboxx from './Checkbox'
+//import Checkboxx from './Checkbox'
  
 const useStyles = makeStyles((theme) => ({
   title: {
@@ -44,7 +44,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function UserProfile() {
   const classes = useStyles();
-  const checkboxItems = new Map();
+  //const checkboxItems = new Map();
 
     const [availables, setAvailables] = useState([
         {id: 1, day: 'Sundays', isChecked: false},
@@ -71,12 +71,14 @@ export default function UserProfile() {
   const [aboutme, setAboutMe] = useState('Tell Us about yourself')
 
 
-  const handleAvailabilityChange = (e,i) => {
+  const handleAvailabilityChange = (e) => {
       console.log(e)
-      const item = e.name;
-      const isChecked = e.value;
+      const day = e.day;
+      const isChecked = e.isChecked;
       console.log(isChecked)
-      //setAvailables(prevState => ({ availables: prevState[i](item, !isChecked) }));
+      //setAvailables(prevState => ([...prevState, { prevState[i].isChecked: !isChecked }]));
+      
+      //setAvailables(prevState => { availables: prevState.availables:{(id: e.id, day: e.day, isChecked: !e.isChecked) }}
   }
 
   const handleDateChange = (date) => {
@@ -121,8 +123,8 @@ export default function UserProfile() {
                 <Grid key={i} item className={classes.item}>
                 <Checkbox
                 name={available.day}
-                checked={available.value}
-                onChange={handleAvailabilityChange.bind(this, available,i)}
+                checked={available.isChecked}
+                onChange={handleAvailabilityChange.bind(this, available)}
                 inputProps={{ 'aria-label': 'primary checkbox' }}
             />
             <FormHelperText>{available.day}</FormHelperText>
