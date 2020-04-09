@@ -2,22 +2,17 @@ import React from "react";
 import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
 import Toolbar from "@material-ui/core/Toolbar";
-import { Button, Link } from "@material-ui/core";
+import { Button, Link, AppBar } from "@material-ui/core";
 import IconButton from "@material-ui/core/IconButton";
 import SearchIcon from "@material-ui/icons/Search";
 import Typography from "@material-ui/core/Typography";
 
 const useStyles = makeStyles((theme) => ({
-  toolbar: {
-    borderBottom: `1px solid ${theme.palette.divider}`,
-    width: "100%",
+  appBar: {
+    position: 'relative'
   },
   toolbarTitle: {
     flex: 1,
-  },
-  toolbarSecondary: {
-    justifyContent: "space-between",
-    overflowX: "auto",
   },
   toolbarLink: {
     padding: theme.spacing(1),
@@ -84,7 +79,8 @@ export default function Header(props) {
 
   return (
     <React.Fragment>
-      <Toolbar disableGutters={false} className={classes.toolbar}>
+      <AppBar position="absolute" color="default" className={classes.appBar}>
+      <Toolbar>
         <a href="/">
           <img src={"../assets/logo.png"} alt={"dogs"} href="/dashboard" />
         </a>
@@ -101,6 +97,7 @@ export default function Header(props) {
         </IconButton>
         {menuList}
       </Toolbar>
+      </AppBar>
     </React.Fragment>
   );
 }
