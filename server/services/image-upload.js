@@ -7,7 +7,7 @@ const multerS3 = require("multer-s3");
 aws.config.update({
   secretAccessKey: process.env.SECRET_ACCESS_KEY || "",
   accessKeyId: process.env.ACESS_KEY_ID || "",
-  region: "us-east-1"
+  region: "us-east-1",
 });
 
 const s3 = new aws.S3();
@@ -20,7 +20,7 @@ const fileFilter = (req, file, cb) => {
   }
 };
 
-const upload = multer({
+module.exports.upload = multer({
   fileFilter,
   storage: multerS3({
     s3,
@@ -32,8 +32,19 @@ const upload = multer({
     },
     key: (req, file, cb) => {
       cb(null, file.originalname);
-    }
-  })
+    },
+  }),
 });
 
-module.exports = upload;
+module.exports.delete = (key) => {
+  s3.deleteObject({ Bucket: "pet-sitter-imgs", Key: key }, (err, data) => {
+    if (err) {
+      console.log(err, err.stack);
+      // error
+    } else {
+      console.log(data); // deleted
+    }
+  });
+};
+
+// module.exports = upload;

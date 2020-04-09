@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import {
   Card,
@@ -37,13 +37,16 @@ const useStyles = makeStyles((theme) => ({
 
 export default function ProfileListring({ profile }) {
   const classes = useStyles();
-  const [photoPath, setPhotoPath] = useState("../assets/JasonMomoa.jpg");
 
   return (
     <Grid item xs={4} className={classes.root}>
       <Card className={classes.card}>
         <Grid item xs={12} align="center">
-          <Avatar alt="userphot" src={photoPath} className={classes.large} />
+          <Avatar
+            alt="userphot"
+            src={profile.profilePic}
+            className={classes.large}
+          />
         </Grid>
         <Grid item xs={12}>
           <CardContent style={{ textAlign: "center" }}>

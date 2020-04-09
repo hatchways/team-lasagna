@@ -35,9 +35,9 @@ app.use("/ping", pingRouter);
 app.use("/profile", profileRouter);
 app.use("/login", loginRouter);
 app.use("/register", registerRouter);
-app.use("/img-upload", imgUploadRouter);
 app.use("/request", requestRouter);
 app.use("/checkout", checkoutRouter);
+app.use("/img", imgUploadRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
