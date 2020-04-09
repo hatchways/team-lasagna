@@ -3,6 +3,7 @@ import { Paper, Avatar } from "@material-ui/core";
 import "./AboutMeProfile.css";
 import { makeStyles } from "@material-ui/core/styles";
 import { Alert } from "@material-ui/lab";
+import RoomIcon from "@material-ui/icons/Room";
 const useStyles = makeStyles({
   profilePic: {
     width: "140px",
@@ -14,7 +15,8 @@ const useStyles = makeStyles({
 function AboutMeProfile(props) {
   const classes = useStyles();
   const profile = props.profile;
-  console.log(props.profile);
+  console.log(props);
+  //console.log(profile.address.city);
   return (
     <div class="paper">
       <Paper elevation={2} square={false}>
@@ -31,6 +33,8 @@ function AboutMeProfile(props) {
           <h1>
             {profile.firstName} {profile.lastName}
           </h1>
+          <RoomIcon fontSize="small"></RoomIcon>
+          {profile.address.city + ", " + profile.address.province}
         </div>
         <div className="about-me">
           <h2>About me</h2>

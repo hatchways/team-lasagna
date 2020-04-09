@@ -10,13 +10,14 @@ function SitterProfile(props) {
   const sitterProfileId = props.profileId;
 
   async function getProfile(profileId) {
-    axios
-      .get(`/profile/${profileId}`, authService.authHeader())
-      .then((res) => setProfile(res.data));
+    axios.get(`/profile/${profileId}`, authService.authHeader()).then((res) => {
+      setProfile(res.data);
+      setInitialized(true);
+    });
   }
+
   if (!initialized) {
     getProfile(sitterProfileId);
-    setInitialized(true);
   }
 
   //console.log(profile);
