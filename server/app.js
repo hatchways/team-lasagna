@@ -12,7 +12,7 @@ const profileRouter = require("./routes/profileRouter");
 const registerRouter = require("./routes/register");
 const loginRouter = require("./routes/login");
 const imgUploadRouter = require("./routes/image-upload");
-const requestRouter = require("./routes/requestRouter")
+const requestRouter = require("./routes/requestRouter");
 
 const { json, urlencoded } = express;
 
@@ -32,16 +32,16 @@ app.use("/ping", pingRouter);
 app.use("/profile", profileRouter);
 app.use("/login", loginRouter);
 app.use("/register", registerRouter);
-app.use("/img-upload", imgUploadRouter);
-app.use("/request", requestRouter)
- 
+app.use("/img", imgUploadRouter);
+app.use("/request", requestRouter);
+
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   next(createError(404));
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get("env") === "development" ? err : {};
@@ -55,7 +55,7 @@ app.use(function(err, req, res, next) {
 mongoose.connect(
   process.env.MONGODB_URI,
   { useNewUrlParser: true, useUnifiedTopology: true },
-  err => {
+  (err) => {
     if (err) {
       return console.log(err);
     }
