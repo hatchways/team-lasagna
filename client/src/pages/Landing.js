@@ -9,7 +9,8 @@ import Register from "../Components/Register/Register";
 import Login from "../Components/login/Login";
 import ProfilePhoto from "../pages/ProfilePhoto";
 import ProfileListing from "../pages/ProfileListing";
-import SitterProfile from "../Components/sitterProfile/SitterProfile";
+import PaymentPage from "../pages/Payment";
+import SuccessPage from "../pages/Success";
 import NotFound from "../pages/NotFound";
 
 const landinPageStyle = (theme) => ({
@@ -51,6 +52,10 @@ class LandingPage extends Component {
           return <ProfilePhoto />;
         case "profile-listing":
           return <ProfileListing />;
+        case "payment":
+          return <PaymentPage />;
+        case "success":
+          return <SuccessPage />;
         case "sitter-profile":
           return <SitterProfile profileId={"5e86446fb63eabc010ee2828"} />;
         case "/":

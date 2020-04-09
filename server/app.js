@@ -5,6 +5,7 @@ const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const mongoose = require("mongoose");
 const passport = require("passport");
+const cors = require("cors");
 
 const indexRouter = require("./routes/index");
 const pingRouter = require("./routes/ping");
@@ -13,6 +14,7 @@ const registerRouter = require("./routes/register");
 const loginRouter = require("./routes/login");
 const imgUploadRouter = require("./routes/image-upload");
 const requestRouter = require("./routes/requestRouter");
+const checkoutRouter = require("./routes/checkoutRouter");
 
 const { json, urlencoded } = express;
 
@@ -25,6 +27,7 @@ app.use(cookieParser());
 app.use(express.static(join(__dirname, "public")));
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(cors());
 require("./passport-config")(passport);
 
 app.use("/", indexRouter);
@@ -32,8 +35,9 @@ app.use("/ping", pingRouter);
 app.use("/profile", profileRouter);
 app.use("/login", loginRouter);
 app.use("/register", registerRouter);
-app.use("/img", imgUploadRouter);
 app.use("/request", requestRouter);
+app.use("/checkout", checkoutRouter);
+app.use("/img", imgUploadRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
