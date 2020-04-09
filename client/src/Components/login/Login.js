@@ -4,12 +4,12 @@ import { Paper } from "@material-ui/core";
 import "./Login.css";
 function Login() {
   return (
-    <div class="paper-grid">
+    <div className="paper-grid">
       <Paper>
-        <div class="grid-container">
-          <h1 class="heading">Login</h1>
+        <div className="grid-container">
+          <h1 className="heading">Login</h1>
           <LoginForm />
-          <div class="login-link">
+          <div className="login-link">
             Not a member? <a href="/signup">Sign up</a>
           </div>
         </div>
