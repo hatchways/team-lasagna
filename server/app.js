@@ -27,6 +27,7 @@ app.use(cookieParser());
 app.use(express.static(join(__dirname, "public")));
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(cors());
 require("./passport-config")(passport);
 
 app.use("/", indexRouter);
