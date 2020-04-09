@@ -10,16 +10,16 @@ import { Redirect } from "react-router-dom";
 
 const useStyles = makeStyles({
   input: {
-    marginTop: `5px`,
-    marginBottom: `5px`,
+    marginTop: "10px",
+    marginBottom: "10px",
   },
   button: {
-    margin: `5px`,
-    width: `130px `,
-    height: `45px`,
-    background: `#f04040`,
-    alignSelf: `center`,
-    color: `white`,
+    margin: "20px",
+    width: "130px ",
+    height: "45px",
+    background: "#f04040",
+    alignSelf: "center",
+    color: "white",
   },
 });
 
@@ -37,10 +37,11 @@ function RegisterForm() {
     };
     try {
       const createUserRes = await axios.post("/register", payload);
+      const userId = createUserRes.data._id.toString();
       const createProfileRes = await axios.post("/profile", {
         firstName: data.firstName,
         lastName: data.lastName,
-        user: createUserRes.data._id,
+        user: userId,
       });
       //if createProfileRes with status 200 redirect to /login
       // else display error message

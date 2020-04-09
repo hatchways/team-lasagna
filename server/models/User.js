@@ -11,7 +11,7 @@ const userSchema = mongoose.Schema({
     required: true
   }
 });
-
+ 
 module.exports = mongoose.model("Users", userSchema);
 
 module.exports.comparePassword = async (candidatePassword, hash) => {
