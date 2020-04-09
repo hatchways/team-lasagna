@@ -149,6 +149,18 @@ function App() {
             />
             <Route
               exact
+              path="/sitter-profile"
+              render={(props) => (
+                <LandingPage
+                  {...props}
+                  pathName="sitter-profile"
+                  showSideBar={false}
+                  isAuthed={false}
+                />
+              )}
+            />
+            <Route
+              exact
               path="/"
               render={(props) => (
                 <LandingPage

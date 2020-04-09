@@ -56,6 +56,8 @@ class LandingPage extends Component {
           return <PaymentPage />;
         case "success":
           return <SuccessPage />;
+        case "sitter-profile":
+          return <SitterProfile profileId={"5e86446fb63eabc010ee2828"} />;
         case "/":
           return <UserProfile />;
         default:
