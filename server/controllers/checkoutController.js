@@ -4,7 +4,7 @@ const stripe = require("stripe")(secretKey);
 module.exports.checkout = async (req, res) => {
   const session = await stripe.checkout.sessions.create({
     payment_method_types: ["card"],
-    customer_email: req.body.payer,
+    // customer_email: req.body.payer,
     line_items: [
       {
         name: "one-time service",

@@ -51,7 +51,7 @@ export default function Payment() {
 
   async function createCheckoutSession() {
     const paymentData = {
-      payer: "payer@payer.com",
+      // payment data for existing customers: customer_id, email
     };
 
     // Use fetch to send the token ID and any other payment data to your server.
