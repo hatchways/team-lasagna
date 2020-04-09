@@ -1,0 +1,25 @@
+.book-sitter-form {
+  padding-left: 15px;
+  padding-bottom: 30px;
+  padding-top: 25px;
+  grid-area: f;
+  text-align: center;
+}
+.booking-container {
+  margin-left: 55px;
+}
+.date {
+  display: grid;
+  grid-template-areas: ". f .";
+  grid-template-columns: 1fr 10fr 1fr;
+}
+.button {
+  padding-top: 15px;
+}
+.avail {
+  background-color: tomato;
+  padding: 15px;
+  margin-top: 0px;
+  color: white;
+  border-radius: 4px;
+}
