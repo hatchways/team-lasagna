@@ -5,6 +5,7 @@ import Navbar from "../Components/shared/Navbar";
 import Footer from "../Components/shared/Footer";
 import MenuListComposition from "../Components/shared/SideMenu";
 import UserProfile from "../pages/UserProfile";
+import SitterProfile from "../Components/sitterProfile/SitterProfile";
 import Register from "../Components/Register/Register";
 import Login from "../Components/login/Login";
 import ProfilePhoto from "../pages/ProfilePhoto";
