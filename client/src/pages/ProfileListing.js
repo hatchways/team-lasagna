@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     justifyContent: "center",
   },
-}));
+})); 
 
 export default function ProfileListing() {
   const classes = useStyles();

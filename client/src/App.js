@@ -165,7 +165,7 @@ function App() {
               render={(props) => (
                 <LandingPage
                   {...props}
-                  pathName="editProfile"
+                  pathName="profile-listing"
                   showSideBar={true}
                   isAuthed={false}
                 />

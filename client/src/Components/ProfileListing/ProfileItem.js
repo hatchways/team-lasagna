@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
     lineHeight: "2.5",
   },
 }));
-
+ 
 export default function ProfileListring({ profile }) {
   const classes = useStyles();
 
