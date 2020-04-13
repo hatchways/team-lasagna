@@ -91,17 +91,17 @@ export default function UserProfile() {
     setGender(event.target.value);
   };
 
-  async function getProfile() {
-    try {
-      const fetchedProfile = await axios.get("http://localhost:3001/profile/user/");
-      // console.log(fetchedProfile);
-      if (fetchedProfile.data) {
-        setProfile(fetchedProfile.data);
-      }
-    } catch (err) {
-      console.log(err);
-    }
-  }
+  // async function getProfile() {
+  //   try {
+  //     const fetchedProfile = await axios.get("http://localhost:3001/profile/user/");
+  //     // console.log(fetchedProfile);
+  //     if (fetchedProfile.data) {
+  //       setProfile(fetchedProfile.data);
+  //     }
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // }
 
   const handleSubmitForm = (event) => {
     event.preventDefault()
