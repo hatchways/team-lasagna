@@ -2,10 +2,18 @@ import React, { useState, useEffect } from "react";
 import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
 import Toolbar from "@material-ui/core/Toolbar";
-import { Button, Link, AppBar, Avatar } from "@material-ui/core";
+import {
+  Button,
+  Link,
+  AppBar,
+  Avatar,
+  Menu,
+  MenuItem,
+} from "@material-ui/core";
 import IconButton from "@material-ui/core/IconButton";
 import SearchIcon from "@material-ui/icons/Search";
 import Typography from "@material-ui/core/Typography";
+import { authService } from "../../services/auth.service";
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -35,14 +43,28 @@ export default function Header(props) {
   const classes = useStyles();
   let menuList = "";
   const [profile, setProfile] = useState({});
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
 
   const getProfile = () => {
     setProfile(JSON.parse(localStorage.getItem("profile")));
   };
 
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
   useEffect(() => {
     getProfile();
   }, []);
+
+  const logout = (e) => {
+    authService.logout();
+  };
 
   if (props.isAuthenticated) {
     menuList = (
@@ -53,9 +75,46 @@ export default function Header(props) {
         <Link href="#" className={classes.toolbarLink}>
           Messages
         </Link>
-        <Link href="/editProfile" className={classes.toolbarLink}>
-          <Avatar alt="Remy Sharp" src={profile.profilePic} />
-        </Link>
+        <Avatar
+          alt="Remy Sharp"
+          src={profile.profilePic}
+          onClick={handleClick}
+        />
+        <Menu
+          keepMounted
+          open={open}
+          onClose={handleClose}
+          getContentAnchorEl={null}
+          anchorOrigin={{
+            vertical: "bottom",
+            horizontal: "center",
+          }}
+          transformOrigin={{
+            vertical: "top",
+            horizontal: "center",
+          }}
+          anchorEl={anchorEl}
+          PaperProps={{
+            style: {
+              width: "20ch",
+            },
+          }}
+        >
+          <MenuItem value={10} onClick={handleClose}>
+            <Link href="/editProfile" className={classes.toolbarLink}>
+              My Profile
+            </Link>
+          </MenuItem>
+          <MenuItem value={20} onClick={handleClose}>
+            <Link
+              href="/login"
+              className={classes.toolbarLink}
+              onClick={logout}
+            >
+              Logout
+            </Link>
+          </MenuItem>
+        </Menu>
       </React.Fragment>
     );
   } else {
