@@ -39,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
     boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
     marginTop: '8%',
   },
-  
+
 }));
 
 export default function UserProfile() {
@@ -83,19 +83,6 @@ export default function UserProfile() {
     //console.log("checkedItems: ", checkedItems);
 	}
 
-  // const checkbo = (
-  //    checkboxes.map(item => (
-  //     <Grid key={item.id} className={classes.item}>
-  //       <Checkbox
-  //         name={item.name}
-  //         checked={checkedItems[item.name]}
-  //         onChange={handleCheckedChange}
-  //       />
-  //     <FormHelperText>{item.label}</FormHelperText>
-  //     </Grid>
-  //   )) 
-  // )
-
   const handleDateChange = (date) => {
     setSelectedDate(date);
   };
@@ -103,6 +90,18 @@ export default function UserProfile() {
   const handleGenderChange = (event) => {
     setGender(event.target.value);
   };
+
+  async function getProfile() {
+    try {
+      const fetchedProfile = await axios.get("http://localhost:3001/profile/user/");
+      // console.log(fetchedProfile);
+      if (fetchedProfile.data) {
+        setProfile(fetchedProfile.data);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  }
 
   const handleSubmitForm = (event) => {
     event.preventDefault()
