@@ -1,15 +1,15 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
 import Toolbar from "@material-ui/core/Toolbar";
-import { Button, Link, AppBar } from "@material-ui/core";
+import { Button, Link, AppBar, Avatar } from "@material-ui/core";
 import IconButton from "@material-ui/core/IconButton";
 import SearchIcon from "@material-ui/icons/Search";
 import Typography from "@material-ui/core/Typography";
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
-    position: 'relative'
+    position: "relative",
   },
   toolbarTitle: {
     flex: 1,
@@ -33,8 +33,16 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Header(props) {
   const classes = useStyles();
-
   let menuList = "";
+  const [profile, setProfile] = useState({});
+
+  const getProfile = () => {
+    setProfile(JSON.parse(localStorage.getItem("profile")));
+  };
+
+  useEffect(() => {
+    getProfile();
+  }, []);
 
   if (props.isAuthenticated) {
     menuList = (
@@ -44,6 +52,9 @@ export default function Header(props) {
         </Link>
         <Link href="#" className={classes.toolbarLink}>
           Messages
+        </Link>
+        <Link href="/editProfile" className={classes.toolbarLink}>
+          <Avatar alt="Remy Sharp" src={profile.profilePic} />
         </Link>
       </React.Fragment>
     );
@@ -76,23 +87,23 @@ export default function Header(props) {
   return (
     <React.Fragment>
       <AppBar position="absolute" color="default" className={classes.appBar}>
-      <Toolbar>
-        <a href="/">
-          <img src={"../assets/logo.png"} alt={"dogs"} href="/dashboard" />
-        </a>
-        <Typography
-          component="h2"
-          variant="h5"
-          color="inherit"
-          align="left"
-          noWrap
-          className={classes.toolbarTitle}
-        ></Typography>
-        <IconButton>
-          <SearchIcon />
-        </IconButton>
-        {menuList}
-      </Toolbar>
+        <Toolbar>
+          <a href="/">
+            <img src={"../assets/logo.png"} alt={"dogs"} href="/dashboard" />
+          </a>
+          <Typography
+            component="h2"
+            variant="h5"
+            color="inherit"
+            align="left"
+            noWrap
+            className={classes.toolbarTitle}
+          ></Typography>
+          <IconButton>
+            <SearchIcon />
+          </IconButton>
+          {menuList}
+        </Toolbar>
       </AppBar>
     </React.Fragment>
   );
