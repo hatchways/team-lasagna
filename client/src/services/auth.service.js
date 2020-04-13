@@ -43,7 +43,7 @@ async function login(email, password) {
 
 function logout() {
   // delete the user from local storage
-  localStorage.removeItem("jwt");
+  localStorage.clear();
   currentUserSubject.next(null);
 }
 function authHeader() {
