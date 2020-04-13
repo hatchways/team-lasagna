@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
   control: {
     padding: theme.spacing(2),
   },
-  availablespace: {
+  availableSpace: {
     marginBottom: '20px',
   },
   item: {
@@ -130,8 +130,8 @@ export default function UserProfile() {
   return (
     <form onSubmit={handleSubmitForm}>
     <Grid item xs={12}>
-      <Grid container justify="flex-start" className={classes.availablespace}>
-      <div className={classes.availablespace}>
+      <Grid container justify="flex-start" className={classes.availableSpace}>
+      <div className={classes.availableSpace}>
         <FormLabel>Available:</FormLabel>
       </div>
         <Checkbox
@@ -142,10 +142,10 @@ export default function UserProfile() {
       </Grid>
     </Grid>
     <Grid item xs={12}>
-      <div className={classes.availablespace}>
+      <div className={classes.availableSpace}>
         <FormLabel>Available Days:</FormLabel>
       </div>
-      <Grid container justify="space-evenly" className={classes.availablespace}>
+      <Grid container justify="space-evenly" className={classes.availableSpace}>
         { checkboxes.map(item => (
       <Grid key={item.id} className={classes.item}>
         <Checkbox
