@@ -15,7 +15,7 @@ module.exports.authenticateUser = async (req, res) => {
     isMatch = await User.comparePassword(password, user.password);
     if (isMatch) {
       const token = jwt.sign(user.toJSON(), process.env.SECRET, {
-        expiresIn: 2000,
+        expiresIn: process.env.TOKEN_TIMEOUT,
       });
       return res.status(200).send({ token: token });
     }
