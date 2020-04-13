@@ -2,7 +2,7 @@ const User = require("../models/User");
 const jwt = require("jsonwebtoken");
 
 module.exports.authenticateUser = async (req, res) => {
-  const email = req.body.email;
+  const email = req.body.email.toLowerCase();
   const password = req.body.password;
   if (!email || !password) {
     return res.send({ msg: "Email and password cannot be empty-" });
@@ -15,7 +15,7 @@ module.exports.authenticateUser = async (req, res) => {
     isMatch = await User.comparePassword(password, user.password);
     if (isMatch) {
       const token = jwt.sign(user.toJSON(), process.env.SECRET, {
-        expiresIn: 2000
+        expiresIn: 2000,
       });
       return res.status(200).send({ token: token });
     }
