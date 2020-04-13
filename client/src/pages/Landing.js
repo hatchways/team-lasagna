@@ -13,7 +13,6 @@ import ProfileListing from "../pages/ProfileListing";
 import PaymentPage from "../pages/Payment";
 import SuccessPage from "../pages/Success";
 import NotFound from "../pages/NotFound";
-import SitterProfile from "../Components/sitterProfile/SitterProfile";
 
 const landinPageStyle = (theme) => ({
   landingContainer: {
