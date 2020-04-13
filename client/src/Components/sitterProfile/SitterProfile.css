@@ -3,3 +3,8 @@
   flex-direction: row;
   max-width: 1000px;
 }
+@media only screen and (max-width: 600px) {
+  .flex-container-sitter {
+    flex-direction: column;
+  }
+}

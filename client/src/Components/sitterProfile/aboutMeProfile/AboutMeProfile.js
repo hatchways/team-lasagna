@@ -12,10 +12,9 @@ const useStyles = makeStyles({
   },
 });
 
-function AboutMeProfile(props) {
+function AboutMeProfile({ profile }) {
   const classes = useStyles();
-  const profile = props.profile;
-  console.log(props);
+  //console.log(props);
   //console.log(profile.address.city);
   return (
     <div class="paper">
