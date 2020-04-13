@@ -46,7 +46,7 @@ function LoginForm() {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <div class="flex-container">
+      <div className="flex-container">
         <RHFInput
           register={register}
           as={<TextField type="email" className={classes.input} />}

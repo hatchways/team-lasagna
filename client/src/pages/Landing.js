@@ -5,10 +5,14 @@ import Navbar from "../Components/shared/Navbar";
 import Footer from "../Components/shared/Footer";
 import MenuListComposition from "../Components/shared/SideMenu";
 import UserProfile from "./UserProfile/UserProfile";
+//import UserProfile from "../pages/UserProfile";
+import SitterProfile from "../Components/sitterProfile/SitterProfile";
 import Register from "../Components/Register/Register";
-import Login from '../Components/login/Login'
+import Login from "../Components/login/Login";
 import ProfilePhoto from "../pages/ProfilePhoto";
 import ProfileListing from "../pages/ProfileListing";
+import PaymentPage from "../pages/Payment";
+import SuccessPage from "../pages/Success";
 import NotFound from "../pages/NotFound";
 
 const landinPageStyle = (theme) => ({
@@ -36,14 +40,20 @@ class LandingPage extends Component {
       switch (this.props.pathName) {
         case "signup":
           return <Register />;
-        case 'login':
-          return <Login />
+        case "login":
+          return <Login />;
         case "editProfile":
           return <UserProfile />;
         case "profilePhoto":
           return <ProfilePhoto />;
         case "profile-listing":
           return <ProfileListing />;
+        case "payment":
+          return <PaymentPage />;
+        case "success":
+          return <SuccessPage />;
+        case "sitter-profile":
+          return <SitterProfile profileId={"5e86446fb63eabc010ee2828"} />;
         case "/":
           return <ProfileListing />;
         default:

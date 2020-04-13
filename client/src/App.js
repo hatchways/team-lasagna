@@ -17,6 +17,30 @@ function App() {
           <Switch>
             <Route
               exact
+              path="/payment"
+              render={(props) => (
+                <LandingPage
+                  {...props}
+                  pathName="payment"
+                  showSideBar={false}
+                  isAuthed={false}
+                />
+              )}
+            />
+            <Route
+              exact
+              path="/success/:id"
+              render={(props) => (
+                <LandingPage
+                  {...props}
+                  pathName="success"
+                  showSideBar={false}
+                  isAuthed={false}
+                />
+              )}
+            />
+            <Route
+              exact
               path="/signup"
               render={(props) => (
                 <LandingPage
@@ -118,6 +142,18 @@ function App() {
                 <LandingPage
                   {...props}
                   pathName="profile-listing"
+                  showSideBar={false}
+                  isAuthed={false}
+                />
+              )}
+            />
+            <Route
+              exact
+              path="/sitter-profile"
+              render={(props) => (
+                <LandingPage
+                  {...props}
+                  pathName="sitter-profile"
                   showSideBar={false}
                   isAuthed={false}
                 />
