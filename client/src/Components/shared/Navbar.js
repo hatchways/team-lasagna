@@ -73,10 +73,6 @@ export default function Header(props) {
     );
   }
 
-  // const handleSignUp = (event) => {
-  //   console.log('signup clicked')
-  // }
-
   return (
     <React.Fragment>
       <AppBar position="absolute" color="default" className={classes.appBar}>

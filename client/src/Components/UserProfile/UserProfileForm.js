@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
-import { Grid, Card, FormControl, FormLabel, RadioGroup, FormControlLabel, Radio, Checkbox,
+import { Grid, FormControl, FormLabel,
           InputLabel, Select, MenuItem, Button, FormHelperText, CardContent } from '@material-ui/core'
 import Typography from '@material-ui/core/Typography';
 import { KeyboardTimePicker, KeyboardDatePicker } from '@material-ui/pickers';
 import TextFieldInput from './TextFieldInput'
-//import Checkboxx from './Checkbox'
+import Checkbox from './Checkbox'
  
 const useStyles = makeStyles((theme) => ({
   title: {
@@ -44,18 +44,18 @@ const useStyles = makeStyles((theme) => ({
 
 export default function UserProfile() {
   const classes = useStyles();
-  //const checkboxItems = new Map();
 
-    const [availables, setAvailables] = useState([
-        {id: 1, day: 'Sundays', isChecked: false},
-        {id: 2, day: 'Mondays', isChecked: false},
-        {id: 3, day: 'Tuesdays', isChecked: false},
-        {id: 4, day: 'Wednesdays', isChecked: false},
-        {id: 5, day: 'Thursdays', isChecked: false},
-        {id: 6, day: 'Fridays', isChecked: false},
-        {id: 7, day: 'Saturdays', isChecked: false}
-    ])
-
+  const checkboxes = [
+    {id: 1, label: 'Sundays', name: 'sundays'},
+    {id: 2, label: 'Mondays', name: 'mondays'},
+    {id: 3, label: 'Tuesdays', name: 'tuesdays'},
+    {id: 4, label: 'Wednesdays', name: 'wednesdays'},
+    {id: 5, label: 'Thursdays', name: 'thursdays'},
+    {id: 6, label: 'Fridays', name: 'fridays'},
+    {id: 7, label: 'Saturdays', name: 'saturdays'}
+  ]
+  const [available, setAvailable] = useState(true)
+  const [checkedItems, setCheckedItems] = useState({})
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
   const [gender, setGender] = useState('')
@@ -70,16 +70,31 @@ export default function UserProfile() {
   const [country, setCountry] = useState('')
   const [aboutme, setAboutMe] = useState('Tell Us about yourself')
 
-
-  const handleAvailabilityChange = (e) => {
-      console.log(e)
-      const day = e.day;
-      const isChecked = e.isChecked;
-      console.log(isChecked)
-      //setAvailables(prevState => ([...prevState, { prevState[i].isChecked: !isChecked }]));
-      
-      //setAvailables(prevState => { availables: prevState.availables:{(id: e.id, day: e.day, isChecked: !e.isChecked) }}
+  const handleAvailableChange = (event) => {
+    const oldAvailable = available
+    setAvailable(!oldAvailable)
   }
+
+  const handleCheckedChange = (event) => {
+		setCheckedItems({
+      ...checkedItems,
+      [event.target.name]: event.target.checked
+    });
+    //console.log("checkedItems: ", checkedItems);
+	}
+
+  // const checkbo = (
+  //    checkboxes.map(item => (
+  //     <Grid key={item.id} className={classes.item}>
+  //       <Checkbox
+  //         name={item.name}
+  //         checked={checkedItems[item.name]}
+  //         onChange={handleCheckedChange}
+  //       />
+  //     <FormHelperText>{item.label}</FormHelperText>
+  //     </Grid>
+  //   )) 
+  // )
 
   const handleDateChange = (date) => {
     setSelectedDate(date);
@@ -92,6 +107,8 @@ export default function UserProfile() {
   const handleSubmitForm = (event) => {
     event.preventDefault()
     const userProfile = {
+      available,
+      checkedItems,
       firstName,
       lastName,
       gender,
@@ -114,24 +131,34 @@ export default function UserProfile() {
   return (
     <form onSubmit={handleSubmitForm}>
     <Grid item xs={12}>
-        <div className={classes.availablespace}>
-            <FormLabel>Available Days:</FormLabel>
-        </div>
-        <Grid container justify="space-evenly" className={classes.availablespace}>
-        {
-            availables.map((available, i) => (
-                <Grid key={i} item className={classes.item}>
-                <Checkbox
-                name={available.day}
-                checked={available.isChecked}
-                onChange={handleAvailabilityChange.bind(this, available)}
-                inputProps={{ 'aria-label': 'primary checkbox' }}
-            />
-            <FormHelperText>{available.day}</FormHelperText>
-            </Grid>
-            )) 
-		}
-        </Grid>
+      <Grid container justify="flex-start" className={classes.availablespace}>
+      <div className={classes.availablespace}>
+        <FormLabel>Available:</FormLabel>
+      </div>
+        <Checkbox
+          name="available"
+          checked={available}
+          onChange={handleAvailableChange}
+        />
+      </Grid>
+    </Grid>
+    <Grid item xs={12}>
+      <div className={classes.availablespace}>
+        <FormLabel>Available Days:</FormLabel>
+      </div>
+      <Grid container justify="space-evenly" className={classes.availablespace}>
+        { checkboxes.map(item => (
+      <Grid key={item.id} className={classes.item}>
+        <Checkbox
+          name={item.name}
+          checked={checkedItems[item.name]}
+          onChange={handleCheckedChange}
+        />
+      <FormHelperText>{item.label}</FormHelperText>
+      </Grid>
+      )) 
+      }
+      </Grid>
     </Grid>
     <Grid container spacing={4} >
       <Grid item xs={12}>

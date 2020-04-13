@@ -15,6 +15,7 @@ const landinPageStyle = (theme) => ({
   content: {
     marginTop: theme.spacing.unit * 4,
   },
+  
 });
 
 class LandingPage extends Component {
@@ -71,6 +72,8 @@ class LandingPage extends Component {
         </Grid>
       );
     }
+
+
 
     return (
       <div >
