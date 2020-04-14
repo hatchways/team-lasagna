@@ -90,6 +90,8 @@ function BookSitter({ profile, userProfile }) {
   });
   let values = getValues();
   const onSubmit = async (data) => {
+    setReqSuccess(false);
+    setResErr(false);
     const start = getDate(data.pickupDate, data.pickupTime);
     const end = getDate(data.dropoffDate, data.dropoffTime);
     const body = {
@@ -191,7 +193,7 @@ function BookSitter({ profile, userProfile }) {
                 {resErr && <Alert severity="error">{resErrMsg}</Alert>}
                 {reqSuccess && (
                   <Alert severity="success">
-                    Successfully submitted request
+                    Request has been successfully submitted
                   </Alert>
                 )}
               </div>
