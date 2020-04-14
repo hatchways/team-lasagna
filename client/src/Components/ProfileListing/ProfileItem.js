@@ -34,12 +34,12 @@ const useStyles = makeStyles((theme) => ({
     lineHeight: "2.5",
   },
 }));
- 
+
 export default function ProfileListring({ profile }) {
   const classes = useStyles();
 
   return (
-    <Grid item xs={4} className={classes.root}>
+    <Grid item xs={12} sm={4} className={classes.root}>
       <Card className={classes.card}>
         <Grid item xs={12} align="center">
           <Avatar

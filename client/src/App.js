@@ -11,23 +11,24 @@ import { authService } from "./services/auth.service";
 import "./App.css";
 
 function App() {
-  const [authed, setAuthed] = useState(false);
+  // const [authed, setAuthed] = useState(false);
 
-  useEffect(() => {
-    setAuthed(isLoggedIn());
-  }, []);
+  // useEffect(() => {
+  //   isLoggedIn();
+  // }, []);
 
   const isLoggedIn = () => {
     const jwt = JSON.parse(localStorage.getItem("jwt"));
-    console.log(jwt);
+    // console.log(jwt);
     if (jwt) {
       const decoded = jwtDecode(jwt.token);
       const currentTime = Date.now() / 1000;
-      console.log(new Date(decoded.exp * 1000).toString());
-      console.log(new Date(Date.now()));
+      // console.log(new Date(decoded.exp * 1000).toString());
+      // console.log(new Date(Date.now()));
       return currentTime < decoded.exp;
     }
     authService.logout();
+    // setAuthed(false);
     return false;
   };
 
@@ -45,7 +46,7 @@ function App() {
                     {...props}
                     pathName="payment"
                     showSideBar={false}
-                    isAuthed={authed}
+                    isAuthed={isLoggedIn}
                   />
                 ) : (
                   <Redirect to="/login" />
@@ -61,7 +62,7 @@ function App() {
                     {...props}
                     pathName="success"
                     showSideBar={false}
-                    isAuthed={authed}
+                    isAuthed={isLoggedIn}
                   />
                 ) : (
                   <Redirect to="/login" />
@@ -76,7 +77,7 @@ function App() {
                   {...props}
                   pathName="signup"
                   showSideBar={false}
-                  isAuthed={authed}
+                  isAuthed={isLoggedIn}
                 />
               )}
             />
@@ -88,7 +89,7 @@ function App() {
                   {...props}
                   pathName="login"
                   showSideBar={false}
-                  isAuthed={authed}
+                  isAuthed={isLoggedIn}
                 />
               )}
             />
@@ -101,7 +102,7 @@ function App() {
                     {...props}
                     pathName="editProfile"
                     showSideBar={true}
-                    isAuthed={authed}
+                    isAuthed={isLoggedIn}
                   />
                 ) : (
                   <Redirect to="/login" />
@@ -117,7 +118,7 @@ function App() {
                     {...props}
                     pathName="profilePhoto"
                     showSideBar={true}
-                    isAuthed={authed}
+                    isAuthed={isLoggedIn}
                   />
                 ) : (
                   <Redirect to="/login" />
@@ -133,7 +134,7 @@ function App() {
                     {...props}
                     pathName="availability"
                     showSideBar={true}
-                    isAuthed={authed}
+                    isAuthed={isLoggedIn}
                   />
                 ) : (
                   <Redirect to="/login" />
@@ -149,7 +150,7 @@ function App() {
                     {...props}
                     pathName="payment"
                     showSideBar={true}
-                    isAuthed={authed}
+                    isAuthed={isLoggedIn}
                   />
                 ) : (
                   <Redirect to="/login" />
@@ -165,7 +166,7 @@ function App() {
                     {...props}
                     pathName="security"
                     showSideBar={true}
-                    isAuthed={authed}
+                    isAuthed={isLoggedIn}
                   />
                 ) : (
                   <Redirect to="/login" />
@@ -181,7 +182,7 @@ function App() {
                     {...props}
                     pathName="settings"
                     showSideBar={true}
-                    isAuthed={authed}
+                    isAuthed={isLoggedIn}
                   />
                 ) : (
                   <Redirect to="/login" />
@@ -196,7 +197,7 @@ function App() {
                   {...props}
                   pathName="profile-listing"
                   showSideBar={false}
-                  isAuthed={authed}
+                  isAuthed={isLoggedIn}
                 />
               )}
             />
@@ -208,7 +209,7 @@ function App() {
                   {...props}
                   pathName="sitter-profile"
                   showSideBar={false}
-                  isAuthed={authed}
+                  isAuthed={isLoggedIn}
                 />
               )}
             />
@@ -220,7 +221,7 @@ function App() {
                   {...props}
                   pathName="profile-listing"
                   showSideBar={false}
-                  isAuthed={authed}
+                  isAuthed={isLoggedIn}
                 />
               )}
             />
@@ -229,7 +230,7 @@ function App() {
                 <LandingPage
                   pathName="notFound"
                   showSideBar={false}
-                  isAuthed={authed}
+                  isAuthed={isLoggedIn}
                 />
               )}
             />

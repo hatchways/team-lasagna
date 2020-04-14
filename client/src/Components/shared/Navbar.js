@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -14,6 +14,8 @@ import IconButton from "@material-ui/core/IconButton";
 import SearchIcon from "@material-ui/icons/Search";
 import Typography from "@material-ui/core/Typography";
 import { authService } from "../../services/auth.service";
+import jwtDecode from "jwt-decode";
+import axios from "axios";
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -39,17 +41,37 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Header(props) {
+export default function Header({ isAuthenticated }) {
   const classes = useStyles();
   let menuList = "";
-  const [profile, setProfile] = useState({});
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  // let profile = {};
+  const [profilePic, setProfilePic] = useState("");
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [authed, setAuthed] = useState(false);
+
   const open = Boolean(anchorEl);
 
-  const getProfile = () => {
-    setProfile(JSON.parse(localStorage.getItem("profile")));
+  const getProfilePic = async () => {
+    const parsed = JSON.parse(localStorage.getItem("jwt"));
+    if (parsed) {
+      const decoded = jwtDecode(parsed.token);
+      try {
+        const profile = await axios.get("/profile/user/" + decoded._id, {
+          headers: { Authorization: `Bearer ${parsed}` },
+        });
+        setProfilePic(profile.data.profilePic);
+      } catch (err) {
+        console.log(err);
+      }
+    }
   };
 
+  useEffect(() => {
+    setAuthed(isAuthenticated());
+    getProfilePic();
+  }, [isAuthenticated()]);
+
+  // dropdown events
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -57,16 +79,13 @@ export default function Header(props) {
   const handleClose = () => {
     setAnchorEl(null);
   };
-
-  useEffect(() => {
-    getProfile();
-  }, []);
+  // dropdown events END
 
   const logout = (e) => {
     authService.logout();
   };
 
-  if (props.isAuthenticated) {
+  if (authed) {
     menuList = (
       <React.Fragment>
         <Link href="#" className={classes.toolbarLink}>
@@ -75,11 +94,7 @@ export default function Header(props) {
         <Link href="#" className={classes.toolbarLink}>
           Messages
         </Link>
-        <Avatar
-          alt="Remy Sharp"
-          src={profile.profilePic}
-          onClick={handleClick}
-        />
+        <Avatar alt="Remy Sharp" src={profilePic} onClick={handleClick} />
         <Menu
           keepMounted
           open={open}
