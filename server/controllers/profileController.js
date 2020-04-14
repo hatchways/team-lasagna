@@ -50,7 +50,7 @@ module.exports.updateProfile = async (req, res, next) => {
     lastName,
     gender,
     birthDate,
-    hourlyRate,
+    hourlyRate, 
     phone,
     address: { address1, address2, city, province, zipCode, country } = {},
     availability,

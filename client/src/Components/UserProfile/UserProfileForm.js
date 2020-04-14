@@ -1,12 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
-import { Grid, FormControl, FormLabel,
-          InputLabel, Select, MenuItem, Button, FormHelperText, CardContent } from '@material-ui/core'
+import { Grid, FormControl, FormLabel, Checkbox,
+          InputLabel, Input, Select, InputAdornment, MenuItem, Button, FormHelperText, CardContent } from '@material-ui/core'
 import Typography from '@material-ui/core/Typography';
 import { KeyboardTimePicker, KeyboardDatePicker } from '@material-ui/pickers';
+import axios from "axios";
+//import { authService } from "../../services/auth.service";
 import TextFieldInput from './TextFieldInput'
-import Checkbox from './Checkbox'
+import AlternateCheckbox from './AlternateCheckbox'
+import { red } from "@material-ui/core/colors";
+import { Alert } from "@material-ui/lab";
+import './AlternateCheckbox.css'
  
 const useStyles = makeStyles((theme) => ({
   title: {
@@ -24,6 +29,9 @@ const useStyles = makeStyles((theme) => ({
   availableSpace: {
     marginBottom: '20px',
   },
+  margin: {
+    marginTop: '10px'
+  },
   item: {
     border: '1px solid #fff',
     fontSize: '30px',
@@ -39,11 +47,72 @@ const useStyles = makeStyles((theme) => ({
     boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
     marginTop: '8%',
   },
-
+  checkmark: {
+    position: 'absolute',
+    top: '0',
+    left: '0',
+    height: '25px',
+    width: '25px',
+    backgroundColor: '#eee'
+  }
 }));
 
 export default function UserProfile() {
   const classes = useStyles();
+  const [profile, setProfile] = useState({});
+  const [inputs, setInputs] = useState({})
+  const [available, setAvailable] = useState(true)
+  const [checkedItems, setCheckedItems] = useState('')
+  const [gender, setGender] = useState('')
+  const [selectedDate, setSelectedDate] = useState(new Date('2000-01-01T21:11:54'))
+  const [processing, setProcessing] = useState(false);
+  const [error, setError] = useState(false);
+  const [success, setSuccess] = useState(false);
+
+
+  const localProfile = JSON.parse(localStorage.getItem("profile"))
+  const myId = localProfile._id
+  const user = localProfile.user
+
+  useEffect(() => {
+    getProfile(myId);
+  }, []);
+
+  async function getProfile(id) {
+    try {
+      const fetchedProfile = await axios.get(
+        "http://localhost:3001/profile/" + id
+      );
+      console.log(fetchedProfile.data);
+      if (fetchedProfile.data) {
+        setProfile(fetchedProfile.data);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  async function updateProfile(id, updatedValues) {
+    setSuccess(false);
+    setError(false);
+    setProcessing(true);
+    try {
+      const updatedProfile = await axios.put(
+        "http://localhost:3001/profile/" + id, updatedValues
+      )
+      console.log( updatedProfile);
+      if (updatedProfile.data) {
+        setProfile(updatedProfile.data);
+      }
+      setProcessing(false);
+      setSuccess(true);
+    } catch (err) {
+      setSuccess(false);
+      setProcessing(false);
+      setError(true);
+      console.log(err)
+    }
+  }
 
   const checkboxes = [
     {id: 1, label: 'Sundays', name: 'sundays'},
@@ -54,25 +123,9 @@ export default function UserProfile() {
     {id: 6, label: 'Fridays', name: 'fridays'},
     {id: 7, label: 'Saturdays', name: 'saturdays'}
   ]
-  const [available, setAvailable] = useState(true)
-  const [checkedItems, setCheckedItems] = useState({})
-  const [firstName, setFirstName] = useState('')
-  const [lastName, setLastName] = useState('')
-  const [gender, setGender] = useState('')
-  const [selectedDate, setSelectedDate] = useState(new Date('2000-01-01T21:11:54'))
-  const [emailAddress, setEmailAddress] = useState('')
-  const [phoneNumber, setPhoneNumber] = useState('')
-  const [addressOne, setAddressOne] = useState('')
-  const [addressTwo, setAddressTwo] = useState('')
-  const [city, setCity] = useState('')
-  const [province, setProvince] = useState('')
-  const [zipCode, setZipCode] = useState('')
-  const [country, setCountry] = useState('')
-  const [aboutme, setAboutMe] = useState('Tell Us about yourself')
 
   const handleAvailableChange = (event) => {
-    const oldAvailable = available
-    setAvailable(!oldAvailable)
+    setAvailable(event.target.checked)
   }
 
   const handleCheckedChange = (event) => {
@@ -81,7 +134,14 @@ export default function UserProfile() {
       [event.target.name]: event.target.checked
     });
     //console.log("checkedItems: ", checkedItems);
-	}
+  }
+
+  const handleInputChange = (event) => {
+    setInputs({
+      ...inputs,
+      [event.target.name]: event.target.value
+    })
+  }
 
   const handleDateChange = (date) => {
     setSelectedDate(date);
@@ -91,54 +151,52 @@ export default function UserProfile() {
     setGender(event.target.value);
   };
 
-  // async function getProfile() {
-  //   try {
-  //     const fetchedProfile = await axios.get("http://localhost:3001/profile/user/");
-  //     // console.log(fetchedProfile);
-  //     if (fetchedProfile.data) {
-  //       setProfile(fetchedProfile.data);
-  //     }
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // }
-
   const handleSubmitForm = (event) => {
     event.preventDefault()
     const userProfile = {
       available,
-      checkedItems,
-      firstName,
-      lastName,
+      availability: checkedItems,
       gender,
-      dateOfBirth: selectedDate,
-      email: emailAddress,
-      phoneNumber,
+      firstName: inputs.firstName,
+      lastName: inputs.lastName,
+      hourlyRate: inputs.hourlyRate,
+      birthDate: selectedDate,
+      phone: inputs.phone,
       address: {
-        addressOne,
-        addressTwo,
-        city,
-        province,
-        zipCode,
-        country
+        address1: inputs.address1,
+        address2: inputs.address2,
+        city: inputs.city,
+        province: inputs.province,
+        zipCode: inputs.zipCode,
+        country: inputs.country
       },
-      aboutme
+      about: inputs.about,
+      user
     }
-    console.log(userProfile)
+    updateProfile(myId, userProfile)
   }
 
   return (
     <form onSubmit={handleSubmitForm}>
+    <Grid item xs={12} align="center">
+      {processing && <Alert severity="info">Loading...</Alert>}
+      {error && <Alert severity="error">Error! Please try again...</Alert>}
+      {success && (
+        <Alert severity="success">
+          User Profile successfully updated!
+        </Alert>
+      )}
+    </Grid>
     <Grid item xs={12}>
       <Grid container justify="flex-start" className={classes.availableSpace}>
       <div className={classes.availableSpace}>
         <FormLabel>Available:</FormLabel>
-      </div>
         <Checkbox
           name="available"
           checked={available}
           onChange={handleAvailableChange}
         />
+        </div>
       </Grid>
     </Grid>
     <Grid item xs={12}>
@@ -148,7 +206,8 @@ export default function UserProfile() {
       <Grid container justify="space-evenly" className={classes.availableSpace}>
         { checkboxes.map(item => (
       <Grid key={item.id} className={classes.item}>
-        <Checkbox
+        <AlternateCheckbox
+          className={classes.checkmark}
           name={item.name}
           checked={checkedItems[item.name]}
           onChange={handleCheckedChange}
@@ -159,20 +218,27 @@ export default function UserProfile() {
       }
       </Grid>
     </Grid>
+    <Grid item xs={12}>
+      <Grid container justify="flex-start" className={classes.availableSpace}>
+      <FormControl fullWidth className={classes.margin}>
+        <FormLabel>Hourly Rate:</FormLabel>
+        <Input
+          id="standard-adornment-amount"
+          value={inputs.hourlyRate}
+          name="hourlyRate"
+          onChange={handleInputChange}
+          startAdornment={<InputAdornment position="start">$</InputAdornment>}
+        />
+      </FormControl>
+      </Grid>
+    </Grid>
+
     <Grid container spacing={4} >
       <Grid item xs={12}>
-        <TextFieldInput id="firstName" name="firstName" label="First name" value={firstName}
-          onChange={event => {
-            setFirstName(event.target.value)
-          }}
-        />
+        <TextFieldInput id="firstName" name="firstName" label="First name"  defaultValue={inputs.firstName} onChange={handleInputChange}/>
       </Grid>
       <Grid item xs={12}>
-      <TextFieldInput id="lastName" name="lastName" label="Last name" value={lastName}
-        onChange={event => {
-          setLastName(event.target.value)
-        }}
-      />
+      <TextFieldInput id="lastName" name="lastName" label="Last name" defaultValue={inputs.lastName} onChange={handleInputChange}/>
       </Grid>
       <Grid item xs={12}>
         <FormControl variant="outlined" className={classes.formControl}>
@@ -180,6 +246,7 @@ export default function UserProfile() {
         <Select
           id="demo-simple-select-outlined"
           value={gender}
+          name="gender"
           onChange={handleGenderChange}
           label="Gender"
         >
@@ -196,6 +263,7 @@ export default function UserProfile() {
           label="Birth Date"
           format="MM/dd/yyyy"
           value={selectedDate}
+          name="birthDate"
           onChange={handleDateChange}
           KeyboardButtonProps={{
             'aria-label': 'change date',
@@ -203,68 +271,28 @@ export default function UserProfile() {
         />
       </Grid>
       <Grid item xs={12}>
-        <TextFieldInput id="email" name="email" label="Email Address" value={emailAddress}
-          onChange={event => {
-            setEmailAddress(event.target.value)
-          }}
-        />
+        <TextFieldInput id="phone" name="phone" label="Phone Number" value={inputs.phone} onChange={handleInputChange}/>
       </Grid>
       <Grid item xs={12}>
-        <TextFieldInput id="phoneNumber" name="phoneNumber" label="Phone Number" value={phoneNumber}
-          onChange={event => {
-            setPhoneNumber(event.target.value)
-          }}
-        />
+        <TextFieldInput id="address1" name="address1" label="Address line 1" value={inputs.address1} onChange={handleInputChange}/>
       </Grid>
       <Grid item xs={12}>
-        <TextFieldInput id="address1" name="address1" label="Address line 1" value={addressOne}
-          onChange={event => {
-            setAddressOne(event.target.value)
-          }}
-        />
+        <TextFieldInput id="address2" name="address2" label="Address line 2" value={inputs.address2} onChange={handleInputChange}/>
+      </Grid>
+      <Grid item xs={12} sm={6}>
+        <TextFieldInput id="city" name="city" label="City" value={inputs.city} onChange={handleInputChange}/>
+      </Grid>
+      <Grid item xs={12} sm={6}>
+        <TextFieldInput id="state" name="province" label="State/Province/Region" value={inputs.province} onChange={handleInputChange}/>
+      </Grid>
+      <Grid item xs={12} sm={6}>
+        <TextFieldInput id="zip" name="zipCode" label="Zip / Postal code" value={inputs.zipCode} onChange={handleInputChange}/>
+      </Grid>
+      <Grid item xs={12} sm={6}>
+        <TextFieldInput id="country" name="country" label="Country" value={inputs.country} onChange={handleInputChange}/>
       </Grid>
       <Grid item xs={12}>
-        <TextFieldInput id="address2" name="address2" label="Address line 2" value={addressTwo}
-          onChange={event => {
-            setAddressTwo(event.target.value)
-          }}
-        />
-      </Grid>
-      <Grid item xs={12} sm={6}>
-        <TextFieldInput id="city" name="city" label="City" value={city}
-          onChange={event => {
-            setCity(event.target.value)
-          }}
-        />
-      </Grid>
-      <Grid item xs={12} sm={6}>
-        <TextFieldInput id="state" name="state" label="State/Province/Region" value={province}
-          onChange={event => {
-            setProvince(event.target.value)
-          }}
-        />
-      </Grid>
-      <Grid item xs={12} sm={6}>
-        <TextFieldInput id="zip" name="zip" label="Zip / Postal code" value={zipCode}
-          onChange={event => {
-            setZipCode(event.target.value)
-          }}
-        />
-      </Grid>
-      <Grid item xs={12} sm={6}>
-        <TextFieldInput id="country" name="country" label="Country" value={country}
-          onChange={event => {
-            setCountry(event.target.value)
-          }}
-        />
-      </Grid>
-      <Grid item xs={12}>
-      <TextFieldInput id="aboutme" label="Tell us about yourself" rows="4" variant="outlined" 
-        value={aboutme}
-        onChange={event => {
-          setAboutMe(event.target.value)
-        }}
-      />
+      <TextFieldInput id="about" name="about" label="Tell us about yourself" rows="4" variant="outlined" onChange={handleInputChange}value={inputs.about}/>
       </Grid>
       </Grid>
       <CardContent>

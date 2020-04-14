@@ -18,11 +18,11 @@ const validate = [
       return (value.length === 10 && value.match(/^\d{10}$/)) || value === "";
     })
     .withMessage("Must have 10 digits"),
-  check("availability")
-    .optional()
-    .if((value, { req }) => req.body.availability)
-    .isArray({ min: 7, max: 7 })
-    .withMessage("Invalid availability")
+  // check("availability")
+  //   .optional()
+  //   .if((value, { req }) => req.body.availability)
+  //   .isArray({ min: 7, max: 7 })
+  //   .withMessage("Invalid availability")
 ];
 
 module.exports = validate;
