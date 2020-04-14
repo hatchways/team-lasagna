@@ -1,15 +1,17 @@
-import React from "react";
 import "date-fns";
-import { TextField, Button, Paper } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
+import React, { useState } from "react";
+import axios from "axios";
+import { useForm } from "react-hook-form";
+import { Paper } from "@material-ui/core";
+import { Alert } from "@material-ui/lab";
 import DateFnsUtils from "@date-io/date-fns";
+import Button from "@material-ui/core/Button";
+import { makeStyles } from "@material-ui/core/styles";
 import {
+  MuiPickersUtilsProvider,
   KeyboardTimePicker,
   KeyboardDatePicker,
-  MuiPickersUtilsProvider,
 } from "@material-ui/pickers";
-import { RHFInput } from "react-hook-form-input";
-import { useForm } from "react-hook-form";
 import "./BookSitter.css";
 // The first commit of Material-UI
 const useStyles = makeStyles({
@@ -27,36 +29,84 @@ const useStyles = makeStyles({
     height: "45px",
   },
 });
-const defaultValues = {
-  pickupDate: null,
-  pickupTime: null,
-};
-function BookSitter() {
-  const classes = useStyles();
-  const date = new Date().getDate() + 1;
-  const month = new Date().getMonth() + 1;
-  const year = new Date().getFullYear();
-  const formattedDate = ("0" + date).slice(-2);
-  const formattedMonth = ("0" + month).slice(-2);
-  const fullDate = year + "-" + formattedMonth + "-" + formattedDate;
-  const [selectedDate, setSelectedDate] = React.useState(fullDate);
+function required(displayName) {
+  return function validateRequired(value) {
+    return value || `${displayName} is required.`;
+  };
+}
+function useOnMount(handler) {
+  return React.useEffect(handler, []);
+}
 
-  const { errors, getValues, handleSubmit, register, setValue } = useForm({
-    defaultValues,
-  });
+function BookSitter({ profile, userProfile }) {
+  const classes = useStyles();
+  const { errors, getValues, handleSubmit, register, setValue } = useForm();
+  const [resErr, setResErr] = useState(false);
+  const [reqSuccess, setReqSuccess] = useState(false);
+  const [resErrMsg, setResErrMsg] = useState("");
   const handleDateChange = (date) => {
-    setSelectedDate(date);
     setValue("pickupDate", date);
+    values = getValues();
   };
   const handleTimeChange = (date) => {
-    console.log(values);
     setValue("pickupTime", date);
+    values = getValues();
   };
+  const handleDropoffDateChange = (date) => {
+    setValue("dropoffDate", date);
+    values = getValues();
+  };
+  const handleDropoffTimeChange = (date) => {
+    setValue("dropoffTime", date);
+    values = getValues();
+  };
+  const getDate = (date, time) => {
+    const full = new Date();
+    full.setDate(date.getDate());
+    full.setFullYear(date.getFullYear());
+    full.setMonth(date.getMonth());
+    full.setHours(time.getHours());
+    full.setMinutes(time.getMinutes());
+    return full;
+  };
+  useOnMount(() => {
+    register(
+      { name: "pickupDate", type: "text" },
+      { validate: required("pickup date") }
+    );
+    register(
+      { name: "pickupTime", type: "text" },
+      { validate: required("pickup time") }
+    );
+    register(
+      { name: "dropoffDate", type: "text" },
+      { validate: required("drop-off date") }
+    );
+    register(
+      { name: "dropoffTime", type: "text" },
+      { validate: required("drop-off time") }
+    );
+  });
+  let values = getValues();
   const onSubmit = async (data) => {
-    console.log(data);
+    const start = getDate(data.pickupDate, data.pickupTime);
+    const end = getDate(data.dropoffDate, data.dropoffTime);
+    const body = {
+      userId: userProfile.user,
+      sitterId: profile.user,
+      start: start,
+      end: end,
+      accepted: false,
+      declined: false,
+    };
+    const res = await axios.post("/request", body);
+    if (res.status === 200) {
+      setReqSuccess(true);
+    } else {
+      setResErr(true);
+      setResErrMsg(res.msg);
+    }
   };
-  const values = getValues();
-
   return (
     <div class="booking-container">
       <Paper className={classes.bookSitterPaper}>
@@ -64,27 +114,27 @@ function BookSitter() {
         <div className="date">
           <form class="book-sitter-form" onSubmit={handleSubmit(onSubmit)}>
             <MuiPickersUtilsProvider utils={DateFnsUtils}>
-              <RHFInput
-                as={<KeyboardDatePicker />}
+              <KeyboardDatePicker
                 disableToolbar
+                name="pickupDate"
                 variant="inline"
                 format="MM/dd/yyyy"
-                name="pickupDate"
                 margin="normal"
-                id="pickupDate"
+                id="date-picker-inline"
                 label="Pickup"
-                value={selectedDate}
+                value={values.pickupDate}
                 onChange={handleDateChange}
                 className={classes.picker}
                 KeyboardButtonProps={{
                   "aria-label": "change date",
                 }}
+                error={errors.hasOwnProperty("pickupDate")}
+                helperText={errors.pickupDate && errors.pickupDate.message}
               />
-              <RHFInput
-                as={<KeyboardDatePicker />}
+              <KeyboardTimePicker
                 margin="normal"
-                id="pickupTime"
                 name="pickupTime"
+                id="time-picker"
                 label=" "
                 variant="inline"
                 value={values.pickupTime}
@@ -93,6 +143,40 @@ function BookSitter() {
                 KeyboardButtonProps={{
                   "aria-label": "change time",
                 }}
+                error={errors.hasOwnProperty("pickupTime")}
+                helperText={errors.pickupTime && errors.pickupTime.message}
+              />
+              <KeyboardDatePicker
+                disableToolbar
+                name="dropoffDate"
+                variant="inline"
+                format="MM/dd/yyyy"
+                margin="normal"
+                id="date-picker-inline"
+                label="Drop-off"
+                value={values.dropoffDate}
+                onChange={handleDropoffDateChange}
+                className={classes.picker}
+                KeyboardButtonProps={{
+                  "aria-label": "change date",
+                }}
+                error={errors.hasOwnProperty("dropoffDate")}
+                helperText={errors.dropoffDate && errors.dropoffDate.message}
+              />
+              <KeyboardTimePicker
+                margin="normal"
+                name="dropoffTime"
+                id="time-picker"
+                label=" "
+                variant="inline"
+                value={values.dropoffTime}
+                onChange={handleDropoffTimeChange}
+                className={classes.picker}
+                KeyboardButtonProps={{
+                  "aria-label": "change time",
+                }}
+                error={errors.hasOwnProperty("dropoffTime")}
+                helperText={errors.dropoffTime && errors.dropoffTime.message}
               />
 
               <div className="button">
@@ -103,6 +187,12 @@ function BookSitter() {
                 >
                   SEND REQUEST
                 </Button>
+                {resErr && <Alert severity="error">{resErrMsg}</Alert>}
+                {reqSuccess && (
+                  <Alert severity="success">
+                    Successfully submitted request
+                  </Alert>
+                )}
               </div>
             </MuiPickersUtilsProvider>
           </form>

@@ -8,7 +8,7 @@ function SitterProfile(props) {
   const [profile, setProfile] = useState({});
   const [initialized, setInitialized] = useState(false);
   const sitterProfileId = props.profileId;
-
+  const userProfile = authService.currentUserProfileValue;
   async function getProfile(profileId) {
     axios.get(`/profile/${profileId}`, authService.authHeader()).then((res) => {
       setProfile(res.data);
@@ -24,7 +24,7 @@ function SitterProfile(props) {
   return (
     <div class="flex-container-sitter">
       {initialized && <AboutMeProfile profile={profile} />}
-      <BookSitter />
+      <BookSitter profile={profile} userProfile={userProfile} />
     </div>
   );
 }
