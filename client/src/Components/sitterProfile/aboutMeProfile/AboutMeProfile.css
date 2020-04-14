@@ -25,7 +25,7 @@
 }
 .about-me {
   grid-area: a;
-  padding-bottom: 20px;
+  padding-bottom: 45px;
 }
 .profile-picture {
   grid-area: p;

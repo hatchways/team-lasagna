@@ -27,6 +27,7 @@ const useStyles = makeStyles({
     color: "white",
     width: "140px",
     height: "45px",
+    margin: "15px",
   },
 });
 function required(displayName) {
