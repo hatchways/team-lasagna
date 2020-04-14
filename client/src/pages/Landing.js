@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { withStyles, CssBaseline, Grid } from "@material-ui/core";
 
 import Navbar from "../Components/shared/Navbar";
