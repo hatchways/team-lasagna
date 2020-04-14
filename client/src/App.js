@@ -3,35 +3,13 @@ import { MuiPickersUtilsProvider } from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
 import { MuiThemeProvider } from "@material-ui/core";
 import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
-import jwtDecode from "jwt-decode";
 import { theme } from "./themes/theme";
 import LandingPage from "./pages/Landing";
-import { authService } from "./services/auth.service";
+import { isLoggedIn } from "./utils/checkToken";
 
 import "./App.css";
 
 function App() {
-  // const [authed, setAuthed] = useState(false);
-
-  // useEffect(() => {
-  //   isLoggedIn();
-  // }, []);
-
-  const isLoggedIn = () => {
-    const jwt = JSON.parse(localStorage.getItem("jwt"));
-    // console.log(jwt);
-    if (jwt) {
-      const decoded = jwtDecode(jwt.token);
-      const currentTime = Date.now() / 1000;
-      // console.log(new Date(decoded.exp * 1000).toString());
-      // console.log(new Date(Date.now()));
-      return currentTime < decoded.exp;
-    }
-    authService.logout();
-    // setAuthed(false);
-    return false;
-  };
-
   return (
     <MuiThemeProvider theme={theme}>
       <MuiPickersUtilsProvider utils={DateFnsUtils}>
