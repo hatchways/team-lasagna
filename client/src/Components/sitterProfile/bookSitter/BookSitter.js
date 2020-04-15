@@ -35,9 +35,6 @@ function required(displayName) {
     return value || `${displayName} is required.`;
   };
 }
-function useOnMount(handler) {
-  return React.useEffect(handler, []);
-}
 
 function BookSitter({ profile, userProfile }) {
   const classes = useStyles();
@@ -45,21 +42,10 @@ function BookSitter({ profile, userProfile }) {
   const [resErr, setResErr] = useState(false);
   const [reqSuccess, setReqSuccess] = useState(false);
   const [resErrMsg, setResErrMsg] = useState("");
-  const handleDateChange = (date) => {
-    setValue("pickupDate", date);
+  const handleChange = (type) => (date) => {
+    setValue(type, date);
     values = getValues();
-  };
-  const handleTimeChange = (date) => {
-    setValue("pickupTime", date);
-    values = getValues();
-  };
-  const handleDropoffDateChange = (date) => {
-    setValue("dropoffDate", date);
-    values = getValues();
-  };
-  const handleDropoffTimeChange = (date) => {
-    setValue("dropoffTime", date);
-    values = getValues();
+    console.log(values);
   };
   const getDate = (date, time) => {
     const full = new Date();
@@ -70,7 +56,7 @@ function BookSitter({ profile, userProfile }) {
     full.setMinutes(time.getMinutes());
     return full;
   };
-  useOnMount(() => {
+  useEffect(() => {
     register(
       { name: "pickupDate", type: "text" },
       { validate: required("pickup date") }
@@ -126,7 +112,7 @@ function BookSitter({ profile, userProfile }) {
                 id="date-picker-inline"
                 label="Pickup"
                 value={values.pickupDate}
-                onChange={handleDateChange}
+                onChange={handleChange("pickupDate")}
                 className={classes.picker}
                 KeyboardButtonProps={{
                   "aria-label": "change date",
@@ -141,7 +127,7 @@ function BookSitter({ profile, userProfile }) {
                 label=" "
                 variant="inline"
                 value={values.pickupTime}
-                onChange={handleTimeChange}
+                onChange={handleChange("pickupTime")}
                 className={classes.picker}
                 KeyboardButtonProps={{
                   "aria-label": "change time",
@@ -158,7 +144,7 @@ function BookSitter({ profile, userProfile }) {
                 id="date-picker-inline"
                 label="Drop-off"
                 value={values.dropoffDate}
-                onChange={handleDropoffDateChange}
+                onChange={handleChange("dropoffDate")}
                 className={classes.picker}
                 KeyboardButtonProps={{
                   "aria-label": "change date",
@@ -173,7 +159,7 @@ function BookSitter({ profile, userProfile }) {
                 label=" "
                 variant="inline"
                 value={values.dropoffTime}
-                onChange={handleDropoffTimeChange}
+                onChange={handleChange("dropoffTime")}
                 className={classes.picker}
                 KeyboardButtonProps={{
                   "aria-label": "change time",
