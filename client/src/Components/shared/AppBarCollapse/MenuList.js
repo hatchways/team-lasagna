@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const MenuList = (props) => {
+const MenuList = ({ isAuthenticated }) => {
   // let profile = {};
   const classes = useStyles();
   const [profilePic, setProfilePic] = useState("");
@@ -57,9 +57,9 @@ const MenuList = (props) => {
   };
 
   useEffect(() => {
-    setAuthed(props.isAuthenticated());
+    setAuthed(isAuthenticated());
     getProfilePic();
-  }, [props.isAuthenticated()]);
+  }, [isAuthenticated()]);
 
   // dropdown events
   const handleClick = (event) => {

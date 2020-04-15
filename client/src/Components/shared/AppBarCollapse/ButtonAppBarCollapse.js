@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ButtonAppBarCollapse = (props) => {
+const ButtonAppBarCollapse = ({ children }) => {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
 
@@ -46,7 +46,7 @@ const ButtonAppBarCollapse = (props) => {
         open={open}
         onClose={handleClose}
       >
-        {props.children}
+        {children}
       </Menu>
     </div>
   );
