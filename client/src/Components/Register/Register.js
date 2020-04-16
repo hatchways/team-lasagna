@@ -1,41 +1,43 @@
 import React from "react";
-import "./Register.css";
+//import "./Register.css";
 import RegisterForm from "./RegisterForm/RegisterForm";
 import { Paper, makeStyles } from "@material-ui/core";
 const useStyles = makeStyles({
 link: {
   color: "#f04040",
-}
+},
 paperGrid :{
-  display: grid,
-  gridTemplateColumns: '1fr 4fr 1fr',
-  gridTemplateAreas: ". p .",
-}
+  display: 'flex',
+  textAlign:"center"
+},
 MuiPaper :{
-  grid-area: p;
-}
+  display: 'inline-block',
+  textAlign:"center",
+  
+},
 gridContainer: {
+  maxWidth:'600px',
   display: 'grid',
   gridTemplateColumns: '1fr 1fr 1fr 2fr 1fr 1fr 1fr',
   gridTemplateAreas:
     `'. . . h . . .'
     '. . r r r . .'
     '. . . s . . .'`,
-}
-form {
-  grid-area: r,
-}
+},
+form: {
+  gridArea: 'r',
+},
 
-heading {
-  padding-top: 1em,
-  grid-area: h,
-  text-align: center,
-}
-.login-link {
-  grid-area: s,
-  text-align: center,
-  margin: 1em,
-  padding-bottom: 3em,
+heading: {
+  paddingTop: '1em',
+  gridArea: 'h',
+  textAlign: 'center',
+},
+loginLink: {
+  gridArea: 's',
+  textAlign: 'center',
+  margin: '1em',
+  paddingBottom: '3em',
 }
 
 })
