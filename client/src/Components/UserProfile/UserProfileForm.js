@@ -55,20 +55,32 @@ const useStyles = makeStyles((theme) => ({
     width: '25px',
     backgroundColor: '#eee'
   }
-}));
+}))
 
 export default function UserProfile() {
   const classes = useStyles();
   const [profile, setProfile] = useState({});
-  const [inputs, setInputs] = useState({})
-  const [available, setAvailable] = useState(true)
+  const [available, setAvailable] = useState(false)
   const [checkedItems, setCheckedItems] = useState('')
   const [gender, setGender] = useState('')
   const [selectedDate, setSelectedDate] = useState(new Date('2000-01-01T21:11:54'))
   const [processing, setProcessing] = useState(false);
   const [error, setError] = useState(false);
   const [success, setSuccess] = useState(false);
-
+  const [inputs, setInputs] = useState({
+    firstName: "",
+    lastName: "",
+    hourlyRate: "",
+    birthDate: selectedDate,
+    phone: "",
+    address1: "",
+    address2: "",
+    city: "",
+    province: "",
+    zipCode: "",
+    country: "",
+    about: "",
+  })
 
   const localProfile = JSON.parse(localStorage.getItem("profile"))
   const myId = localProfile._id
@@ -86,6 +98,23 @@ export default function UserProfile() {
       console.log(fetchedProfile.data);
       if (fetchedProfile.data) {
         setProfile(fetchedProfile.data);
+        setInputs({
+          firstName: fetchedProfile.data.firstName,
+          lastName: fetchedProfile.data.lastName,
+          hourlyRate: fetchedProfile.data.hourlyRate,
+          birthDate: fetchedProfile.data.birthDate,
+          phone: fetchedProfile.data.phone,
+          address1: fetchedProfile.data.address.address1,
+          address2: fetchedProfile.data.address.address2,
+          city: fetchedProfile.data.address.city,
+          province: fetchedProfile.data.address.province,
+          zipCode: fetchedProfile.data.address.zipCode,
+          country: fetchedProfile.data.address.country,
+          about: fetchedProfile.data.about,
+        });
+        setAvailable(fetchedProfile.data.available)
+        setCheckedItems(fetchedProfile.data.availability)
+        setGender(fetchedProfile.data.gender)
       }
     } catch (err) {
       console.log(err);
@@ -100,7 +129,7 @@ export default function UserProfile() {
       const updatedProfile = await axios.put(
         "http://localhost:3001/profile/" + id, updatedValues
       )
-      console.log( updatedProfile);
+      console.log(updatedProfile);
       if (updatedProfile.data) {
         setProfile(updatedProfile.data);
       }
@@ -173,6 +202,7 @@ export default function UserProfile() {
       about: inputs.about,
       user
     }
+    console.log(userProfile);
     updateProfile(myId, userProfile)
   }
 
@@ -232,13 +262,13 @@ export default function UserProfile() {
       </FormControl>
       </Grid>
     </Grid>
-
+​
     <Grid container spacing={4} >
       <Grid item xs={12}>
-        <TextFieldInput id="firstName" name="firstName" label="First name"  defaultValue={inputs.firstName} onChange={handleInputChange}/>
+        <TextFieldInput id="firstName" name="firstName" label="First name"  value={inputs.firstName} onChange={handleInputChange}/>
       </Grid>
       <Grid item xs={12}>
-      <TextFieldInput id="lastName" name="lastName" label="Last name" defaultValue={inputs.lastName} onChange={handleInputChange}/>
+      <TextFieldInput id="lastName" name="lastName" label="Last name" value={inputs.lastName} onChange={handleInputChange}/>
       </Grid>
       <Grid item xs={12}>
         <FormControl variant="outlined" className={classes.formControl}>

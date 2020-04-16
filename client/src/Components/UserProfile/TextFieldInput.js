@@ -28,6 +28,7 @@ export default function TextFieldInput(props) {
         bigTextArea = (
         <TextField
           //ref={ref}
+          multiline
           required
           id={props.id}
           name={props.name}
