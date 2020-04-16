@@ -25,6 +25,10 @@ router.put("/completeBooking/:id", requestController.completeRequest);
 // Past bookings: Approved requested, completed and in the past. pass sitterId
 router.get("/completedPastBookings/:sitterId", requestController.getCompletedRequests);
 
+// User automatically pay for the service rendered by the sitter, request id is passed as param
 router.post("/:id/pay", requestController.payRequest)
+
+// The sitter is paid for the service they have rendered in the last two weeks, sitterId is passed as param.
+
  
 module.exports = router;
