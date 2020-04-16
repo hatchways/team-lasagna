@@ -6,6 +6,7 @@ import { Paper } from "@material-ui/core";
 import { Alert } from "@material-ui/lab";
 import DateFnsUtils from "@date-io/date-fns";
 import Button from "@material-ui/core/Button";
+import Rating from "@material-ui/lab/Rating";
 import { makeStyles } from "@material-ui/core/styles";
 import {
   MuiPickersUtilsProvider,
@@ -29,6 +30,12 @@ const useStyles = makeStyles({
     height: "45px",
     margin: "15px",
   },
+  hrRate: {
+    fontSize: "20px",
+  },
+  rating: {
+    margin: "15px",
+  },
 });
 function required(displayName) {
   return function validateRequired(value) {
@@ -49,12 +56,14 @@ function BookSitter({ profile, userProfile }) {
   const [reqSuccess, setReqSuccess] = useState(false);
   const [resErrMsg, setResErrMsg] = useState("");
   const handleChange = (type) => (date) => {
-    //setValue(type, date);
-    //values = getValues();
-    const newDate = dates;
-    newDate[type] = date;
-    setDates(newDate);
-    console.log(dates);
+    setValue(type, date);
+    values = getValues();
+    setDates((prevState) => {
+      return {
+        ...prevState,
+        [type]: date,
+      };
+    });
   };
   const getDate = (date, time) => {
     const full = new Date();
@@ -109,6 +118,14 @@ function BookSitter({ profile, userProfile }) {
     <div class="booking-container">
       <Paper className={classes.bookSitterPaper}>
         <h2 class="avail">Available</h2>
+        <b className={classes.hrRate}>$14/hr</b>
+        <br></br>
+        <Rating
+          className={classes.rating}
+          name="read-only"
+          value={4}
+          readOnly
+        />
         <div className="date">
           <form class="book-sitter-form" onSubmit={handleSubmit(onSubmit)}>
             <MuiPickersUtilsProvider utils={DateFnsUtils}>
