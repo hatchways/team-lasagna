@@ -12,8 +12,7 @@ import {
   KeyboardTimePicker,
   KeyboardDatePicker,
 } from "@material-ui/pickers";
-import "./BookSitter.css";
-// The first commit of Material-UI
+
 const useStyles = makeStyles({
   bookSitterPaper: {
     maxWidth: "400px",
@@ -29,6 +28,40 @@ const useStyles = makeStyles({
     height: "45px",
     margin: "15px",
   },
+<<<<<<< Updated upstream
+=======
+  hrRate: {
+    fontSize: "20px",
+  },
+  rating: {
+    margin: "15px",
+  },
+  bookSitterForm: {
+    paddingLeft: "15px",
+    paddingBottom: "30px",
+    paddingTop: "25px",
+    gridArea: "f",
+    textAlign: "center",
+  },
+  bookingContainer: {
+    marginLeft: "55px",
+  },
+  date: {
+    display: "grid",
+    gridTemplateAreas: ". f .",
+    gridTemplateColumns: "1fr 10fr 1fr",
+  },
+  button: {
+    paddingTop: "15px",
+  },
+  avail: {
+    backgroundColor: "tomato",
+    padding: "15px",
+    marginTop: "0px",
+    color: "white",
+    borderRadius: "4px",
+  },
+>>>>>>> Stashed changes
 });
 function required(displayName) {
   return function validateRequired(value) {
@@ -81,8 +114,8 @@ function BookSitter({ profile, userProfile }) {
     const start = getDate(data.pickupDate, data.pickupTime);
     const end = getDate(data.dropoffDate, data.dropoffTime);
     const body = {
-      userId: userProfile.user,
-      sitterId: profile.user,
+      userId: profile.user,
+      sitterId: userProfile.user,
       start: start,
       end: end,
       accepted: false,
@@ -97,11 +130,28 @@ function BookSitter({ profile, userProfile }) {
     }
   };
   return (
-    <div class="booking-container">
+    <div className={classes.bookingContainer}>
       <Paper className={classes.bookSitterPaper}>
+<<<<<<< Updated upstream
         <h2 class="avail">Available</h2>
         <div className="date">
           <form class="book-sitter-form" onSubmit={handleSubmit(onSubmit)}>
+=======
+        <h2 className={classes.avail}>Available</h2>
+        <b className={classes.hrRate}>$14/hr</b>
+        <br></br>
+        <Rating
+          className={classes.rating}
+          name="read-only"
+          value={4}
+          readOnly
+        />
+        <div className={classes.date}>
+          <form
+            className={classes.bookSitterForm}
+            onSubmit={handleSubmit(onSubmit)}
+          >
+>>>>>>> Stashed changes
             <MuiPickersUtilsProvider utils={DateFnsUtils}>
               <KeyboardDatePicker
                 disableToolbar
@@ -168,7 +218,7 @@ function BookSitter({ profile, userProfile }) {
                 helperText={errors.dropoffTime && errors.dropoffTime.message}
               />
 
-              <div className="button">
+              <div className={classes.button}>
                 <Button
                   variant="contained"
                   className={classes.bookButton}
