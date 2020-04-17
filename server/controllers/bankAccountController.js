@@ -1,6 +1,7 @@
 const secretKey = process.env.STRIPE_SECRET_KEY;
 const stripe = require("stripe")(secretKey);
 const Profile = require("../models/Profile");
+let saved_state;
 
 module.exports.addBankAccount = async (req, res) => {
   const { code, state, profile_id } = req.body;
@@ -52,8 +53,9 @@ module.exports.addBankAccount = async (req, res) => {
 
 module.exports.getBankAccount = async (req, res) => {
   const id = req.params.id;
+  saved_state = Math.random().toString(36).slice(2);
   try {
-    const profile = await Profile.findById(req.params.userId);
+    const profile = await Profile.findById(id);
     if (!profile) {
       return res.status(404).json({ msg: "Profile not found" });
     }
@@ -63,7 +65,9 @@ module.exports.getBankAccount = async (req, res) => {
     }
 
     // return data
-    return res.status(200).json({ success: true, account: response });
+    return res
+      .status(200)
+      .json({ success: true, account: response, state: saved_state });
   } catch (err) {
     if (err.type === "StripeInvalidGrantError") {
       return res
@@ -73,4 +77,10 @@ module.exports.getBankAccount = async (req, res) => {
       return res.status(500).json({ error: "An unknown error occurred." });
     }
   }
+};
+
+const stateMatches = (state_parameter) => {
+  // Load the same state value that you randomly generated for your OAuth link.
+
+  return saved_state == state_parameter;
 };
