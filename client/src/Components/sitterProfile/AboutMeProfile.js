@@ -1,6 +1,5 @@
 import React from "react";
 import { Paper, Avatar } from "@material-ui/core";
-import "./AboutMeProfile.css";
 import { makeStyles } from "@material-ui/core/styles";
 import { Alert } from "@material-ui/lab";
 import RoomIcon from "@material-ui/icons/Room";
@@ -71,12 +70,7 @@ function AboutMeProfile({ profile }) {
         <div className={classes.aboutMe}>
           <h2>About me</h2>
           <br></br>
-          {profile.about} Lorem ipsum dolor sit amet consectetur adipisicing
-          elit. Dignissimos cum, placeat iusto a eius cupiditate saepe soluta
-          ipsum, cumque similique iste atque dolorem velit inventore! Cum
-          aperiam amet quidem facilis perspiciatis. Tempore natus enim tenetur
-          rerum eligendi accusantium atque, inventore aspernatur commodi
-          voluptatem aliquid impedit. Provident quis at quaerat enim!
+          {profile.about}
         </div>
       </Paper>
     </div>

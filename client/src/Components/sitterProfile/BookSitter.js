@@ -17,6 +17,7 @@ const useStyles = makeStyles({
   bookSitterPaper: {
     maxWidth: "400px",
     textAlign: "center",
+    align: "center",
   },
   picker: {
     maxWidth: "130px",
@@ -42,7 +43,11 @@ const useStyles = makeStyles({
     textAlign: "center",
   },
   bookingContainer: {
-    marginLeft: "55px",
+    marginLeft: "0px",
+    alignSelf: "center",
+    ["@media (min-width:700px)"]: {
+      marginLeft: "3em",
+    },
   },
   date: {
     display: "grid",
