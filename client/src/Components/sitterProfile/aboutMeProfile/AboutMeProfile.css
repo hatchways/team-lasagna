@@ -1,7 +1,7 @@
 .paper {
   max-width: 600px;
 }
-.MuiPaper-root.MuiPaper-elevation2 {
+.muiPaper {
   display: grid;
   grid-template-columns: repeat(8, 1fr);
   grid-template-rows: 230px 90px 50px repeat(2, 50px) auto;

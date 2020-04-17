@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useForm } from "react-hook-form";
 import { Paper } from "@material-ui/core";
-import { Alert } from "@material-ui/lab";
+import { Alert, Rating } from "@material-ui/lab";
 import DateFnsUtils from "@date-io/date-fns";
 import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core/styles";
@@ -28,8 +28,6 @@ const useStyles = makeStyles({
     height: "45px",
     margin: "15px",
   },
-<<<<<<< Updated upstream
-=======
   hrRate: {
     fontSize: "20px",
   },
@@ -61,7 +59,6 @@ const useStyles = makeStyles({
     color: "white",
     borderRadius: "4px",
   },
->>>>>>> Stashed changes
 });
 function required(displayName) {
   return function validateRequired(value) {
@@ -132,11 +129,6 @@ function BookSitter({ profile, userProfile }) {
   return (
     <div className={classes.bookingContainer}>
       <Paper className={classes.bookSitterPaper}>
-<<<<<<< Updated upstream
-        <h2 class="avail">Available</h2>
-        <div className="date">
-          <form class="book-sitter-form" onSubmit={handleSubmit(onSubmit)}>
-=======
         <h2 className={classes.avail}>Available</h2>
         <b className={classes.hrRate}>$14/hr</b>
         <br></br>
@@ -151,7 +143,6 @@ function BookSitter({ profile, userProfile }) {
             className={classes.bookSitterForm}
             onSubmit={handleSubmit(onSubmit)}
           >
->>>>>>> Stashed changes
             <MuiPickersUtilsProvider utils={DateFnsUtils}>
               <KeyboardDatePicker
                 disableToolbar
