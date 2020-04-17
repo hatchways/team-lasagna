@@ -61,7 +61,7 @@ function AboutMeProfile({ profile }) {
         <div className={classes.profilePicture}>
           <Avatar className={classes.profilePic} src={profile.profilePic} />
         </div>
-        <div className="info">
+        <div className={classes.info}>
           <h1>
             {profile.firstName} {profile.lastName}
           </h1>

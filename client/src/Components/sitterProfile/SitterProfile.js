@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import AboutMeProfile from "./aboutMeProfile/AboutMeProfile";
-import BookSitter from "./bookSitter/BookSitter";
+import AboutMeProfile from "./AboutMeProfile";
+import BookSitter from "./BookSitter";
 import axios from "axios";
 import { authService } from "../../services/auth.service";
 import { makeStyles } from "@material-ui/core/styles";
