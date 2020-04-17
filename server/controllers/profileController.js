@@ -57,6 +57,7 @@ module.exports.updateProfile = async (req, res, next) => {
     profilePic,
     about,
     user,
+    accountId,
   } = req.body;
   const data = {
     firstName: firstName,
@@ -77,6 +78,7 @@ module.exports.updateProfile = async (req, res, next) => {
     profilePic: profilePic,
     about: about,
     user: user,
+    accountId: accountId,
   };
   try {
     const updatedProfile = await Profile.findByIdAndUpdate(
@@ -138,6 +140,7 @@ module.exports.createProfile = async (req, res, next) => {
     profilePic: profilePic,
     about: about,
     user: user,
+    accountId: accountId,
   };
 
   try {
