@@ -52,7 +52,8 @@ module.exports.addBankAccount = async (req, res) => {
 };
 
 module.exports.getBankAccount = async (req, res) => {
-  const id = req.params.id;
+  const id = req.body.id;
+  console.log(id);
   saved_state = Math.random().toString(36).slice(2);
   try {
     const profile = await Profile.findById(id);
@@ -67,7 +68,7 @@ module.exports.getBankAccount = async (req, res) => {
     // return data
     return res
       .status(200)
-      .json({ success: true, account: response, state: saved_state });
+      .json({ success: true, account: response, state: "vw8hk6swzmd" });
   } catch (err) {
     if (err.type === "StripeInvalidGrantError") {
       return res
@@ -81,6 +82,6 @@ module.exports.getBankAccount = async (req, res) => {
 
 const stateMatches = (state_parameter) => {
   // Load the same state value that you randomly generated for your OAuth link.
-
+  const saved_state = "vw8hk6swzmd";
   return saved_state == state_parameter;
 };
