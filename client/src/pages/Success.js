@@ -4,7 +4,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import CheckIcon from "@material-ui/icons/Check";
 import { green } from "@material-ui/core/colors";
 import { Card, Grid, Avatar, CardContent, Typography } from "@material-ui/core";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -25,11 +25,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Checkout({ match }) {
+const Success = ({ match }) => {
   const classes = useStyles();
   useEffect(() => {
-    console.log(match);
-    // getSession();
+    console.log(match.params.id);
+    getSession();
   }, []);
 
   const getSession = async () => {
@@ -66,4 +66,5 @@ export default function Checkout({ match }) {
       </Card>
     </>
   );
-}
+};
+export default withRouter(Success);
