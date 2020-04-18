@@ -28,3 +28,29 @@ module.exports.retrieve = async (req, res) => {
   }
   res.json(session);
 };
+
+module.exports.charge = async (req, res) => {
+  const { account_id, customer_id, amount } = req.body;
+  try {
+    const paymentIntent = await stripe.checkout.sessions.create({
+      payment_method_types: ["card"],
+      amount: amount,
+      currency: "cad",
+      customer: customer_id,
+      description: "Loving Sitter pet care one-time service",
+      application_fee_amount: amount * 0.3,
+      transfer_data: {
+        destination: account_id,
+      },
+    });
+
+    // Complete the payment using a test card.
+    paymentIntent = await stripe.paymentIntents.confirm(paymentIntent.id, {
+      // change payment method
+      payment_method: "pm_card_mastercard",
+    });
+  } catch (err) {
+    return res.status(403).json(err);
+  }
+  res.status(200).json({ success: "true", paymentIntent });
+};

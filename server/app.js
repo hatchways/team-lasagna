@@ -37,7 +37,7 @@ app.use("/profile", profileRouter);
 app.use("/login", loginRouter);
 app.use("/register", registerRouter);
 app.use("/request", requestRouter);
-app.use("/checkout", checkoutRouter);
+app.use("/payment", checkoutRouter);
 app.use("/img", imgUploadRouter);
 app.use("/connect/bank-account", bankAccountRouter);
 

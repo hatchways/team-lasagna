@@ -1,7 +1,6 @@
 const secretKey = process.env.STRIPE_SECRET_KEY;
 const stripe = require("stripe")(secretKey);
 const Profile = require("../models/Profile");
-let saved_state;
 
 module.exports.addBankAccount = async (req, res) => {
   const { code, state, profile_id } = req.body;
@@ -53,8 +52,6 @@ module.exports.addBankAccount = async (req, res) => {
 
 module.exports.getBankAccount = async (req, res) => {
   const id = req.body.id;
-  console.log(id);
-  saved_state = Math.random().toString(36).slice(2);
   try {
     const profile = await Profile.findById(id);
     if (!profile) {
@@ -75,7 +72,7 @@ module.exports.getBankAccount = async (req, res) => {
         .status(400)
         .json({ error: "Invalid authorization code: " + code });
     } else {
-      return res.status(500).json({ error: "An unknown error occurred." });
+      return res.status(500).json({ error: err });
     }
   }
 };
