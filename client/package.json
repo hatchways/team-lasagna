@@ -13,6 +13,7 @@
     "date-fns": "^2.11.1",
     "jwt-decode": "^2.2.0",
     "react": "^16.8.6",
+    "react-country-flag": "^2.0.1",
     "react-dom": "^16.8.6",
     "react-hook-form": "^5.2.0",
     "react-hook-form-input": "^1.1.10",
