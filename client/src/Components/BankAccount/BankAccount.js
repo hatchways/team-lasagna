@@ -8,11 +8,8 @@ import {
   Typography,
   Button,
   Divider,
-  Chip,
 } from "@material-ui/core";
-import AccountBalanceIcon from "@material-ui/icons/AccountBalance";
-import MoreHorizRoundedIcon from "@material-ui/icons/MoreHorizRounded";
-import ReactCountryFlag from "react-country-flag";
+import BankData from "./BankData";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -40,11 +37,12 @@ export default function BankAccount() {
   const [bankData, setBankData] = useState({});
   useEffect(() => {
     getBankInfo();
+    console.log(bankData);
   }, [state]);
 
   const getBankInfo = async () => {
     const profile = JSON.parse(localStorage.getItem("profile"));
-
+    console.log(profile);
     const response = await axios.post(
       "http://localhost:3001/connect/bank-account/get",
       { id: profile._id }
@@ -69,43 +67,19 @@ export default function BankAccount() {
             variant="contained"
             color="secondary"
           >
-            Add Bank Account
+            {bankData.bank_name ? "Change Bank Account" : "Add Bank Account"}
           </Button>
         </Grid>
         <Divider />
         <Grid item xs={12}>
           <CardContent className={classes.body}>
-            <AccountBalanceIcon fontSize="large" />
-            <ReactCountryFlag
-              svg
-              countryCode={bankData.country}
-              style={{
-                fontSize: "1.5em",
-                lineHeight: "1.5em",
-                margin: "0 7px",
-              }}
-            />
-
-            <Typography
-              component="span"
-              variant="h6"
-              style={{
-                margin: "0 7px 0 0",
-              }}
-            >
-              {bankData.bank_name}
-            </Typography>
-            <MoreHorizRoundedIcon />
-            <Typography component="span" variant="h6">
-              {bankData.last4}/{bankData.routing_number}
-            </Typography>
-            <Chip
-              style={{
-                margin: "0 7px",
-              }}
-              size="small"
-              label={String(bankData.currency).toUpperCase()}
-            />
+            {bankData.bank_name ? (
+              <BankData bankData={bankData} />
+            ) : (
+              <Typography component="span" variant="h6">
+                Please Add Bank Account
+              </Typography>
+            )}
           </CardContent>
         </Grid>
       </Card>
