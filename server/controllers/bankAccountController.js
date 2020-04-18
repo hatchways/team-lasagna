@@ -15,11 +15,6 @@ module.exports.addBankAccount = async (req, res) => {
     if (!profile) {
       return res.status(404).json({ msg: "Profile not found" });
     }
-    if (profile.accountId !== "") {
-      return res
-        .status(403)
-        .json({ msg: "Profile already has a bank account" });
-    }
     const response = await stripe.oauth.token({
       grant_type: "authorization_code",
       code,
