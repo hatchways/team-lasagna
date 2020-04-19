@@ -2,19 +2,28 @@ const secretKey = process.env.STRIPE_SECRET_KEY;
 const stripe = require("stripe")(secretKey);
 
 module.exports.checkout = async (req, res) => {
+  const { account_id, customer_id, amount } = req.body;
   const session = await stripe.checkout.sessions.create({
     payment_method_types: ["card"],
-    // customer_email: req.body.payer,
+    // customer: customer_id,
     line_items: [
       {
         name: "one-time service",
         description: "Loving Sitter pet care",
-        // images: ["link"],
-        amount: 3000, // 30$
+        images: [
+          "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTASpruZKdi9GS1SJnCzdVoPFoU0mkymYTwV9k9e6bSc2_mPC7z&usqp=CAU",
+        ],
+        amount: amount, // 30$
         currency: "cad",
         quantity: 1,
       },
     ],
+    payment_intent_data: {
+      application_fee_amount: amount * 0.3,
+      transfer_data: {
+        destination: account_id,
+      },
+    },
     success_url: "http://localhost:3000/success/{CHECKOUT_SESSION_ID}",
     cancel_url: "http://localhost:3000/payment/",
   });
