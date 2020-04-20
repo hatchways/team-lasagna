@@ -1,5 +1,5 @@
 import React from 'react';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import { Card, CardActions, Button, Avatar } from '@material-ui/core';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
@@ -42,9 +42,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Booking(props) {
   const classes = useStyles();
-  const theme = useTheme();
   
-  //console.log(props.booking)
   let request = props.booking.request
   let ownerProfile = props.booking.ownerProfile
   let duration = ''

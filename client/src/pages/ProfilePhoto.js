@@ -29,7 +29,6 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: red[500],
   },
   margin: {
-    //margin: theme.spacing(1),
     margin: "20px 20px",
     padding: "20px 20px",
   },
@@ -50,10 +49,6 @@ export default function ProfilePhoto() {
     setId(JSON.parse(localStorage.getItem("profile"))._id);
     getProfile();
   }, [id]);
-
-  // useEffect(() => {
-  //   getProfile();
-  // }, [id]);
 
   async function getProfile() {
     try {

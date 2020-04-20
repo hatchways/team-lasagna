@@ -44,42 +44,6 @@ module.exports.updateProfile = async (req, res, next) => {
     console.log(errors);
     return res.status(400).send({ msg: "Invalid submission", errors });
   }
-
-  const {
-    available,
-    firstName,
-    lastName,
-    gender,
-    birthDate,
-    hourlyRate, 
-    phone,
-    address: { address1, address2, city, province, zipCode, country } = {},
-    availability,
-    profilePic,
-    about,
-    user,
-  } = req.body;
-  const data = {
-    firstName: firstName,
-    lastName: lastName,
-    gender: gender,
-    birthDate: birthDate,
-    hourlyRate: hourlyRate,
-    phone: phone,
-    address: {
-      address1: address1,
-      address2: address2,
-      city: city,
-      province: province,
-      zipCode: zipCode,
-      country: country,
-    },
-    available,
-    availability: availability,
-    profilePic: profilePic,
-    about: about,
-    user: user,
-  };
   try {
     const updatedProfile = await Profile.findById(req.params.id)
     if(!updatedProfile) return res.status(404).json({ msg: "Profile not found" });
@@ -89,23 +53,6 @@ module.exports.updateProfile = async (req, res, next) => {
     await updatedProfile.save()
         
     res.status(200).json({ updatedProfile, msg: "Successfully updated profile" });
-
-
-
-    // const updatedProfile = await Profile.findByIdAndUpdate(
-    //   req.params.id,
-    //   data,
-    //   {
-    //     new: true,
-    //     runValidators: true,
-    //   }
-    // );
-    // if (!updatedProfile) {
-    //   return res.status(404).json({ msg: "Profile not found" });
-    // }
-    // res
-    //   .status(200)
-    //   .json({ updatedProfile, msg: "Successfully updated profile" });
   } catch (err) {
     res.status(400).json(err.message);
   }

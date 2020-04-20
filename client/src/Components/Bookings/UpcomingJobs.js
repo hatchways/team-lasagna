@@ -49,7 +49,7 @@ export default function UpcomingJobs() {
 
   useEffect(() => {
     getbookings(sitterId);
-  }, []);
+  }, [sitterId]);
 
   async function getbookings(sitterId) {
     try {

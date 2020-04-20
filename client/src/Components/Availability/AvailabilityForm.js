@@ -4,7 +4,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Grid, FormLabel, Checkbox, Button, FormHelperText, CardContent } from '@material-ui/core'
 import Typography from '@material-ui/core/Typography';
 import axios from "axios";
-import { red } from "@material-ui/core/colors";
 import { Alert } from "@material-ui/lab";
 import AlternateCheckbox from './AlternateCheckbox'
 
@@ -61,7 +60,7 @@ export default function Availability() {
 
   useEffect(() => {
     getProfile(myId);
-  }, []);
+  }, [myId]);
 
   async function getProfile(id) {
     try {
@@ -124,7 +123,6 @@ export default function Availability() {
       ...checkedItems,
       [event.target.name]: event.target.checked
     });
-    console.log("checkedItems: ", checkedItems);
   }
 
   const handleSubmitForm = (event) => {
@@ -137,7 +135,7 @@ export default function Availability() {
       user
     }
     console.log(userProfile);
-    //updateProfile(myId, userProfile)
+    updateProfile(myId, userProfile)
   }
 
   return (
@@ -171,7 +169,6 @@ export default function Availability() {
         { checkboxes.map(item => (
       <Grid key={item.id} className={classes.item}>
         <AlternateCheckbox
-          //label={item.name}
           name={item.name}
           checked={checkedItems[item.name]}
           onChange={handleCheckedChange}

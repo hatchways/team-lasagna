@@ -2,16 +2,11 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { TextField } from '@material-ui/core'
 
-const useStyles = makeStyles({})
-
 export default function TextFieldInput(props) {
-//let TextFieldInput = React.forwardRef((props, ref) => {
-    // const classes = useStyles();
     let bigTextArea = ''
     if(props.rows) {
         bigTextArea = (
             <TextField
-            //ref={ref}
             required
             id={props.id}
             name={props.name}
@@ -27,7 +22,6 @@ export default function TextFieldInput(props) {
     } else {
         bigTextArea = (
         <TextField
-          //ref={ref}
           multiline
           required
           id={props.id}
@@ -43,5 +37,3 @@ export default function TextFieldInput(props) {
 
     return (bigTextArea)
 }
-
-//export default TextFieldInput

@@ -1,8 +1,7 @@
 import React from "react";
 import { makeStyles } from '@material-ui/core/styles';
 import UserProfileForm from "../../Components/UserProfile/UserProfileForm";
-import { Card, CardContent, Typography, Paper } from "@material-ui/core";
-//import "./UserProfile.css";
+import { Paper } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   root: {

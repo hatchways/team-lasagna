@@ -1,7 +1,7 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/core/styles';
 import AvailabilityForm from "../Components/Availability/AvailabilityForm";
-import { Paper, Card } from "@material-ui/core";
+import { Paper } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   root: {

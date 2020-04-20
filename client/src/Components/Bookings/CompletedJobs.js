@@ -45,12 +45,11 @@ export default function UpcomingJobs() {
 
   useEffect(() => {
     getbookings(sitterId);
-  }, []);
+  }, [sitterId]);
 
   async function getbookings(sitterId) {
     try {
       const fetchedbookings = await axios.get("http://localhost:3001/request/completedPastBookings/" + sitterId);
-      //console.log(fetchedbookings.data);
       if (fetchedbookings.data) {
         setBookings(fetchedbookings.data);
       }

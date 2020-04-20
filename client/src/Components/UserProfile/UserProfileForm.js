@@ -1,17 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
-import { Grid, FormControl, FormLabel, Checkbox,
-          InputLabel, Input, Select, InputAdornment, MenuItem, Button, FormHelperText, CardContent } from '@material-ui/core'
+import { Grid, FormControl, FormLabel,
+          InputLabel, Input, Select, InputAdornment, MenuItem, Button, CardContent } from '@material-ui/core'
 import Typography from '@material-ui/core/Typography';
-import { KeyboardTimePicker, KeyboardDatePicker } from '@material-ui/pickers';
+import { KeyboardDatePicker } from '@material-ui/pickers';
 import axios from "axios";
-//import { authService } from "../../services/auth.service";
 import TextFieldInput from './TextFieldInput'
-import AlternateCheckbox from './AlternateCheckbox'
-//import { red } from "@material-ui/core/colors";
 import { Alert } from "@material-ui/lab";
-import './AlternateCheckbox.css'
  
 const useStyles = makeStyles((theme) => ({
   title: {
@@ -60,8 +56,6 @@ const useStyles = makeStyles((theme) => ({
 export default function UserProfile() {
   const classes = useStyles();
   const [profile, setProfile] = useState({});
-  const [available, setAvailable] = useState(false)
-  const [checkedItems, setCheckedItems] = useState({"sundays":true})
   const [gender, setGender] = useState('')
   const [selectedDate, setSelectedDate] = useState(new Date('2000-01-01T21:11:54'))
   const [processing, setProcessing] = useState(false);
@@ -88,7 +82,7 @@ export default function UserProfile() {
 
   useEffect(() => {
     getProfile(myId);
-  }, []);
+  }, [myId]);
 
   async function getProfile(id) {
     try {
@@ -112,8 +106,6 @@ export default function UserProfile() {
           country: fetchedProfile.data.address.country,
           about: fetchedProfile.data.about,
         });
-        setAvailable(fetchedProfile.data.available)
-        setCheckedItems(fetchedProfile.data.availability)
         setGender(fetchedProfile.data.gender)
       }
     } catch (err) {
@@ -143,28 +135,6 @@ export default function UserProfile() {
     }
   }
 
-  const checkboxes = [
-    {id: 1, label: 'Sundays', name: 'sundays'},
-    {id: 2, label: 'Mondays', name: 'mondays'},
-    {id: 3, label: 'Tuesdays', name: 'tuesdays'},
-    {id: 4, label: 'Wednesdays', name: 'wednesdays'},
-    {id: 5, label: 'Thursdays', name: 'thursdays'},
-    {id: 6, label: 'Fridays', name: 'fridays'},
-    {id: 7, label: 'Saturdays', name: 'saturdays'}
-  ]
-
-  const handleAvailableChange = (event) => {
-    setAvailable(event.target.checked)
-  }
-
-  const handleCheckedChange = (event) => {
-		setCheckedItems({
-      ...checkedItems,
-      [event.target.name]: event.target.checked
-    });
-    //console.log("checkedItems: ", checkedItems);
-  }
-
   const handleInputChange = (event) => {
     setInputs({
       ...inputs,
@@ -183,8 +153,6 @@ export default function UserProfile() {
   const handleSubmitForm = (event) => {
     event.preventDefault()
     const userProfile = {
-      available,
-      availability: checkedItems,
       gender,
       firstName: inputs.firstName,
       lastName: inputs.lastName,
@@ -202,7 +170,6 @@ export default function UserProfile() {
       about: inputs.about,
       user
     }
-    console.log(userProfile);
     updateProfile(myId, userProfile)
   }
 
@@ -217,39 +184,6 @@ export default function UserProfile() {
         </Alert>
       )}
     </Grid>
-    
-    <Grid item xs={12}>
-      <Grid container justify="flex-start" className={classes.availableSpace}>
-      <div className={classes.availableSpace}>
-        <FormLabel>Available:</FormLabel>
-        <Checkbox
-          name="available"
-          checked={available}
-          onChange={handleAvailableChange}
-        />
-        </div>
-      </Grid>
-    </Grid>
-    <Grid item xs={12}>
-      <div className={classes.availableSpace}>
-        <FormLabel>Available Days:</FormLabel>
-      </div>
-      <Grid container justify="space-evenly" className={classes.availableSpace}>
-        { checkboxes.map(item => (
-      <Grid key={item.id} className={classes.item}>
-        <AlternateCheckbox
-          className={classes.checkmark}
-          name={item.name}
-          checked={checkedItems[item.name]}
-          onChange={handleCheckedChange}
-        />
-      <FormHelperText>{item.label}</FormHelperText>
-      </Grid>
-      )) 
-      }
-      </Grid>
-    </Grid>
-
     <Grid item xs={12}>
       <Grid container justify="flex-start" className={classes.availableSpace}>
       <FormControl fullWidth className={classes.margin}>
