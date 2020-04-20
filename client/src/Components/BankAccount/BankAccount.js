@@ -9,6 +9,7 @@ import {
   Button,
   Divider,
 } from "@material-ui/core";
+import { authService } from "../../services/auth.service";
 import BankData from "./BankData";
 
 const useStyles = makeStyles((theme) => ({
@@ -46,7 +47,8 @@ export default function BankAccount() {
     console.log(profile);
     const response = await axios.post(
       "http://localhost:3001/connect/bank-account/get",
-      { id: profile._id }
+      { id: profile._id },
+      authService.authHeader()
     );
     setBankData(response.data.account.external_accounts.data[0]);
     setState(response.data.state);
