@@ -40,6 +40,11 @@ const CollapsedMenuList = forwardRef((props, ref) => {
       {authed ? (
         <>
           <MenuItem>
+            <Link href="/" className={classes.toolbarLink}>
+              Profile Listing
+            </Link>
+          </MenuItem>
+          <MenuItem>
             <Link href="/editProfile" className={classes.toolbarLink}>
               My Profile
             </Link>
@@ -47,11 +52,6 @@ const CollapsedMenuList = forwardRef((props, ref) => {
           <MenuItem>
             <Link href="#" className={classes.toolbarLink}>
               My Jobs
-            </Link>
-          </MenuItem>
-          <MenuItem>
-            <Link href="#" className={classes.toolbarLink}>
-              Messages
             </Link>
           </MenuItem>
           <MenuItem>

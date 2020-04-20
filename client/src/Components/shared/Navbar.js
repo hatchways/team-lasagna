@@ -34,9 +34,6 @@ export default function Header({ isAuthenticated }) {
             noWrap
             className={classes.toolbarTitle}
           ></Typography>
-          <IconButton>
-            <SearchIcon />
-          </IconButton>
           <AppBarCollapse isAuthenticated={isAuthenticated} />
         </Toolbar>
       </AppBar>
