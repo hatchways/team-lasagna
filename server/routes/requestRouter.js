@@ -19,7 +19,7 @@ router.get("/upcomingBookings/:sitterId", requestController.getUpcomingBookedReq
 // Current bookings: Requests pending approval/deny, pass sitterId
 router.get("/pendingBookings/:sitterId", requestController.getPendingRequests);
 
-// Complete Request after work is done, pass request _id.
+// Complete Request after work is done, pass request _id. and post (start(date), end(date) and complete(Boolean value))
 router.put("/completeBooking/:id", requestController.completeRequest);
 
 // Past bookings: Approved requested, completed and in the past. pass sitterId

@@ -46,6 +46,7 @@ module.exports.updateProfile = async (req, res, next) => {
   }
 
   const {
+    available,
     firstName,
     lastName,
     gender,
@@ -73,26 +74,38 @@ module.exports.updateProfile = async (req, res, next) => {
       zipCode: zipCode,
       country: country,
     },
+    available,
     availability: availability,
     profilePic: profilePic,
     about: about,
     user: user,
   };
   try {
-    const updatedProfile = await Profile.findByIdAndUpdate(
-      req.params.id,
-      data,
-      {
-        new: true,
-        runValidators: true,
-      }
-    );
-    if (!updatedProfile) {
-      return res.status(404).json({ msg: "Profile not found" });
-    }
-    res
-      .status(200)
-      .json({ updatedProfile, msg: "Successfully updated profile" });
+    const updatedProfile = await Profile.findById(req.params.id)
+    if(!updatedProfile) return res.status(404).json({ msg: "Profile not found" });
+    
+    updatedProfile.set(req.body);
+    
+    await updatedProfile.save()
+        
+    res.status(200).json({ updatedProfile, msg: "Successfully updated profile" });
+
+
+
+    // const updatedProfile = await Profile.findByIdAndUpdate(
+    //   req.params.id,
+    //   data,
+    //   {
+    //     new: true,
+    //     runValidators: true,
+    //   }
+    // );
+    // if (!updatedProfile) {
+    //   return res.status(404).json({ msg: "Profile not found" });
+    // }
+    // res
+    //   .status(200)
+    //   .json({ updatedProfile, msg: "Successfully updated profile" });
   } catch (err) {
     res.status(400).json(err.message);
   }

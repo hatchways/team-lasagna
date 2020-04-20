@@ -9,7 +9,7 @@ import axios from "axios";
 //import { authService } from "../../services/auth.service";
 import TextFieldInput from './TextFieldInput'
 import AlternateCheckbox from './AlternateCheckbox'
-import { red } from "@material-ui/core/colors";
+//import { red } from "@material-ui/core/colors";
 import { Alert } from "@material-ui/lab";
 import './AlternateCheckbox.css'
  
@@ -61,7 +61,7 @@ export default function UserProfile() {
   const classes = useStyles();
   const [profile, setProfile] = useState({});
   const [available, setAvailable] = useState(false)
-  const [checkedItems, setCheckedItems] = useState('')
+  const [checkedItems, setCheckedItems] = useState({"sundays":true})
   const [gender, setGender] = useState('')
   const [selectedDate, setSelectedDate] = useState(new Date('2000-01-01T21:11:54'))
   const [processing, setProcessing] = useState(false);
@@ -217,6 +217,7 @@ export default function UserProfile() {
         </Alert>
       )}
     </Grid>
+    
     <Grid item xs={12}>
       <Grid container justify="flex-start" className={classes.availableSpace}>
       <div className={classes.availableSpace}>
@@ -248,6 +249,7 @@ export default function UserProfile() {
       }
       </Grid>
     </Grid>
+
     <Grid item xs={12}>
       <Grid container justify="flex-start" className={classes.availableSpace}>
       <FormControl fullWidth className={classes.margin}>

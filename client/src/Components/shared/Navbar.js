@@ -39,7 +39,7 @@ export default function Header(props) {
   if (props.isAuthenticated) {
     menuList = (
       <React.Fragment>
-        <Link href="#" className={classes.toolbarLink}>
+        <Link href="/bookings" className={classes.toolbarLink}>
           My Jobs
         </Link>
         <Link href="#" className={classes.toolbarLink}>

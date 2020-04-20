@@ -14,6 +14,10 @@ import ProfileListing from "../pages/ProfileListing";
 import PaymentPage from "../pages/Payment";
 import SuccessPage from "../pages/Success";
 import NotFound from "../pages/NotFound";
+import Availability from "./Availability";
+import Bookings from "../Components/Bookings/Bookings"
+import UpcomingJobs from "../Components/Bookings/UpcomingJobs"
+import CompletedJobs from "../Components/Bookings/CompletedJobs"
 
 const landinPageStyle = (theme) => ({
   content: {
@@ -46,6 +50,8 @@ class LandingPage extends Component {
           return <UserProfile />;
         case "profilePhoto":
           return <ProfilePhoto />;
+        case "availability":
+          return <Availability />;
         case "profile-listing":
           return <ProfileListing />;
         case "payment":
@@ -54,6 +60,12 @@ class LandingPage extends Component {
           return <SuccessPage />;
         case "sitter-profile":
           return <SitterProfile profileId={"5e86446fb63eabc010ee2828"} />;
+        case "bookings":
+          return <Bookings />
+        case "upcomingJobs":
+          return <UpcomingJobs /> 
+        case "completedJobs":
+          return <CompletedJobs />
         case "/":
           return <ProfileListing />;
         default:

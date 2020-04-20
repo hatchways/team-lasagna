@@ -12,6 +12,7 @@
     "axios": "^0.19.2",
     "date-fns": "^2.11.1",
     "jwt-decode": "^2.2.0",
+    "moment": "^2.24.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-hook-form": "^5.2.0",

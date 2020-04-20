@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const Profile = require('./Profile')
 
 const requestSchema = new mongoose.Schema({
     user_id: {
@@ -33,11 +34,19 @@ const requestSchema = new mongoose.Schema({
     paid: {
         type: Boolean,
         default: false
-    } 
+    }
 },
-    {
-        timestamps: true
-});
+    { timestamps: true },
+    { toJSON: { virtuals: true } }
+);
+
+// Create a r/ship between user and tasks
+requestSchema.virtual('profiles', {
+    ref: 'Profile',
+    localField: 'user_id',
+    foreignField: 'user',
+    justOne: true
+})
 
 // validate end date and start before saving
 requestSchema.pre('save', async function (next) {
@@ -66,7 +75,5 @@ requestSchema.pre('save', async function (next) {
 
 //     next()
 // })
-
-
 
 module.exports = Request = mongoose.model("Request", requestSchema);
