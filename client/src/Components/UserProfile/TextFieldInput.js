@@ -1,22 +1,21 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
 import { TextField } from '@material-ui/core'
 
-export default function TextFieldInput(props) {
+export default function TextFieldInput({id, name, label, variant, rows, value, onChange}) {
     let bigTextArea = ''
-    if(props.rows) {
+    if(rows) {
         bigTextArea = (
             <TextField
             required
-            id={props.id}
-            name={props.name}
-            label={props.label}
+            id={id}
+            name={name}
+            label={label}
             fullWidth
             multiline
-            variant={props.variant}
-            rows={props.rows}
-            value={props.value}
-            onChange={props.onChange}
+            variant={variant}
+            rows={rows}
+            value={value}
+            onChange={onChange}
           />
         )
     } else {
@@ -24,13 +23,13 @@ export default function TextFieldInput(props) {
         <TextField
           multiline
           required
-          id={props.id}
-          name={props.name}
-          label={props.label}
+          id={id}
+          name={name}
+          label={label}
           fullWidth
           variant="outlined"
-          value={props.value}
-          onChange={props.onChange}
+          value={value}
+          onChange={onChange}
         />
         )
     }

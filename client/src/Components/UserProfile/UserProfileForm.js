@@ -89,7 +89,6 @@ export default function UserProfile() {
       const fetchedProfile = await axios.get(
         "http://localhost:3001/profile/" + id
       );
-      console.log(fetchedProfile.data);
       if (fetchedProfile.data) {
         setProfile(fetchedProfile.data);
         setInputs({
@@ -121,7 +120,6 @@ export default function UserProfile() {
       const updatedProfile = await axios.put(
         "http://localhost:3001/profile/" + id, updatedValues
       )
-      console.log(updatedProfile);
       if (updatedProfile.data) {
         setProfile(updatedProfile.data);
       }

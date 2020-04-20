@@ -54,7 +54,6 @@ export default function UpcomingJobs() {
   async function getbookings(sitterId) {
     try {
       const fetchedbookings = await axios.get("http://localhost:3001/request/upcomingBookings/" + sitterId);
-      //console.log(fetchedbookings.data);
       if (fetchedbookings.data) {
         setBookings(fetchedbookings.data);
       }
