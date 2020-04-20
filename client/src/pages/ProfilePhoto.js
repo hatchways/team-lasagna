@@ -3,6 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import {
   Card,
   Grid,
+  GridList,
   Avatar,
   CardContent,
   Typography,
@@ -36,6 +37,13 @@ const useStyles = makeStyles((theme) => ({
   fileInput: {
     display: "none",
   },
+  pics: {
+    padding: "30px",
+  },
+  aboutMeh: {
+    textAlign: "center",
+  },
+
 }));
 
 export default function ProfilePhoto() {
@@ -45,6 +53,9 @@ export default function ProfilePhoto() {
   const [processing, setProcessing] = useState(false);
   const [error, setError] = useState(false);
   const [success, setSuccess] = useState(false);
+  const [aboutProcessing, setAboutProcessing] = useState(false);
+  const [aboutError, setAboutError] = useState(false);
+  const [aboutSuccess, setAboutSuccess] = useState(false);
 
   useEffect(() => {
     setId(JSON.parse(localStorage.getItem("profile"))._id);
@@ -85,6 +96,28 @@ export default function ProfilePhoto() {
       setSuccess(false);
       setProcessing(false);
       setError(true);
+      console.log(err);
+    }
+  };
+  const handleAboutFileUpload = async (event) => {
+    setAboutSuccess(false);
+    setAboutError(false);
+    setAboutProcessing(true);
+    const data = new FormData();
+    // send file to server and call
+    try {
+      data.append("image", event.target.files[0], event.target.files[0].name);
+      const res = await axios.put(
+        "http://localhost:3001/img/about-me/" + id,
+        data
+      );
+      setAboutProcessing(false);
+      setProfile(res.data);
+      setAboutSuccess(true);
+    } catch (err) {
+      setAboutSuccess(false);
+      setAboutProcessing(false);
+      setAboutError(true);
       console.log(err);
     }
   };
@@ -159,12 +192,41 @@ export default function ProfilePhoto() {
         <Grid item xs={5} align="center">
           {processing && <Alert severity="info">Loading...</Alert>}
           {error && <Alert severity="error">Error! Please try again...</Alert>}
-          {success && (
-            <Alert severity="success">
-              Profile picture successfully updated!
-            </Alert>
-          )}
         </Grid>
+      </Grid>
+      <Typography className={classes.aboutMeh} component="h5" variant="h5">
+        About Me Photos
+      </Typography>
+      <GridList className={classes.pics}>
+        {aboutSuccess &&
+          profile.aboutPics.map((pic) => (
+            <img alt="about-photo" src={pic}></img>
+          ))}
+      </GridList>
+      <Grid item xs={12} align="center">
+        <input
+          accept="image/*"
+          className={classes.fileInput}
+          id="contained-button-about"
+          multiple
+          type="file"
+          onChange={handleAboutFileUpload}
+        />
+        <label htmlFor="contained-button-about">
+          <Button
+            variant="outlined"
+            color="secondary"
+            className={classes.margin}
+            component="span"
+          >
+            Upload a file from your device
+          </Button>
+        </label>
+        {aboutSuccess && (
+          <Alert className={classes.aboutAlert} severity="success">
+            Picture successfully added!
+          </Alert>
+        )}
       </Grid>
     </Card>
   );
