@@ -60,6 +60,8 @@ export default function ProfilePhoto() {
   useEffect(() => {
     setId(JSON.parse(localStorage.getItem("profile"))._id);
     getProfile();
+//    console.log(profile.profilePic)
+//    console.log(profile.aboutPics)
   }, [id]);
 
   // useEffect(() => {
@@ -74,6 +76,8 @@ export default function ProfilePhoto() {
       // console.log(fetchedProfiles);
       if (fetchedProfile.data) {
         setProfile(fetchedProfile.data);
+            console.log(profile.profilePic);
+            console.log(profile.aboutPics);
       }
     } catch (err) {
       console.log(err);
