@@ -19,7 +19,7 @@ module.exports.checkout = async (req, res) => {
       },
     ],
     payment_intent_data: {
-      application_fee_amount: amount * 0.3,
+      application_fee_amount: amount * 0.2,
       transfer_data: {
         destination: account_id,
       },
@@ -40,14 +40,15 @@ module.exports.retrieve = async (req, res) => {
 
 module.exports.charge = async (req, res) => {
   const { account_id, customer_id, amount } = req.body;
+  let paymentIntent;
   try {
-    const paymentIntent = await stripe.checkout.sessions.create({
+    paymentIntent = await stripe.paymentIntents.create({
       payment_method_types: ["card"],
       amount: amount,
       currency: "cad",
       customer: customer_id,
       description: "Loving Sitter pet care one-time service",
-      application_fee_amount: amount * 0.3,
+      application_fee_amount: amount * 0.2,
       transfer_data: {
         destination: account_id,
       },
