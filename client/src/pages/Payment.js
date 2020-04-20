@@ -52,13 +52,16 @@ export default function Payment() {
 
   async function createCheckoutSession() {
     const paymentData = {
+      customer_id: "", // payer customer_id
+      account_id: "", // sitter account_id
+      amount: 3000, // 30$
       // payment data for existing customers: customer_id, email
     };
 
     // Use fetch to send the token ID and any other payment data to your server.
     // https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
     const response = await axios.post(
-      "http://localhost:3001/checkout/",
+      "http://localhost:3001/payment/",
       paymentData
     );
 

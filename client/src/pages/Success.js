@@ -31,7 +31,7 @@ const Success = ({ match }) => {
   const location = useLocation();
   useEffect(() => {
     console.log(match.path);
-    if (match.path === "success/:id") {
+    if (match.path === "/success/:id") {
       getSession();
     } else if (match.path === "/bank-account/success") {
       const code = new URLSearchParams(location.search).get("code");
@@ -43,7 +43,7 @@ const Success = ({ match }) => {
 
   const getSession = async () => {
     const response = await axios.get(
-      "http://localhost:3001/checkout/retrieve/" + match.params.id
+      "http://localhost:3001/payment/retrieve/" + match.params.id
     );
     console.log(response);
   };
@@ -66,7 +66,7 @@ const Success = ({ match }) => {
       <Card className={classes.root}>
         <Grid item xs={12} style={{ textAlign: "center" }}>
           <Typography component="h5" variant="h5">
-            {match.path === "success/:id"
+            {match.path === "/success/:id"
               ? "Payment Successful"
               : "Registration Successful"}
           </Typography>
