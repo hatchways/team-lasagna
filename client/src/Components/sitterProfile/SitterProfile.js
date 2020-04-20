@@ -1,14 +1,26 @@
 import React, { useState } from "react";
-import AboutMeProfile from "./aboutMeProfile/AboutMeProfile";
-import BookSitter from "./bookSitter/BookSitter";
+import AboutMeProfile from "./AboutMeProfile";
+import BookSitter from "./BookSitter";
 import axios from "axios";
 import { authService } from "../../services/auth.service";
-import "./SitterProfile.css";
+import { makeStyles } from "@material-ui/core/styles";
+import useMediaQuery from "@material-ui/core/useMediaQuery";
+const useStyles = makeStyles({
+  flexContainerSitter: {
+    display: "flex",
+    flexDirection: "column",
+    ["@media (min-width:700px)"]: {
+      flexDirection: "row",
+    },
+    maxWidth: "1000px",
+  },
+});
 function SitterProfile(props) {
+  const classes = useStyles();
   const [profile, setProfile] = useState({});
   const [initialized, setInitialized] = useState(false);
   const sitterProfileId = props.profileId;
-
+  const userProfile = authService.currentUserProfileValue;
   async function getProfile(profileId) {
     axios.get(`/profile/${profileId}`, authService.authHeader()).then((res) => {
       setProfile(res.data);
@@ -22,9 +34,9 @@ function SitterProfile(props) {
 
   //console.log(profile);
   return (
-    <div class="flex-container-sitter">
+    <div className={classes.flexContainerSitter}>
       {initialized && <AboutMeProfile profile={profile} />}
-      <BookSitter />
+      <BookSitter profile={profile} userProfile={userProfile} />
     </div>
   );
 }
