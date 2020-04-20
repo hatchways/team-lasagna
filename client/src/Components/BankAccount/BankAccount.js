@@ -14,6 +14,7 @@ import BankData from "./BankData";
 const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: "100%",
+    margin: "20px",
   },
   large: {
     width: theme.spacing(20),
@@ -77,7 +78,7 @@ export default function BankAccount() {
               <BankData bankData={bankData} />
             ) : (
               <Typography component="span" variant="h6">
-                Please Add Bank Account
+                No Bank Account Info
               </Typography>
             )}
           </CardContent>
