@@ -49,6 +49,22 @@ function App() {
             />
             <Route
               exact
+              path="/bank-account/success"
+              render={(props) =>
+                isLoggedIn() ? (
+                  <LandingPage
+                    {...props}
+                    pathName="bank-account/success"
+                    showSideBar={false}
+                    isAuthed={isLoggedIn}
+                  />
+                ) : (
+                  <Redirect to="/login" />
+                )
+              }
+            />
+            <Route
+              exact
               path="/signup"
               render={(props) => (
                 <LandingPage

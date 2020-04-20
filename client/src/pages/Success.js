@@ -5,6 +5,7 @@ import CheckIcon from "@material-ui/icons/Check";
 import { green } from "@material-ui/core/colors";
 import { Card, Grid, Avatar, CardContent, Typography } from "@material-ui/core";
 import { Link, withRouter } from "react-router-dom";
+import { useLocation } from "react-router";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -27,9 +28,17 @@ const useStyles = makeStyles((theme) => ({
 
 const Success = ({ match }) => {
   const classes = useStyles();
+  const location = useLocation();
   useEffect(() => {
-    console.log(match.params.id);
-    getSession();
+    console.log(match.path);
+    if (match.path === "success/:id") {
+      getSession();
+    } else if (match.path === "/bank-account/success") {
+      const code = new URLSearchParams(location.search).get("code");
+      const state = new URLSearchParams(location.search).get("state");
+      console.log(code + " " + state);
+      connectAcc(code, state);
+    }
   }, []);
 
   const getSession = async () => {
@@ -39,12 +48,27 @@ const Success = ({ match }) => {
     console.log(response);
   };
 
+  const connectAcc = async (code, state) => {
+    const profile = JSON.parse(localStorage.getItem("profile"));
+    const response = await axios.post(
+      "http://localhost:3001/connect/bank-account/",
+      {
+        code: code,
+        state: state,
+        profile_id: profile._id,
+      }
+    );
+    console.log(response);
+  };
+
   return (
     <>
       <Card className={classes.root}>
         <Grid item xs={12} style={{ textAlign: "center" }}>
           <Typography component="h5" variant="h5">
-            Payment Successful!
+            {match.path === "success/:id"
+              ? "Payment Successful"
+              : "Registration Successful"}
           </Typography>
         </Grid>
         <Grid item xs={12} align="center">
