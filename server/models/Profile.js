@@ -5,83 +5,88 @@ const profileSchema = new mongoose.Schema({
     type: String,
     trim: true,
     default: "",
-    required: true
+    required: true,
   },
   lastName: {
     type: String,
     trim: true,
     default: "",
-    required: true
+    required: true,
   },
   gender: {
     type: String,
     trim: true,
-    default: ""
+    default: "",
   },
   phone: {
     type: String,
     trim: true,
-    default: ""
+    default: "",
   },
   address: {
     address1: {
       type: String,
       trim: true,
-      default: ""
+      default: "",
     },
     address2: {
       type: String,
       trim: true,
-      default: ""
+      default: "",
     },
     city: {
       type: String,
       trim: true,
-      default: ""
+      default: "",
     },
     province: {
       type: String,
       trim: true,
-      default: ""
+      default: "",
     },
     zipCode: {
       type: String,
       trim: true,
-      default: ""
+      default: "",
     },
     country: {
       type: String,
       trim: true,
-      default: ""
-    }
+      default: "",
+    },
   },
   birthDate: {
-    type: Date
+    type: Date,
   },
   hourlyRate: {
     type: Number,
-    default: 0
+    default: 0,
   },
   about: {
     type: String,
     trim: true,
-    default: ""
+    default: "",
+  },
+  aboutPics: {
+    trim: true,
+    type: [String],
+    default: [],
   },
   availability: {
     type: [Boolean],
     trim: true,
-    default: [0, 0, 0, 0, 0, 0, 0]
+    default: [0, 0, 0, 0, 0, 0, 0],
   },
   profilePic: {
     type: String,
     trim: true,
-    default: ""
+    default: "",
   },
   user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
-    required: true
-  }
+    required: true,
+  },
 });
 
 module.exports = Profile = mongoose.model("Profile", profileSchema);
