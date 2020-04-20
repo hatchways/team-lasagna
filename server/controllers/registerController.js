@@ -16,7 +16,7 @@ module.exports.registerUser = async (req, res) => {
     //hash password and save to mongodb
     const hashedpwd = await bcrypt.hash(password, 10);
     const user = new User({
-      email: email,
+      email: email.toLowerCase(),
       password: hashedpwd
     });
     const newUser = await user.save();
