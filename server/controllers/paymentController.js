@@ -43,6 +43,10 @@ module.exports.charge = async (req, res) => {
   const { account_id, customer_id, amount } = req.body;
   let paymentIntent;
   try {
+    const paymentMethods = await stripe.paymentMethods.list({
+      customer: customer_id,
+      type: "card",
+    });
     paymentIntent = await stripe.paymentIntents.create({
       payment_method_types: ["card"],
       amount: amount,
@@ -53,12 +57,15 @@ module.exports.charge = async (req, res) => {
       transfer_data: {
         destination: account_id,
       },
+      metadata: {
+        order_id: "order_id",
+      },
     });
 
     // Complete the payment using a test card.
     paymentIntent = await stripe.paymentIntents.confirm(paymentIntent.id, {
       // change payment method
-      payment_method: "pm_card_mastercard",
+      payment_method: paymentMethods.data[0].id,
     });
   } catch (err) {
     return res.status(403).json(err);
