@@ -1,6 +1,10 @@
 const mongoose = require("mongoose");
 
 const profileSchema = new mongoose.Schema({
+  available: {
+    type: Boolean,
+    default: true,
+  },
   firstName: {
     type: String,
     trim: true,
@@ -68,9 +72,17 @@ const profileSchema = new mongoose.Schema({
     default: "",
   },
   availability: {
-    type: [Boolean],
+    type: {},
     trim: true,
-    default: [0, 0, 0, 0, 0, 0, 0],
+    default: {
+      sundays: false,
+      mondays: false,
+      tuesdays: false,
+      wednesdays: false,
+      thursdays: false,
+      friday: false,
+      saturdays: false,
+    },
   },
   profilePic: {
     type: String,

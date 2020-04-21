@@ -1,6 +1,6 @@
-import React from "react";
+import React from 'react'
 import { makeStyles } from '@material-ui/core/styles';
-import UserProfileForm from "../../Components/UserProfile/UserProfileForm";
+import AvailabilityForm from "../Components/Availability/AvailabilityForm";
 import { Paper } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
@@ -18,18 +18,18 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-function UserProfile() {
+function Availability() {
   const classes = useStyles();
   return (
     <React.Fragment>
     <Paper>
       <div className={classes.root}>
-      <h1 className={classes.title} >Edit Profile</h1>   
-        <UserProfileForm />
+      <h1 className={classes.title} >Edit Availability</h1>   
+        <AvailabilityForm />
       </div>
     </Paper>
     </React.Fragment>
     
   );
 }
-export default UserProfile;
+export default Availability;

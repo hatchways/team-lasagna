@@ -137,6 +137,42 @@ function App() {
             />
             <Route
               exact
+              path="/bookings"
+              render={(props) => (
+                <LandingPage
+                  {...props}
+                  pathName="bookings"
+                  showSideBar={false}
+                  isAuthed={true}
+                />
+              )}
+            />
+            <Route
+              exact
+              path="/upcomingJobs"
+              render={(props) => (
+                <LandingPage
+                  {...props}
+                  pathName="upcomingJobs"
+                  showSideBar={false}
+                  isAuthed={true}
+                />
+              )}
+            />
+            <Route
+              exact
+              path="/completedJobs"
+              render={(props) => (
+                <LandingPage
+                  {...props}
+                  pathName="completedJobs"
+                  showSideBar={false}
+                  isAuthed={true}
+                />
+              )}
+            />
+            <Route
+              exact
               path="/payment"
               render={(props) =>
                 isLoggedIn() ? (
