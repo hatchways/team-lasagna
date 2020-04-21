@@ -14,6 +14,7 @@ import ProfileListing from "../pages/ProfileListing";
 import PaymentPage from "../pages/Payment";
 import SuccessPage from "../pages/Success";
 import NotFound from "../pages/NotFound";
+import AddPayment from "../Components/Payment/AddPayment";
 
 const landinPageStyle = (theme) => ({
   content: {
@@ -38,6 +39,8 @@ function LandingPage(props) {
         return <ProfileListing />;
       case "payment":
         return <PaymentPage />;
+      case "payment/add":
+        return <AddPayment />;
       case "success":
         return <SuccessPage />;
       case "sitter-profile":

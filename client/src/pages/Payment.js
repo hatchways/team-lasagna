@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { loadStripe } from "@stripe/stripe-js";
 import axios from "axios";
 import { makeStyles } from "@material-ui/core/styles";
@@ -10,11 +10,12 @@ import {
   Typography,
   Button,
 } from "@material-ui/core";
+import Cards from "react-credit-cards";
+import "react-credit-cards/es/styles-compiled.css";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: "100%",
-    minHeight: "100%",
     margin: "20px",
     padding: "40px 0",
   },
@@ -22,10 +23,26 @@ const useStyles = makeStyles((theme) => ({
     width: theme.spacing(20),
     height: theme.spacing(20),
   },
+  card: {
+    border: "1px solid #d3d3d3",
+    padding: "10px",
+    margin: "auto",
+    borderRadius: "5px",
+  },
 }));
 
 export default function Payment() {
   const classes = useStyles();
+  const [card, setCard] = useState({});
+  const [success, setSuccess] = useState(false);
+
+  useEffect(() => {}, []);
+
+  const getCard = async () => {
+    const card = axios.get("");
+    setCard(card);
+  };
+
   const handleSubmit = async (event) => {
     // We don't want to let default form submission happen here,
     // which would refresh the page.
@@ -67,6 +84,33 @@ export default function Payment() {
 
   return (
     <>
+      <Card className={classes.root}>
+        <Grid item xs={12} style={{ textAlign: "center", paddingBottom: "4%" }}>
+          <Typography
+            component="h5"
+            variant="h5"
+            style={{ marginBottom: "20px" }}
+          >
+            Payment Methods
+          </Typography>
+          <Cards
+            cvc="123"
+            expiry="09/22"
+            name="Din Lanh"
+            number="************4242"
+            preview={true}
+          />
+
+          <Button
+            variant="outlined"
+            color="primary"
+            href="/payment/add"
+            style={{ marginTop: "20px" }}
+          >
+            Add Payment Method
+          </Button>
+        </Grid>
+      </Card>
       <Card className={classes.root}>
         <Grid item xs={12} style={{ textAlign: "center", paddingBottom: "4%" }}>
           <Typography component="h5" variant="h5">

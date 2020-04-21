@@ -1,9 +1,7 @@
 import React from "react";
 import { loadStripe } from "@stripe/stripe-js";
-import axios from "axios";
 import { makeStyles } from "@material-ui/core/styles";
-import { Card, Grid, CardContent, Typography, Button } from "@material-ui/core";
-import { Alert } from "@material-ui/lab";
+import { Card, Grid, CardContent, Typography } from "@material-ui/core";
 import { Elements } from "@stripe/react-stripe-js";
 import CardInfoElement from "./CardInfoElement";
 
