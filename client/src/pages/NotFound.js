@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Card, Grid, Avatar, CardContent, Typography, Button, CardMedia} from '@material-ui/core';
-//import { red } from '@material-ui/core/colors';
+import { Card, Grid, Avatar, CardContent, Typography, Button} from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -24,7 +23,6 @@ const useStyles = makeStyles((theme) => ({
 
 export default function ProfilePhoto() {
   const classes = useStyles();
-  const [photoPath, setPhotoPath] = useState('../assets/404error.jpg')
 
   return (
     <Card className={classes.root}>
@@ -36,7 +34,8 @@ export default function ProfilePhoto() {
       <Grid item xs={12} align="center">
         <Avatar 
           alt="404Error" 
-          src={photoPath}
+          //src={photoPath}
+          src='../assets/404error.jpg'
           className={classes.large}  
         />
       </Grid> 

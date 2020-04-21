@@ -46,9 +46,10 @@ const MenuList = ({ isAuthenticated }) => {
     if (parsed) {
       const decoded = jwtDecode(parsed.token);
       try {
-        const profile = await axios.get("/profile/user/" + decoded._id, {
-          headers: { Authorization: `Bearer ${parsed}` },
-        });
+        const profile = await axios.get(
+          "/profile/user/" + decoded._id,
+          authService.authHeader()
+        );
         setProfilePic(profile.data.profilePic);
       } catch (err) {
         console.log(err);

@@ -33,6 +33,22 @@ function App() {
             />
             <Route
               exact
+              path="/bank-account/success"
+              render={(props) =>
+                isLoggedIn() ? (
+                  <LandingPage
+                    {...props}
+                    pathName="bank-account/success"
+                    showSideBar={false}
+                    isAuthed={isLoggedIn}
+                  />
+                ) : (
+                  <Redirect to="/login" />
+                )
+              }
+            />
+            <Route
+              exact
               path="/signup"
               render={(props) => (
                 <LandingPage
@@ -102,6 +118,42 @@ function App() {
                   <Redirect to="/login" />
                 )
               }
+            />
+            <Route
+              exact
+              path="/bookings"
+              render={(props) => (
+                <LandingPage
+                  {...props}
+                  pathName="bookings"
+                  showSideBar={false}
+                  isAuthed={true}
+                />
+              )}
+            />
+            <Route
+              exact
+              path="/upcomingJobs"
+              render={(props) => (
+                <LandingPage
+                  {...props}
+                  pathName="upcomingJobs"
+                  showSideBar={false}
+                  isAuthed={true}
+                />
+              )}
+            />
+            <Route
+              exact
+              path="/completedJobs"
+              render={(props) => (
+                <LandingPage
+                  {...props}
+                  pathName="completedJobs"
+                  showSideBar={false}
+                  isAuthed={true}
+                />
+              )}
             />
             <Route
               exact
