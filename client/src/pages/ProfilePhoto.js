@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
     display: "none",
   },
   pics: {
-    padding: "30px",
+    padding: "15px",
   },
   aboutMeh: {
     textAlign: "center",
@@ -60,9 +60,14 @@ export default function ProfilePhoto() {
   useEffect(() => {
     setId(JSON.parse(localStorage.getItem("profile"))._id);
     getProfile();
-//    console.log(profile.profilePic)
-//    console.log(profile.aboutPics)
+    //    console.log(profile.profilePic)
+    //    console.log(profile.aboutPics)
   }, [id]);
+  useEffect(() => {
+    if (profile.aboutPics) {
+      setAboutProcessing(true);
+    }
+  }, [profile]);
 
   // useEffect(() => {
   //   getProfile();
@@ -76,8 +81,8 @@ export default function ProfilePhoto() {
       // console.log(fetchedProfiles);
       if (fetchedProfile.data) {
         setProfile(fetchedProfile.data);
-            console.log(profile.profilePic);
-            console.log(profile.aboutPics);
+        console.log(profile.profilePic);
+        console.log(profile.aboutPics);
       }
     } catch (err) {
       console.log(err);
@@ -202,9 +207,13 @@ export default function ProfilePhoto() {
         About Me Photos
       </Typography>
       <GridList className={classes.pics}>
-        {aboutSuccess &&
+        {aboutProcessing &&
           profile.aboutPics.map((pic) => (
-            <img alt="about-photo" src={pic}></img>
+              <img
+                className={classes.aboutImgs}
+                alt="about-photo"
+                src={pic}
+              ></img>
           ))}
       </GridList>
       <Grid item xs={12} align="center">
@@ -229,6 +238,11 @@ export default function ProfilePhoto() {
         {aboutSuccess && (
           <Alert className={classes.aboutAlert} severity="success">
             Picture successfully added!
+          </Alert>
+        )}
+        {aboutError && (
+          <Alert className={classes.aboutAlert} severity="error">
+            Error! Please try again...
           </Alert>
         )}
       </Grid>
