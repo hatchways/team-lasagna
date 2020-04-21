@@ -1,5 +1,6 @@
 const secretKey = process.env.STRIPE_SECRET_KEY;
 const stripe = require("stripe")(secretKey);
+const Profile = require("../models/Profile");
 
 module.exports.checkout = async (req, res) => {
   const { account_id, customer_id, amount } = req.body;
@@ -63,4 +64,62 @@ module.exports.charge = async (req, res) => {
     return res.status(403).json(err);
   }
   res.status(200).json({ success: "true", paymentIntent });
+};
+
+module.exports.addPaymentMethod = async (req, res) => {
+  const { payment_method_id, profile_id } = req.body;
+  let profile;
+  try {
+    profile = await Profile.findById(profile_id).populate({
+      path: "user",
+      select: "email",
+    });
+    if (!profile) {
+      return res.status(404).json({ msg: "Profile not found" });
+    }
+    if (profile.customerId === "") {
+      const customer = await stripe.customers.create({
+        email: profile.user.email,
+        name: profile.firstName + " " + profile.lastName,
+      });
+      profile = await Profile.findByIdAndUpdate(
+        profile_id,
+        {
+          customerId: customer.id,
+        },
+        {
+          new: true,
+        }
+      );
+    }
+    const paymentMethod = await stripe.paymentMethods.attach(
+      payment_method_id,
+      {
+        customer: profile.customerId,
+      }
+    );
+    return res.status(200).json({ success: true, profile, paymentMethod });
+  } catch (err) {
+    return res.status(403).json(err);
+  }
+};
+
+module.exports.getPaymentMethod = async (req, res) => {
+  let profile;
+  try {
+    profile = await Profile.findById(req.params.id);
+    if (!profile) {
+      return res.status(404).json({ msg: "Profile not found" });
+    }
+    if (profile.customerId === "") {
+      return res.status(204).json({ msg: "Payment methods are not added yet" });
+    }
+    const paymentMethods = await stripe.paymentMethods.list({
+      customer: profile.customerId,
+      type: "card",
+    });
+    return res.status(200).json({ pm: paymentMethods.data, profile });
+  } catch (err) {
+    return res.status(403).json(err);
+  }
 };

@@ -14,7 +14,7 @@ const registerRouter = require("./routes/register");
 const loginRouter = require("./routes/login");
 const imgUploadRouter = require("./routes/image-upload");
 const requestRouter = require("./routes/requestRouter");
-const checkoutRouter = require("./routes/checkoutRouter");
+const paymentRouter = require("./routes/paymentRouter");
 const bankAccountRouter = require("./routes/bankAccountRouter");
 
 const { json, urlencoded } = express;
@@ -37,7 +37,7 @@ app.use("/profile", profileRouter);
 app.use("/login", loginRouter);
 app.use("/register", registerRouter);
 app.use("/request", requestRouter);
-app.use("/payment", checkoutRouter);
+app.use("/payment", paymentRouter);
 app.use("/img", imgUploadRouter);
 app.use("/connect/bank-account", bankAccountRouter);
 
