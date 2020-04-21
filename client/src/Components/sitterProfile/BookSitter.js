@@ -74,13 +74,24 @@ function required(displayName) {
 function BookSitter({ profile, userProfile }) {
   const classes = useStyles();
   const { errors, getValues, handleSubmit, register, setValue } = useForm();
+  const [dates, setDates] = useState({
+    pickupDate: Date.now(),
+    pickupTime: Date.now(),
+    dropoffDate: Date.now(),
+    dropoffTime: Date.now(),
+  });
   const [resErr, setResErr] = useState(false);
   const [reqSuccess, setReqSuccess] = useState(false);
   const [resErrMsg, setResErrMsg] = useState("");
   const handleChange = (type) => (date) => {
     setValue(type, date);
     values = getValues();
-    console.log(values);
+    setDates((prevState) => {
+      return {
+        ...prevState,
+        [type]: date,
+      };
+    });
   };
   const getDate = (date, time) => {
     const full = new Date();
@@ -172,7 +183,7 @@ function BookSitter({ profile, userProfile }) {
                 id="time-picker"
                 label=" "
                 variant="inline"
-                value={values.pickupTime}
+                value={dates.pickupTime}
                 onChange={handleChange("pickupTime")}
                 className={classes.picker}
                 KeyboardButtonProps={{
@@ -189,7 +200,7 @@ function BookSitter({ profile, userProfile }) {
                 margin="normal"
                 id="date-picker-inline"
                 label="Drop-off"
-                value={values.dropoffDate}
+                value={dates.dropoffDate}
                 onChange={handleChange("dropoffDate")}
                 className={classes.picker}
                 KeyboardButtonProps={{
@@ -204,7 +215,7 @@ function BookSitter({ profile, userProfile }) {
                 id="time-picker"
                 label=" "
                 variant="inline"
-                value={values.dropoffTime}
+                value={dates.dropoffTime}
                 onChange={handleChange("dropoffTime")}
                 className={classes.picker}
                 KeyboardButtonProps={{
@@ -217,7 +228,7 @@ function BookSitter({ profile, userProfile }) {
               <div className={classes.button}>
                 <Button
                   variant="contained"
-                  className={classes.bookButton}
+                  className={dates.bookButton}
                   type="submit"
                 >
                   SEND REQUEST
