@@ -6,10 +6,10 @@ export const isLoggedIn = () => {
   // console.log(jwt);
   if (jwt) {
     const decoded = jwtDecode(jwt.token);
-    const currentTime = Date.now() / 1000;
+    const currentTime = Date.now();
     // console.log(new Date(decoded.exp * 1000).toString());
     // console.log(new Date(Date.now()));
-    return currentTime < decoded.exp;
+    return currentTime < decoded.exp * 1000;
   }
   authService.logout();
   // setAuthed(false);
