@@ -112,7 +112,7 @@ module.exports.getPaymentMethod = async (req, res) => {
       return res.status(404).json({ msg: "Profile not found" });
     }
     if (profile.customerId === "") {
-      return res.status(204).json({ msg: "Payment methods are not added yet" });
+      return res.status(204);
     }
     const paymentMethods = await stripe.paymentMethods.list({
       customer: profile.customerId,

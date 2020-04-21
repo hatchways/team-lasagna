@@ -39,12 +39,12 @@ export default function BankAccount() {
   const [bankData, setBankData] = useState({});
   useEffect(() => {
     getBankInfo();
-    console.log(bankData);
+    // console.log(bankData);
   }, [state]);
 
   const getBankInfo = async () => {
     const profile = JSON.parse(localStorage.getItem("profile"));
-    console.log(profile);
+    // console.log(profile);
     const response = await axios.post(
       "http://localhost:3001/connect/bank-account/get",
       { id: profile._id },

@@ -3,6 +3,8 @@ import { useStripe, useElements, CardElement } from "@stripe/react-stripe-js";
 import { Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { Alert } from "@material-ui/lab";
+import axios from "axios";
+import { Redirect } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -13,15 +15,19 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function CardInfoElement() {
+const CardInfoElement = () => {
   const classes = useStyles();
   const stripe = useStripe();
   const elements = useElements();
   const [error, setError] = useState("");
+  const [load, setLoad] = useState(false);
+  const [success, setSuccess] = useState(false);
 
   const handleSubmit = async (event) => {
     // We don't want to let default form submission happen here,
     // which would refresh the page.
+    setLoad(true);
+    setError("");
     event.preventDefault();
 
     if (!stripe || !elements) {
@@ -31,11 +37,27 @@ export default function CardInfoElement() {
     }
 
     const card = elements.getElement(CardElement);
-    const result = await stripe.createToken(card);
-    console.log(result);
+    const result = await stripe.createPaymentMethod({
+      type: "card",
+      card: card,
+    });
     if (result.error) {
       // Show error to your customer.
+      setLoad(false);
       setError(result.error.message);
+      return;
+    }
+    const profileId = JSON.parse(localStorage.getItem("profile"))._id;
+    const method = await axios.post(
+      "http://localhost:3001/payment/method/add",
+      {
+        profile_id: profileId,
+        payment_method_id: result.paymentMethod.id,
+      }
+    );
+    setLoad(false);
+    if (method.data.success) {
+      setSuccess(true);
     }
   };
 
@@ -52,14 +74,19 @@ export default function CardInfoElement() {
       >
         Save
       </Button>
+      {load && (
+        <Alert severity="info" style={{ marginTop: "10px" }}>
+          Loading...
+        </Alert>
+      )}
       {error !== "" && (
-        <Alert
-          severity="error"
-          style={{ marginTop: "10px", textAlign: "center" }}
-        >
+        <Alert severity="error" style={{ marginTop: "10px" }}>
           {error}
         </Alert>
       )}
+      {success && <Redirect to="/payment" />}
     </form>
   );
-}
+};
+
+export default CardInfoElement;
