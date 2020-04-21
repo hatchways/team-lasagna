@@ -20,11 +20,15 @@ module.exports.getRequestList = async (req, res, next) => {
 // Get all created requests of a dog owner // does not need populate
 module.exports.getOwnerRequestList = async (req, res, next) => {
   try {
-    const requests = await Request.find({user_id:req.params.id});
+    const requests = await Request.find({user_id:req.params.id}).populate('profiles')
     if (requests === undefined || requests.length == 0) {
       return res.status(404).json({ err: "No requests founds" });
     }
-    res.status(200).json(requests);
+    let updatedRequests = requests.map((request) => {
+      let ownerProfile = request.profiles
+      return {request, ownerProfile} 
+    })
+    res.status(200).json(updatedRequests);
   } catch (err) {
     res.status(400).json("Unable to retreive requests");
   }

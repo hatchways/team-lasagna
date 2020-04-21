@@ -5,7 +5,10 @@ const requestController = require("../controllers/requestController");
 router.get("/", requestController.getRequestList);
 
 // get user created request/bookings by passing the owner(user) id
-router.get("/owner/:id", requestController.getOwnerRequestList);
+router.get("/owner/:userId", requestController.getOwnerRequestList);
+
+// cancel request by user 
+//router.put("/owner/:id", requestController.cancelRequest) 
 
 router.get("/:id", requestController.getRequestById);
 router.post("/", requestController.createRequest);

@@ -57,6 +57,7 @@ export default function Booking(props) {
   let declineButton = ''
   let completeButton = ''
   let completedButton = ''
+  let cancelButton = ''
   
   if (props.booking) {
     if (Moment(new Date(request.start)).isSame(new Date(request.end), 'day')) {
@@ -98,6 +99,14 @@ export default function Booking(props) {
         Completed
       </Button>
   }
+
+  if (props.cancel) {
+    cancelButton =
+      <Button variant="contained" size="medium" disabled color="primary">
+        Cancel
+      </Button>
+  }
+
   
   return (
     <Card className={classes.root}>
@@ -118,7 +127,7 @@ export default function Booking(props) {
         </Typography>
       </div>
       <CardActions className={classes.buttons} >
-        {acceptButton} {declineButton} {completeButton} {completedButton}
+        {acceptButton} {declineButton} {completeButton} {completedButton} {cancelButton}
       </CardActions>
     </Card>
   );

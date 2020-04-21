@@ -157,6 +157,18 @@ function App() {
             />
             <Route
               exact
+              path="/ownerBookings"
+              render={(props) => (
+                <LandingPage
+                  {...props}
+                  pathName="ownerBookings"
+                  showSideBar={false}
+                  isAuthed={true}
+                />
+              )}
+            />
+            <Route
+              exact
               path="/payment"
               render={(props) =>
                 isLoggedIn() ? (

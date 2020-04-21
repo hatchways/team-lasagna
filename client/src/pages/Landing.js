@@ -18,6 +18,7 @@ import Availability from "./Availability";
 import Bookings from "../Components/Bookings/Bookings"
 import UpcomingJobs from "../Components/Bookings/UpcomingJobs"
 import CompletedJobs from "../Components/Bookings/CompletedJobs"
+import OwnerBookings from "../Components/Bookings/OwnerBookings"
 
 const landinPageStyle = (theme) => ({
   content: {
@@ -54,6 +55,8 @@ function LandingPage(props) {
           return <UpcomingJobs /> 
         case "completedJobs":
           return <CompletedJobs />
+        case "ownerBookings":
+          return <OwnerBookings />
         case "/":
           return <ProfileListing />;
         default:
