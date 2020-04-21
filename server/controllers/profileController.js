@@ -81,6 +81,8 @@ module.exports.createProfile = async (req, res, next) => {
     profilePic,
     about,
     user,
+    accountId,
+    customerId,
   } = req.body;
   const data = {
     firstName: firstName,
@@ -102,6 +104,7 @@ module.exports.createProfile = async (req, res, next) => {
     about: about,
     user: user,
     accountId: accountId,
+    customerId: customerId,
   };
 
   try {
