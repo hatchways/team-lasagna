@@ -7,14 +7,6 @@ import axios from "axios";
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
-  root: {},
-  buttonBar: {
-    [theme.breakpoints.down("xs")]: {
-      display: "none",
-    },
-    display: "flex",
-    alignItems: "center",
-  },
   toolbarLink: {
     padding: theme.spacing(1),
     flexShrink: 0,

@@ -20,8 +20,19 @@ import UpcomingJobs from "../Components/Bookings/UpcomingJobs";
 import CompletedJobs from "../Components/Bookings/CompletedJobs";
 
 const landinPageStyle = (theme) => ({
+  container: {
+    margin: "0 auto",
+    maxWidth: 960,
+    justifyContent: "center",
+  },
   content: {
     marginTop: theme.spacing.unit * 4,
+  },
+  sideBar: {
+    [theme.breakpoints.down("xs")]: {
+      display: "none",
+    },
+    display: "flex",
   },
 });
 
@@ -68,8 +79,8 @@ function LandingPage(props) {
   let sideMenuBar = "";
   if (props.showSideBar) {
     sideMenuBar = (
-      <Grid container style={{ margin: "0 auto", maxWidth: 960 }}>
-        <Grid item xs={2}>
+      <Grid container className={classes.container}>
+        <Grid item xs={2} className={classes.sideBar}>
           <MenuListComposition />
         </Grid>
         <Grid item xs={10} className={classes.content}>

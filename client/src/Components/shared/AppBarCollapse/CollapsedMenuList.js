@@ -55,6 +55,31 @@ const CollapsedMenuList = forwardRef((props, ref) => {
             </Link>
           </MenuItem>
           <MenuItem>
+            <Link href="/profilePhoto" className={classes.toolbarLink}>
+              Profile Photo
+            </Link>
+          </MenuItem>
+          <MenuItem>
+            <Link href="/availability" className={classes.toolbarLink}>
+              Availability
+            </Link>
+          </MenuItem>
+          <MenuItem>
+            <Link href="/payment" className={classes.toolbarLink}>
+              Payment
+            </Link>
+          </MenuItem>
+          <MenuItem>
+            <Link href="#" className={classes.toolbarLink}>
+              Security
+            </Link>
+          </MenuItem>
+          <MenuItem>
+            <Link href="#" className={classes.toolbarLink}>
+              Settings
+            </Link>
+          </MenuItem>
+          <MenuItem>
             <Link
               href="/login"
               className={classes.toolbarLink}
