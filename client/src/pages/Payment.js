@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { loadStripe } from "@stripe/stripe-js";
 import axios from "axios";
 import { makeStyles } from "@material-ui/core/styles";
 import { Card, Grid, Typography, Button } from "@material-ui/core";
@@ -39,9 +38,11 @@ export default function Payment() {
     const cards = await axios.get(
       "http://localhost:3001/payment/method/" + profileId
     );
-    if (cards.status != 204) {
+    if (cards.status !== 204) {
       setCard(cards.data.pm[0].card);
       setProfile(cards.data.profile);
+      // update customerid in profile
+      localStorage.setItem("profile", JSON.stringify(cards.data.profile));
     }
   };
 

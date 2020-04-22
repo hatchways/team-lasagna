@@ -30,13 +30,11 @@ const Success = ({ match }) => {
   const classes = useStyles();
   const location = useLocation();
   useEffect(() => {
-    console.log(match.path);
     if (match.path === "/success/:id") {
       getSession();
     } else if (match.path === "/bank-account/success") {
       const code = new URLSearchParams(location.search).get("code");
       const state = new URLSearchParams(location.search).get("state");
-      console.log(code + " " + state);
       connectAcc(code, state);
     }
   }, []);
@@ -58,7 +56,7 @@ const Success = ({ match }) => {
         profile_id: profile._id,
       }
     );
-    console.log(response);
+    localStorage.setItem("profile", JSON.stringify(response.data.profile));
   };
 
   return (

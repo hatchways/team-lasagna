@@ -122,38 +122,50 @@ function App() {
             <Route
               exact
               path="/bookings"
-              render={(props) => (
-                <LandingPage
-                  {...props}
-                  pathName="bookings"
-                  showSideBar={false}
-                  isAuthed={true}
-                />
-              )}
+              render={(props) =>
+                isLoggedIn() ? (
+                  <LandingPage
+                    {...props}
+                    pathName="bookings"
+                    showSideBar={false}
+                    isAuthed={isLoggedIn}
+                  />
+                ) : (
+                  <Redirect to="/login" />
+                )
+              }
             />
             <Route
               exact
               path="/upcomingJobs"
-              render={(props) => (
-                <LandingPage
-                  {...props}
-                  pathName="upcomingJobs"
-                  showSideBar={false}
-                  isAuthed={true}
-                />
-              )}
+              render={(props) =>
+                isLoggedIn() ? (
+                  <LandingPage
+                    {...props}
+                    pathName="upcomingJobs"
+                    showSideBar={false}
+                    isAuthed={isLoggedIn}
+                  />
+                ) : (
+                  <Redirect to="/login" />
+                )
+              }
             />
             <Route
               exact
               path="/completedJobs"
-              render={(props) => (
-                <LandingPage
-                  {...props}
-                  pathName="completedJobs"
-                  showSideBar={false}
-                  isAuthed={true}
-                />
-              )}
+              render={(props) =>
+                isLoggedIn() ? (
+                  <LandingPage
+                    {...props}
+                    pathName="completedJobs"
+                    showSideBar={false}
+                    isAuthed={isLoggedIn}
+                  />
+                ) : (
+                  <Redirect to="/login" />
+                )
+              }
             />
             <Route
               exact

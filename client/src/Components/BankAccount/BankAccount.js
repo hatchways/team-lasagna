@@ -63,9 +63,7 @@ export default function BankAccount() {
           </Typography>
           <Button
             href={
-              "https://connect.stripe.com/express/oauth/authorize?client_id=ca_H6SmiPDpQ1FRWYUhBviGJtKDWn3vZ7P9&state=" +
-              state +
-              "&suggested_capabilities[]=transfers"
+              "https://connect.stripe.com/express/oauth/authorize?client_id=ca_H6SmiPDpQ1FRWYUhBviGJtKDWn3vZ7P9&state=vw8hk6swzmd&suggested_capabilities[]=transfers"
             }
             variant="contained"
             color="secondary"
