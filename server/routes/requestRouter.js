@@ -7,8 +7,11 @@ router.get("/", requestController.getRequestList);
 // get user created request/bookings by passing the owner(user) id
 router.get("/owner/:userId", requestController.getOwnerRequestList);
 
-// cancel request by user 
-//router.put("/owner/:id", requestController.cancelRequest) 
+// needed for updates on all documents but not used.
+router.put("/", requestController.updateAllDocs)
+
+// cancel request by user
+router.put("/owner/:id", requestController.cancelRequest) 
 
 router.get("/:id", requestController.getRequestById);
 router.post("/", requestController.createRequest);

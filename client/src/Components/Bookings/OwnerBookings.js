@@ -48,12 +48,12 @@ export default function OwnerBookings() {
   const sitterId = localProfile.user
 
   useEffect(() => {
-    getbookings();
-  }, []);
+    getbookings(sitterId);
+  }, [sitterId]);
 
   async function getbookings(sitterId) {
     try {
-      const fetchedbookings = await axios.get("http://localhost:3001/request/owner/" + '5e95c3b6db0eb175d9057147');
+      const fetchedbookings = await axios.get("http://localhost:3001/request/owner/" + sitterId)
       if (fetchedbookings.data) {
         console.log(fetchedbookings.data)
         setBookings(fetchedbookings.data);
@@ -64,12 +64,12 @@ export default function OwnerBookings() {
   }
 
   async function cancelBooking(id, bookingRequest, index) {
-    bookingRequest = {...bookingRequest, accepted: true}
+    bookingRequest = {...bookingRequest, cancelled: true}
     setSuccess(false);
     setError(false);
     setProcessing(true);
     try {
-      const fetchedbookings = await axios.put("http://localhost:3001/request/" + id, bookingRequest);
+      const fetchedbookings = await axios.put("http://localhost:3001/request/owner/" + id, bookingRequest);
       if (fetchedbookings.data) {
         //setBookings(fetchedbookings.data);
         setBookings(prevState => prevState.filter((request, i) => i !== index));
@@ -113,7 +113,7 @@ export default function OwnerBookings() {
           </div>
         </Grid>
         <Grid item xs={12} sm={6}>
-          <CalendarView bookings={bookings}  />
+          <CalendarView bookings={bookings} owner={true} />
         </Grid>
         </Grid>
       </>

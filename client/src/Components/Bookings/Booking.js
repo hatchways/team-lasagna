@@ -75,6 +75,7 @@ export default function Booking(props) {
     zipCode = `${ownerProfile.address.zipCode}`
     country = `${ownerProfile.address.country}`
   }
+
   if(props.accept) {
     acceptButton = 
     <Button variant="contained" size="medium" color="primary" style={{marginRight: '8px'}} onClick={props.accept}>
@@ -101,10 +102,19 @@ export default function Booking(props) {
   }
 
   if (props.cancel) {
-    cancelButton =
+    let dayDiff = Moment().diff(Moment(new Date(request.start)))
+    dayDiff = (dayDiff/(60*60*1000))
+    if(dayDiff < 24) {
+      cancelButton =
+      <Button variant="contained" size="medium" color="primary">
+        Cancel
+      </Button>
+    } else {
+      cancelButton =
       <Button variant="contained" size="medium" disabled color="primary">
         Cancel
       </Button>
+    }
   }
 
   
