@@ -91,7 +91,7 @@ export default function ProfileListring({ profile }) {
                 color="textSecondary"
                 component="span"
               >
-                $14/hr
+                ${profile.hourlyRate}
               </Typography>
             </Grid>
           </CardContent>
