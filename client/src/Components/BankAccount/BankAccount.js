@@ -28,8 +28,12 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
   },
   body: {
+    [theme.breakpoints.down("xs")]: {
+      flexDirection: "column",
+    },
     display: "flex",
     alignItems: "center",
+    flexDirection: "row",
   },
 }));
 
