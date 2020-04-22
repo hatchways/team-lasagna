@@ -20,10 +20,7 @@ const AppBarCollapse = ({ isAuthenticated, pictureChanged }) => {
   return (
     <div className={classes.root}>
       <ButtonAppBarCollapse>
-        <CollapsedMenuList
-          isAuthenticated={isAuthenticated}
-          pictureChanged={pictureChanged}
-        />
+        <CollapsedMenuList isAuthenticated={isAuthenticated} />
       </ButtonAppBarCollapse>
       <div className={classes.buttonBar} id="appbar-collapse">
         <MenuList

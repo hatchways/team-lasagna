@@ -28,7 +28,7 @@ const CollapsedMenuList = forwardRef((props, ref) => {
 
   useEffect(() => {
     setAuthed(props.isAuthenticated());
-  }, [props.isAuthenticated(), props.pictureChanged]);
+  }, [props.isAuthenticated()]);
   // dropdown events END
 
   const logout = (e) => {

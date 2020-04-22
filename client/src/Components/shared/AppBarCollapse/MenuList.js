@@ -60,7 +60,6 @@ const MenuList = ({ isAuthenticated, pictureChanged }) => {
   useEffect(() => {
     setAuthed(isAuthenticated());
     getProfilePic();
-    console.log(pictureChanged);
   }, [isAuthenticated(), pictureChanged]);
 
   // dropdown events
