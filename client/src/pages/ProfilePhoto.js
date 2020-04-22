@@ -13,7 +13,7 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import { red } from "@material-ui/core/colors";
 import { Alert } from "@material-ui/lab";
 import axios from "axios";
- 
+
 const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: "100%",
@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ProfilePhoto() {
+export default function ProfilePhoto({ setPictureChanged }) {
   const classes = useStyles();
   const [profile, setProfile] = useState({});
   const [id, setId] = useState("");
@@ -76,6 +76,7 @@ export default function ProfilePhoto() {
       setProcessing(false);
       setProfile(res.data);
       setSuccess(true);
+      setPictureChanged(true);
     } catch (err) {
       setSuccess(false);
       setProcessing(false);
@@ -94,6 +95,7 @@ export default function ProfilePhoto() {
       setProcessing(false);
       setSuccess(true);
       setProfile(res.data);
+      setPictureChanged(false);
     } catch (err) {
       setSuccess(false);
       setProcessing(false);

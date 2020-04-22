@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Header({ isAuthenticated }) {
+export default function Header({ isAuthenticated, pictureChanged }) {
   const classes = useStyles();
 
   return (
@@ -34,7 +34,10 @@ export default function Header({ isAuthenticated }) {
             noWrap
             className={classes.toolbarTitle}
           ></Typography>
-          <AppBarCollapse isAuthenticated={isAuthenticated} />
+          <AppBarCollapse
+            isAuthenticated={isAuthenticated}
+            pictureChanged={pictureChanged}
+          />
         </Toolbar>
       </AppBar>
     </React.Fragment>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { withStyles, CssBaseline, Grid } from "@material-ui/core";
 
 import Navbar from "../Components/shared/Navbar";
@@ -27,6 +27,7 @@ const landinPageStyle = (theme) => ({
 
 function LandingPage(props) {
   const { classes } = props;
+  const [pictureChanged, setPictureChanged] = useState(false);
 
   const pathName = () => {
     switch (props.pathName) {
@@ -37,7 +38,7 @@ function LandingPage(props) {
       case "editProfile":
         return <UserProfile />;
       case "profilePhoto":
-        return <ProfilePhoto />;
+        return <ProfilePhoto setPictureChanged={setPictureChanged} />;
       case "availability":
         return <Availability />;
       case "profile-listing":
@@ -91,7 +92,10 @@ function LandingPage(props) {
       <div>
         <CssBaseline />
         <nav>
-          <Navbar isAuthenticated={props.isAuthed} />
+          <Navbar
+            isAuthenticated={props.isAuthed}
+            pictureChanged={pictureChanged}
+          />
         </nav>
         {sideMenuBar}
         <Footer />

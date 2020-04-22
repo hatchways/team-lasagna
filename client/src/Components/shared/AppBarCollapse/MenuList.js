@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const MenuList = ({ isAuthenticated }) => {
+const MenuList = ({ isAuthenticated, pictureChanged }) => {
   // let profile = {};
   const classes = useStyles();
   const [profilePic, setProfilePic] = useState("");
@@ -60,7 +60,8 @@ const MenuList = ({ isAuthenticated }) => {
   useEffect(() => {
     setAuthed(isAuthenticated());
     getProfilePic();
-  }, [isAuthenticated()]);
+    console.log(pictureChanged);
+  }, [isAuthenticated(), pictureChanged]);
 
   // dropdown events
   const handleClick = (event) => {
