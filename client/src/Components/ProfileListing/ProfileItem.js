@@ -8,6 +8,7 @@ import {
   Typography,
   Box,
   Divider,
+  Link,
 } from "@material-ui/core";
 import { red } from "@material-ui/core/colors";
 import Rating from "@material-ui/lab/Rating";
@@ -62,7 +63,12 @@ export default function ProfileListring({ profile }) {
                 component="h2"
                 className={classes.name}
               >
-                {profile.firstName + " " + profile.lastName}
+                <Link
+                  to="/sitter-profile/"
+                  href={"/sitter-profile/" + profile._id}
+                >
+                  {profile.firstName + " " + profile.lastName}
+                </Link>
               </Typography>
             </Box>
             <Box>

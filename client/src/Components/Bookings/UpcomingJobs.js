@@ -83,7 +83,7 @@ export default function UpcomingJobs() {
       const amount =
         ((new Date(bookingRequest.end).getTime() -
           new Date(bookingRequest.start).getTime()) /
-          3600) *
+          3600000) *
         localProfile.hourlyRate;
 
       // charge

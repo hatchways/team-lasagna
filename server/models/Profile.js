@@ -102,6 +102,11 @@ const profileSchema = new mongoose.Schema({
     type: String,
     default: "",
   },
+  aboutPics: {
+    trim: true,
+    type: [String],
+    default: [],
+  },
 });
 
 module.exports = Profile = mongoose.model("Profile", profileSchema);

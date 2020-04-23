@@ -50,6 +50,7 @@ function LandingPage(props) {
         return <UserProfile />;
       case "profilePhoto":
         return <ProfilePhoto setPictureChanged={setPictureChanged} />;
+        return <ProfilePhoto />;
       case "availability":
         return <Availability />;
       case "profile-listing":
@@ -62,7 +63,8 @@ function LandingPage(props) {
       case "bank-account/success":
         return <SuccessPage />;
       case "sitter-profile":
-        return <SitterProfile profileId={"5e86446fb63eabc010ee2828"} />;
+        //console.log(props.match);
+        return <SitterProfile profileId={props.match.params.user} />;
       case "bookings":
         return <Bookings />;
       case "upcomingJobs":
