@@ -42,6 +42,9 @@ const useStyles = makeStyles({
     position: "relative",
     bottom: "70%",
   },
+  aboutText: {
+    paddingBottom: "35px",
+  },
 });
 
 function AboutMeProfile({ profile }) {
@@ -70,7 +73,7 @@ function AboutMeProfile({ profile }) {
         <div className={classes.aboutMe}>
           <h2>About me</h2>
           <br></br>
-          {profile.about}
+          <div className={classes.aboutText}>{profile.about}</div>
           <AboutPhotos profile={profile} />
         </div>
       </Paper>
