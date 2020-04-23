@@ -1,6 +1,7 @@
 const secretKey = process.env.STRIPE_SECRET_KEY;
 const stripe = require("stripe")(secretKey);
 const Profile = require("../models/Profile");
+const Request = require("../models/Request");
 
 module.exports.checkout = async (req, res) => {
   const { account_id, customer_id, amount } = req.body;
@@ -40,25 +41,31 @@ module.exports.retrieve = async (req, res) => {
 };
 
 module.exports.charge = async (req, res) => {
-  const { account_id, customer_id, amount } = req.body;
+  const { amount, request_id } = req.body;
   let paymentIntent;
   try {
+    const request = await Request.findById(request_id);
+    const customer = await Profile.find({ user: request.user_id });
+    const sitter = await Profile.find({ user: request.sitter_id });
+    if (!request || !customer || !sitter) {
+      return res.status(404).json({ msg: "Invalid request." });
+    }
     const paymentMethods = await stripe.paymentMethods.list({
-      customer: customer_id,
+      customer: customer.customerId,
       type: "card",
     });
     paymentIntent = await stripe.paymentIntents.create({
       payment_method_types: ["card"],
       amount: amount,
       currency: "cad",
-      customer: customer_id,
+      customer: customer.customerId,
       description: "Loving Sitter pet care one-time service",
       application_fee_amount: amount * 0.2,
       transfer_data: {
-        destination: account_id,
+        destination: sitter.accountId,
       },
       metadata: {
-        order_id: "order_id",
+        order_id: request_id,
       },
     });
 
