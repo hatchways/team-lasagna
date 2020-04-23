@@ -33,6 +33,11 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "space-between",
     lineHeight: "2.5",
   },
+  about: {
+    overflow: "hidden",
+    textOverflow: "ellipsis",
+    whiteSpace: "nowrap",
+  },
 }));
 
 export default function ProfileListring({ profile }) {
@@ -65,6 +70,7 @@ export default function ProfileListring({ profile }) {
                 variant="subtitle1"
                 color="textSecondary"
                 component="p"
+                className={classes.about}
               >
                 {profile.about}
               </Typography>
