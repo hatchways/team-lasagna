@@ -46,6 +46,7 @@ function LandingPage(props) {
       case "success":
         return <SuccessPage />;
       case "sitter-profile":
+        //console.log(props.match);
         return <SitterProfile profileId={props.match.params.user} />;
       case "bookings":
         return <Bookings />;

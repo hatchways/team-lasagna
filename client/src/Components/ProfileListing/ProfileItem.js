@@ -59,8 +59,8 @@ export default function ProfileListring({ profile }) {
                 className={classes.name}
               >
                 <Link
-                  to="/sitter-profile:"
-                  href={"/sitter-profile" + profile.user}
+                  to="/sitter-profile/"
+                  href={"/sitter-profile/" + profile._id}
                 >
                   {profile.firstName + " " + profile.lastName}
                 </Link>
