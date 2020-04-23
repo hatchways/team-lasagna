@@ -58,17 +58,27 @@ export default function Payment() {
             Payment Methods
           </Typography>
           {card.brand ? (
-            <Cards
-              issuer={card.brand}
-              expiry={
-                card.exp_month < 10
-                  ? `0${card.exp_month}/${card.exp_year}`
-                  : `${card.exp_month}/${card.exp_year}`
-              }
-              name={`${profile.firstName} ${profile.lastName}`}
-              number={`************${card.last4}`}
-              preview={true}
-            />
+            <>
+              <Cards
+                issuer={card.brand}
+                expiry={
+                  card.exp_month < 10
+                    ? `0${card.exp_month}/${card.exp_year}`
+                    : `${card.exp_month}/${card.exp_year}`
+                }
+                name={`${profile.firstName} ${profile.lastName}`}
+                number={`************${card.last4}`}
+                preview={true}
+              />
+              <Button
+                variant="outlined"
+                color="primary"
+                href="/payment/add"
+                style={{ marginTop: "20px" }}
+              >
+                Change Payment Method
+              </Button>
+            </>
           ) : (
             <>
               <Typography

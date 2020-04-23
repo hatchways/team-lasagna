@@ -84,25 +84,23 @@ module.exports.addPaymentMethod = async (req, res) => {
     if (!profile) {
       return res.status(404).json({ msg: "Profile not found" });
     }
-    if (profile.customerId === "") {
-      const customer = await stripe.customers.create({
-        email: profile.user.email,
-        name: profile.firstName + " " + profile.lastName,
-      });
-      profile = await Profile.findByIdAndUpdate(
-        profile_id,
-        {
-          customerId: customer.id,
-        },
-        {
-          new: true,
-        }
-      );
-    }
+    const customer = await stripe.customers.create({
+      email: profile.user.email,
+      name: profile.firstName + " " + profile.lastName,
+    });
     const paymentMethod = await stripe.paymentMethods.attach(
       payment_method_id,
       {
-        customer: profile.customerId,
+        customer: customer.id,
+      }
+    );
+    profile = await Profile.findByIdAndUpdate(
+      profile_id,
+      {
+        customerId: customer.id,
+      },
+      {
+        new: true,
       }
     );
     return res.status(200).json({ success: true, profile, paymentMethod });

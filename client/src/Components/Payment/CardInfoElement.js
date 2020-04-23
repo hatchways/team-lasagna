@@ -31,29 +31,33 @@ const CardInfoElement = () => {
     if (!stripe || !elements) {
       return;
     }
-
-    const card = elements.getElement(CardElement);
-    const result = await stripe.createPaymentMethod({
-      type: "card",
-      card: card,
-    });
-    if (result.error) {
-      // Show error to your customer.
-      setLoad(false);
-      setError(result.error.message);
-      return;
-    }
-    const profileId = JSON.parse(localStorage.getItem("profile"))._id;
-    const method = await axios.post(
-      "http://localhost:3001/payment/method/add",
-      {
-        profile_id: profileId,
-        payment_method_id: result.paymentMethod.id,
+    try {
+      const card = elements.getElement(CardElement);
+      const result = await stripe.createPaymentMethod({
+        type: "card",
+        card: card,
+      });
+      if (result.error) {
+        // Show error to your customer.
+        setLoad(false);
+        setError(result.error.message);
+        return;
       }
-    );
-    setLoad(false);
-    if (method.data.success) {
-      setSuccess(true);
+      const profileId = JSON.parse(localStorage.getItem("profile"))._id;
+      const method = await axios.post(
+        "http://localhost:3001/payment/method/add",
+        {
+          profile_id: profileId,
+          payment_method_id: result.paymentMethod.id,
+        }
+      );
+      setLoad(false);
+      if (method.data.success) {
+        setSuccess(true);
+      }
+    } catch (err) {
+      setLoad(false);
+      setError("Error! Unable to add card. Please check card ");
     }
   };
 
