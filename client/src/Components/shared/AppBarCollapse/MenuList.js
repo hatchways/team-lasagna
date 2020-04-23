@@ -72,11 +72,11 @@ const MenuList = ({ isAuthenticated, pictureChanged }) => {
     <>
       {authed ? (
         <React.Fragment>
+          <Link href="/bookings" className={classes.toolbarLink}>
+            My Jobs
+          </Link>
           <Link href="/" className={classes.toolbarLink}>
             Profile Listing
-          </Link>
-          <Link href="#" className={classes.toolbarLink}>
-            My Jobs
           </Link>
           <Avatar alt="Remy Sharp" src={profilePic} onClick={handleClick} />
           <Menu
