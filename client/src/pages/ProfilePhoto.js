@@ -9,8 +9,10 @@ import {
   Typography,
   Button,
   IconButton,
+  Container,
 } from "@material-ui/core";
 import DeleteIcon from "@material-ui/icons/Delete";
+import Fab from "@material-ui/core/Fab";
 import { red } from "@material-ui/core/colors";
 import { Alert } from "@material-ui/lab";
 import axios from "axios";
@@ -39,11 +41,28 @@ const useStyles = makeStyles((theme) => ({
   },
   pics: {
     padding: "15px",
+    overflow: "hidden",
   },
   aboutMeh: {
     textAlign: "center",
   },
-
+  aboutPictures: {
+    maxWidth: "50%",
+    textAlign: "center",
+  },
+  aboutImgs: {
+    width: "auto",
+    maxHeight: "20em",
+  },
+  fabDel: {
+    height: "15px",
+    width: "0px",
+    margin: 0,
+    right: "10px",
+    bottom: "100%",
+    color: "red",
+    position: "relative",
+  },
 }));
 
 export default function ProfilePhoto() {
@@ -56,6 +75,7 @@ export default function ProfilePhoto() {
   const [aboutProcessing, setAboutProcessing] = useState(false);
   const [aboutError, setAboutError] = useState(false);
   const [aboutSuccess, setAboutSuccess] = useState(false);
+  const [aboutDelSuccess, setAboutDelSuccess] = useState(false);
 
   useEffect(() => {
     setId(JSON.parse(localStorage.getItem("profile"))._id);
@@ -109,9 +129,13 @@ export default function ProfilePhoto() {
     }
   };
   const handleAboutFileUpload = async (event) => {
+    setAboutDelSuccess(false);
+    setAboutProcessing(false);
     setAboutSuccess(false);
+    setSuccess(false);
     setAboutError(false);
-    setAboutProcessing(true);
+    setError(false);
+
     const data = new FormData();
     // send file to server and call
     try {
@@ -120,12 +144,10 @@ export default function ProfilePhoto() {
         "http://localhost:3001/img/about-me/" + id,
         data
       );
-      setAboutProcessing(false);
       setProfile(res.data);
       setAboutSuccess(true);
     } catch (err) {
       setAboutSuccess(false);
-      setAboutProcessing(false);
       setAboutError(true);
       console.log(err);
     }
@@ -148,6 +170,29 @@ export default function ProfilePhoto() {
       console.log(err);
     }
   };
+  async function removeAboutPic(url) {
+    console.log(url);
+    console.log("test");
+    setAboutDelSuccess(false);
+    setAboutProcessing(false);
+    setAboutSuccess(false);
+    setSuccess(false);
+    setAboutError(false);
+    setError(false);
+    try {
+      const res = await axios.put(
+        "http://localhost:3001/img/delete-about-me/" + id,
+        {
+          url: url,
+        }
+      );
+      setProfile(res.data);
+      console.log(res);
+      setAboutDelSuccess(true);
+    } catch (err) {
+      setAboutError(true);
+    }
+  }
 
   return (
     <Card className={classes.root}>
@@ -206,14 +251,19 @@ export default function ProfilePhoto() {
       <Typography className={classes.aboutMeh} component="h5" variant="h5">
         About Me Photos
       </Typography>
-      <GridList className={classes.pics}>
+      <GridList cols={2} spacing={10} className={classes.pics}>
         {aboutProcessing &&
           profile.aboutPics.map((pic) => (
+            <div className={classes.aboutPictures} style={{ height: "100%" }}>
               <img
                 className={classes.aboutImgs}
                 alt="about-photo"
                 src={pic}
               ></img>
+              <Fab className={classes.fabDel}>
+                <DeleteIcon onClick={() => removeAboutPic(pic)} />
+              </Fab>
+            </div>
           ))}
       </GridList>
       <Grid item xs={12} align="center">
@@ -237,7 +287,12 @@ export default function ProfilePhoto() {
         </label>
         {aboutSuccess && (
           <Alert className={classes.aboutAlert} severity="success">
-            Picture successfully added!
+            Picture successfully uploaded!
+          </Alert>
+        )}
+        {aboutDelSuccess && (
+          <Alert className={classes.aboutAlert} severity="success">
+            Picture successfully deleted!
           </Alert>
         )}
         {aboutError && (
