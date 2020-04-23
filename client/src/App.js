@@ -122,30 +122,30 @@ function App() {
             <Route
               exact
               path="/bookings"
-              render={(props) => 
+              render={(props) =>
                 isLoggedIn() ? (
-                <LandingPage
-                  {...props}
-                  pathName="bookings"
-                  showSideBar={false}
-                  isAuthed={isLoggedIn}
-                />
+                  <LandingPage
+                    {...props}
+                    pathName="bookings"
+                    showSideBar={false}
+                    isAuthed={isLoggedIn}
+                  />
                 ) : (
                   <Redirect to="/login" />
                 )
-            }
+              }
             />
             <Route
               exact
               path="/upcomingJobs"
-              render={(props) => 
+              render={(props) =>
                 isLoggedIn() ? (
-                <LandingPage
-                  {...props}
-                  pathName="upcomingJobs"
-                  showSideBar={false}
-                  isAuthed={isLoggedIn}
-                />
+                  <LandingPage
+                    {...props}
+                    pathName="upcomingJobs"
+                    showSideBar={false}
+                    isAuthed={isLoggedIn}
+                  />
                 ) : (
                   <Redirect to="/login" />
                 )
@@ -154,14 +154,14 @@ function App() {
             <Route
               exact
               path="/completedJobs"
-              render={(props) => 
+              render={(props) =>
                 isLoggedIn() ? (
-                <LandingPage
-                  {...props}
-                  pathName="completedJobs"
-                  showSideBar={false}
-                  isAuthed={isLoggedIn}
-                />
+                  <LandingPage
+                    {...props}
+                    pathName="completedJobs"
+                    showSideBar={false}
+                    isAuthed={isLoggedIn}
+                  />
                 ) : (
                   <Redirect to="/login" />
                 )
@@ -170,14 +170,14 @@ function App() {
             <Route
               exact
               path="/ownerBookings"
-              render={(props) => 
+              render={(props) =>
                 isLoggedIn() ? (
-                <LandingPage
-                  {...props}
-                  pathName="ownerBookings"
-                  showSideBar={false}
-                  isAuthed={isLoggedIn}
-                />
+                  <LandingPage
+                    {...props}
+                    pathName="ownerBookings"
+                    showSideBar={false}
+                    isAuthed={isLoggedIn}
+                  />
                 ) : (
                   <Redirect to="/login" />
                 )
@@ -201,7 +201,7 @@ function App() {
             />
             <Route
               exact
-              path="/security"
+              path="/payment"
               render={(props) =>
                 isLoggedIn() ? (
                   <LandingPage
