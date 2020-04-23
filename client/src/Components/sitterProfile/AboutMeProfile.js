@@ -2,6 +2,7 @@ import React from "react";
 import { Paper, Avatar } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import RoomIcon from "@material-ui/icons/Room";
+import AboutPhotos from "./aboutPhotos";
 const useStyles = makeStyles({
   profilePic: {
     width: "140px",
@@ -70,6 +71,7 @@ function AboutMeProfile({ profile }) {
           <h2>About me</h2>
           <br></br>
           {profile.about}
+          <AboutPhotos profile={profile} />
         </div>
       </Paper>
     </div>

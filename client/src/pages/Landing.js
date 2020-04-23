@@ -15,9 +15,9 @@ import PaymentPage from "../pages/Payment";
 import SuccessPage from "../pages/Success";
 import NotFound from "../pages/NotFound";
 import Availability from "./Availability";
-import Bookings from "../Components/Bookings/Bookings"
-import UpcomingJobs from "../Components/Bookings/UpcomingJobs"
-import CompletedJobs from "../Components/Bookings/CompletedJobs"
+import Bookings from "../Components/Bookings/Bookings";
+import UpcomingJobs from "../Components/Bookings/UpcomingJobs";
+import CompletedJobs from "../Components/Bookings/CompletedJobs";
 
 const landinPageStyle = (theme) => ({
   content: {
@@ -27,39 +27,38 @@ const landinPageStyle = (theme) => ({
 
 function LandingPage(props) {
   const { classes } = props;
-
-    const pathName = () => {
-      switch (props.pathName) {
-        case "signup":
-          return <Register />;
-        case "login":
-          return <Login />;
-        case "editProfile":
-          return <UserProfile />;
-        case "profilePhoto":
-          return <ProfilePhoto />;
-        case "availability":
-          return <Availability />;
-        case "profile-listing":
-          return <ProfileListing />;
-        case "payment":
-          return <PaymentPage />;
-        case "success":
-          return <SuccessPage />;
-        case "sitter-profile":
-          return <SitterProfile profileId={"5e86446fb63eabc010ee2828"} />;
-        case "bookings":
-          return <Bookings />
-        case "upcomingJobs":
-          return <UpcomingJobs /> 
-        case "completedJobs":
-          return <CompletedJobs />
-        case "/":
-          return <ProfileListing />;
-        default:
-          return <NotFound />;
-      }
-    };
+  const pathName = () => {
+    switch (props.pathName) {
+      case "signup":
+        return <Register />;
+      case "login":
+        return <Login />;
+      case "editProfile":
+        return <UserProfile />;
+      case "profilePhoto":
+        return <ProfilePhoto />;
+      case "availability":
+        return <Availability />;
+      case "profile-listing":
+        return <ProfileListing />;
+      case "payment":
+        return <PaymentPage />;
+      case "success":
+        return <SuccessPage />;
+      case "sitter-profile":
+        return <SitterProfile profileId={props.match.params.user} />;
+      case "bookings":
+        return <Bookings />;
+      case "upcomingJobs":
+        return <UpcomingJobs />;
+      case "completedJobs":
+        return <CompletedJobs />;
+      case "/":
+        return <ProfileListing />;
+      default:
+        return <NotFound />;
+    }
+  };
 
   let sideMenuBar = "";
   if (props.showSideBar) {

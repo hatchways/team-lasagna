@@ -44,7 +44,6 @@ const useStyles = makeStyles({
   },
   bookingContainer: {
     marginLeft: "0px",
-    alignSelf: "center",
     ["@media (min-width:700px)"]: {
       marginLeft: "3em",
     },

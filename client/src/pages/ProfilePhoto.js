@@ -3,13 +3,16 @@ import { makeStyles } from "@material-ui/core/styles";
 import {
   Card,
   Grid,
+  GridList,
   Avatar,
   CardContent,
   Typography,
   Button,
   IconButton,
+  Container,
 } from "@material-ui/core";
 import DeleteIcon from "@material-ui/icons/Delete";
+import Fab from "@material-ui/core/Fab";
 import { red } from "@material-ui/core/colors";
 import { Alert } from "@material-ui/lab";
 import axios from "axios";
@@ -35,6 +38,30 @@ const useStyles = makeStyles((theme) => ({
   fileInput: {
     display: "none",
   },
+  pics: {
+    padding: "15px",
+    overflow: "hidden",
+  },
+  aboutMeh: {
+    textAlign: "center",
+  },
+  aboutPictures: {
+    maxWidth: "50%",
+    textAlign: "center",
+  },
+  aboutImgs: {
+    width: "auto",
+    maxHeight: "20em",
+  },
+  fabDel: {
+    height: "15px",
+    width: "0px",
+    margin: 0,
+    right: "10px",
+    bottom: "100%",
+    color: "red",
+    position: "relative",
+  },
 }));
 
 export default function ProfilePhoto() {
@@ -44,11 +71,22 @@ export default function ProfilePhoto() {
   const [processing, setProcessing] = useState(false);
   const [error, setError] = useState(false);
   const [success, setSuccess] = useState(false);
+  const [aboutProcessing, setAboutProcessing] = useState(false);
+  const [aboutError, setAboutError] = useState(false);
+  const [aboutSuccess, setAboutSuccess] = useState(false);
+  const [aboutDelSuccess, setAboutDelSuccess] = useState(false);
 
   useEffect(() => {
     setId(JSON.parse(localStorage.getItem("profile"))._id);
     getProfile();
+    //    console.log(profile.profilePic)
+    //    console.log(profile.aboutPics)
   }, [id]);
+  useEffect(() => {
+    if (profile.aboutPics) {
+      setAboutProcessing(true);
+    }
+  }, [profile]);
 
   async function getProfile() {
     try {
@@ -58,6 +96,8 @@ export default function ProfilePhoto() {
       // console.log(fetchedProfiles);
       if (fetchedProfile.data) {
         setProfile(fetchedProfile.data);
+        console.log(profile.profilePic);
+        console.log(profile.aboutPics);
       }
     } catch (err) {
       console.log(err);
@@ -83,6 +123,30 @@ export default function ProfilePhoto() {
       console.log(err);
     }
   };
+  const handleAboutFileUpload = async (event) => {
+    setAboutDelSuccess(false);
+    setAboutProcessing(false);
+    setAboutSuccess(false);
+    setSuccess(false);
+    setAboutError(false);
+    setError(false);
+
+    const data = new FormData();
+    // send file to server and call
+    try {
+      data.append("image", event.target.files[0], event.target.files[0].name);
+      const res = await axios.put(
+        "http://localhost:3001/img/about-me/" + id,
+        data
+      );
+      setProfile(res.data);
+      setAboutSuccess(true);
+    } catch (err) {
+      setAboutSuccess(false);
+      setAboutError(true);
+      console.log(err);
+    }
+  };
 
   const handleRemovePic = async (event) => {
     setSuccess(false);
@@ -101,6 +165,29 @@ export default function ProfilePhoto() {
       console.log(err);
     }
   };
+  async function removeAboutPic(url) {
+    console.log(url);
+    console.log("test");
+    setAboutDelSuccess(false);
+    setAboutProcessing(false);
+    setAboutSuccess(false);
+    setSuccess(false);
+    setAboutError(false);
+    setError(false);
+    try {
+      const res = await axios.put(
+        "http://localhost:3001/img/delete-about-me/" + id,
+        {
+          url: url,
+        }
+      );
+      setProfile(res.data);
+      console.log(res);
+      setAboutDelSuccess(true);
+    } catch (err) {
+      setAboutError(true);
+    }
+  }
 
   return (
     <Card className={classes.root}>
@@ -154,12 +241,60 @@ export default function ProfilePhoto() {
         <Grid item xs={5} align="center">
           {processing && <Alert severity="info">Loading...</Alert>}
           {error && <Alert severity="error">Error! Please try again...</Alert>}
-          {success && (
-            <Alert severity="success">
-              Profile picture successfully updated!
-            </Alert>
-          )}
         </Grid>
+      </Grid>
+      <Typography className={classes.aboutMeh} component="h5" variant="h5">
+        About Me Photos
+      </Typography>
+      <GridList cols={2} spacing={10} className={classes.pics}>
+        {aboutProcessing &&
+          profile.aboutPics.map((pic) => (
+            <div className={classes.aboutPictures} style={{ height: "100%" }}>
+              <img
+                className={classes.aboutImgs}
+                alt="about-photo"
+                src={pic}
+              ></img>
+              <Fab className={classes.fabDel}>
+                <DeleteIcon onClick={() => removeAboutPic(pic)} />
+              </Fab>
+            </div>
+          ))}
+      </GridList>
+      <Grid item xs={12} align="center">
+        <input
+          accept="image/*"
+          className={classes.fileInput}
+          id="contained-button-about"
+          multiple
+          type="file"
+          onChange={handleAboutFileUpload}
+        />
+        <label htmlFor="contained-button-about">
+          <Button
+            variant="outlined"
+            color="secondary"
+            className={classes.margin}
+            component="span"
+          >
+            Upload a file from your device
+          </Button>
+        </label>
+        {aboutSuccess && (
+          <Alert className={classes.aboutAlert} severity="success">
+            Picture successfully uploaded!
+          </Alert>
+        )}
+        {aboutDelSuccess && (
+          <Alert className={classes.aboutAlert} severity="success">
+            Picture successfully deleted!
+          </Alert>
+        )}
+        {aboutError && (
+          <Alert className={classes.aboutAlert} severity="error">
+            Error! Please try again...
+          </Alert>
+        )}
       </Grid>
     </Card>
   );
