@@ -2,8 +2,6 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Toolbar from "@material-ui/core/Toolbar";
 import { AppBar } from "@material-ui/core";
-import IconButton from "@material-ui/core/IconButton";
-import SearchIcon from "@material-ui/icons/Search";
 import Typography from "@material-ui/core/Typography";
 import AppBarCollapse from "./AppBarCollapse/AppBarCollapse";
 
@@ -16,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Header({ isAuthenticated }) {
+export default function Header({ isAuthenticated, pictureChanged }) {
   const classes = useStyles();
 
   return (
@@ -34,10 +32,10 @@ export default function Header({ isAuthenticated }) {
             noWrap
             className={classes.toolbarTitle}
           ></Typography>
-          <IconButton>
-            <SearchIcon />
-          </IconButton>
-          <AppBarCollapse isAuthenticated={isAuthenticated} />
+          <AppBarCollapse
+            isAuthenticated={isAuthenticated}
+            pictureChanged={pictureChanged}
+          />
         </Toolbar>
       </AppBar>
     </React.Fragment>

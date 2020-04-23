@@ -7,14 +7,6 @@ import axios from "axios";
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
-  root: {},
-  buttonBar: {
-    [theme.breakpoints.down("xs")]: {
-      display: "none",
-    },
-    display: "flex",
-    alignItems: "center",
-  },
   toolbarLink: {
     padding: theme.spacing(1),
     flexShrink: 0,
@@ -32,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const MenuList = ({ isAuthenticated }) => {
+const MenuList = ({ isAuthenticated, pictureChanged }) => {
   // let profile = {};
   const classes = useStyles();
   const [profilePic, setProfilePic] = useState("");
@@ -46,9 +38,10 @@ const MenuList = ({ isAuthenticated }) => {
     if (parsed) {
       const decoded = jwtDecode(parsed.token);
       try {
-        const profile = await axios.get("/profile/user/" + decoded._id, {
-          headers: { Authorization: `Bearer ${parsed}` },
-        });
+        const profile = await axios.get(
+          "/profile/user/" + decoded._id,
+          authService.authHeader()
+        );
         setProfilePic(profile.data.profilePic);
       } catch (err) {
         console.log(err);
@@ -59,7 +52,7 @@ const MenuList = ({ isAuthenticated }) => {
   useEffect(() => {
     setAuthed(isAuthenticated());
     getProfilePic();
-  }, [isAuthenticated()]);
+  }, [isAuthenticated(), pictureChanged]);
 
   // dropdown events
   const handleClick = (event) => {
@@ -82,8 +75,8 @@ const MenuList = ({ isAuthenticated }) => {
           <Link href="/bookings" className={classes.toolbarLink}>
             My Jobs
           </Link>
-          <Link href="#" className={classes.toolbarLink}>
-            Messages
+          <Link href="/" className={classes.toolbarLink}>
+            Profile Listing
           </Link>
           <Avatar alt="Remy Sharp" src={profilePic} onClick={handleClick} />
           <Menu

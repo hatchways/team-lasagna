@@ -17,12 +17,12 @@ function App() {
           <Switch>
             <Route
               exact
-              path="/payment"
+              path="/success/:id"
               render={(props) =>
                 isLoggedIn() ? (
                   <LandingPage
                     {...props}
-                    pathName="payment"
+                    pathName="success"
                     showSideBar={false}
                     isAuthed={isLoggedIn}
                   />
@@ -33,12 +33,12 @@ function App() {
             />
             <Route
               exact
-              path="/success/:id"
+              path="/bank-account/success"
               render={(props) =>
                 isLoggedIn() ? (
                   <LandingPage
                     {...props}
-                    pathName="success"
+                    pathName="bank-account/success"
                     showSideBar={false}
                     isAuthed={isLoggedIn}
                   />
@@ -185,7 +185,23 @@ function App() {
             />
             <Route
               exact
-              path="/payment"
+              path="/payment/add"
+              render={(props) =>
+                isLoggedIn() ? (
+                  <LandingPage
+                    {...props}
+                    pathName="payment/add"
+                    showSideBar={false}
+                    isAuthed={isLoggedIn}
+                  />
+                ) : (
+                  <Redirect to="/login" />
+                )
+              }
+            />
+            <Route
+              exact
+              path="/security"
               render={(props) =>
                 isLoggedIn() ? (
                   <LandingPage

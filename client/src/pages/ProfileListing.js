@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     justifyContent: "center",
   },
-})); 
+}));
 
 export default function ProfileListing() {
   const classes = useStyles();
@@ -86,9 +86,13 @@ export default function ProfileListing() {
         />
       </div>
       <Grid container className={classes.container} spacing={7}>
-        {filteredProfiles.map((profile, key) => (
-          <ProfileItem key={key} profile={profile} />
-        ))}
+        {filteredProfiles
+          .filter((profile) => {
+            return profile;
+          })
+          .map((profile, key) => (
+            <ProfileItem key={key} profile={profile} />
+          ))}
       </Grid>
     </div>
   );

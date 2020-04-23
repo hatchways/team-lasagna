@@ -10,7 +10,6 @@ export const isLoggedIn = () => {
     // console.log(new Date(decoded.exp * 1000).toString());
     // console.log(new Date(Date.now()));
     return currentTime < decoded.exp * 1000;
-    //return currentTime < decoded.exp;
   }
   authService.logout();
   // setAuthed(false);

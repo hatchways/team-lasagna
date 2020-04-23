@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const AppBarCollapse = ({ isAuthenticated }) => {
+const AppBarCollapse = ({ isAuthenticated, pictureChanged }) => {
   const classes = useStyles();
   return (
     <div className={classes.root}>
@@ -23,7 +23,10 @@ const AppBarCollapse = ({ isAuthenticated }) => {
         <CollapsedMenuList isAuthenticated={isAuthenticated} />
       </ButtonAppBarCollapse>
       <div className={classes.buttonBar} id="appbar-collapse">
-        <MenuList isAuthenticated={isAuthenticated} />
+        <MenuList
+          isAuthenticated={isAuthenticated}
+          pictureChanged={pictureChanged}
+        />
       </div>
     </div>
   );

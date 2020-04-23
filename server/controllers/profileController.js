@@ -45,14 +45,17 @@ module.exports.updateProfile = async (req, res, next) => {
     return res.status(400).send({ msg: "Invalid submission", errors });
   }
   try {
-    const updatedProfile = await Profile.findById(req.params.id)
-    if(!updatedProfile) return res.status(404).json({ msg: "Profile not found" });
-    
+    const updatedProfile = await Profile.findById(req.params.id);
+    if (!updatedProfile)
+      return res.status(404).json({ msg: "Profile not found" });
+
     updatedProfile.set(req.body);
-    
-    await updatedProfile.save()
-        
-    res.status(200).json({ updatedProfile, msg: "Successfully updated profile" });
+
+    await updatedProfile.save();
+
+    res
+      .status(200)
+      .json({ updatedProfile, msg: "Successfully updated profile" });
   } catch (err) {
     res.status(400).json(err.message);
   }
@@ -78,6 +81,8 @@ module.exports.createProfile = async (req, res, next) => {
     profilePic,
     about,
     user,
+    accountId,
+    customerId,
   } = req.body;
   const data = {
     firstName: firstName,
@@ -98,6 +103,8 @@ module.exports.createProfile = async (req, res, next) => {
     profilePic: profilePic,
     about: about,
     user: user,
+    accountId: accountId,
+    customerId: customerId,
   };
 
   try {
