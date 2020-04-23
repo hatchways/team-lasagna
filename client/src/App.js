@@ -201,22 +201,6 @@ function App() {
             />
             <Route
               exact
-              path="/security"
-              render={(props) =>
-                isLoggedIn() ? (
-                  <LandingPage
-                    {...props}
-                    pathName="security"
-                    showSideBar={true}
-                    isAuthed={isLoggedIn}
-                  />
-                ) : (
-                  <Redirect to="/login" />
-                )
-              }
-            />
-            <Route
-              exact
               path="/settings"
               render={(props) =>
                 isLoggedIn() ? (

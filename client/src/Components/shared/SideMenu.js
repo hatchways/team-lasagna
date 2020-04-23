@@ -51,11 +51,6 @@ export default function MenuListComposition() {
         "url": "/payment",
         "active": false
       }, {
-        "id": 4,
-        "title": "Security",
-        "url": "/security",
-        "active": false
-      },{
         "id": 5,
         "title": "Settings",
         "url": "/settings",
