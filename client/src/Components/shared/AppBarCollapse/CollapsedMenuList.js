@@ -40,18 +40,43 @@ const CollapsedMenuList = forwardRef((props, ref) => {
       {authed ? (
         <>
           <MenuItem>
+            <Link href="/" className={classes.toolbarLink}>
+              Profile Listing
+            </Link>
+          </MenuItem>
+          <MenuItem>
             <Link href="/editProfile" className={classes.toolbarLink}>
               My Profile
             </Link>
           </MenuItem>
           <MenuItem>
-            <Link href="#" className={classes.toolbarLink}>
+            <Link href="/bookings" className={classes.toolbarLink}>
               My Jobs
             </Link>
           </MenuItem>
           <MenuItem>
+            <Link href="/profilePhoto" className={classes.toolbarLink}>
+              Profile Photo
+            </Link>
+          </MenuItem>
+          <MenuItem>
+            <Link href="/availability" className={classes.toolbarLink}>
+              Availability
+            </Link>
+          </MenuItem>
+          <MenuItem>
+            <Link href="/payment" className={classes.toolbarLink}>
+              Payment
+            </Link>
+          </MenuItem>
+          <MenuItem>
             <Link href="#" className={classes.toolbarLink}>
-              Messages
+              Security
+            </Link>
+          </MenuItem>
+          <MenuItem>
+            <Link href="#" className={classes.toolbarLink}>
+              Settings
             </Link>
           </MenuItem>
           <MenuItem>

@@ -145,7 +145,7 @@ function BookSitter({ profile, userProfile }) {
     <div className={classes.bookingContainer}>
       <Paper className={classes.bookSitterPaper}>
         <h2 className={classes.avail}>Available</h2>
-        <b className={classes.hrRate}>$14/hr</b>
+        <b className={classes.hrRate}>${profile.hourlyRate}/hr</b>
         <br></br>
         <Rating
           className={classes.rating}

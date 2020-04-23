@@ -25,28 +25,35 @@ export default function CalendarView(props) {
   const [dates, changeDate] = useState(new Date())
 
   if (props.bookings) {
-      //console.log('bookings loaded')
+      //console.log('bookings loaded') 
       //console.log(props.bookings)
+  }
+
+  let sitterOptions = ''
+  if(!props.owner) {
+    sitterOptions = (
+      <Typography className={classes.linkButton}>
+        <Link href="/bookings">
+        Bookings
+        </Link>
+        <Link href="/upcomingJobs">
+        Upcoming jobs
+        </Link>
+        <Link href="/completedJobs">
+        Completed jobs
+        </Link>
+      </Typography>
+    )
   }
 
   return (
     <>
-        <Typography className={classes.linkButton}>
-            <Link href="/bookings">
-            Bookings
-            </Link>
-            <Link href="/upcomingJobs">
-            Upcoming jobs
-            </Link>
-            <Link href="/completedJobs">
-            Completed jobs
-            </Link>
-        </Typography>
-        <Paper className={classes.calend}>
-            <Calendar 
-            date={dates}
-            onChange={changeDate} />
-        </Paper>
+      {sitterOptions}
+      <Paper className={classes.calend}>
+        <Calendar 
+        date={dates}
+        onChange={changeDate} />
+      </Paper>
     </>
   )
 }
