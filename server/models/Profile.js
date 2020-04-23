@@ -89,15 +89,23 @@ const profileSchema = new mongoose.Schema({
     trim: true,
     default: "",
   },
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Users",
+    required: true,
+  },
+  accountId: {
+    type: String,
+    default: "",
+  },
+  customerId: {
+    type: String,
+    default: "",
+  },
   aboutPics: {
     trim: true,
     type: [String],
     default: [],
-  },
-  user: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
-    required: true,
   },
 });
 

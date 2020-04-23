@@ -17,12 +17,12 @@ function App() {
           <Switch>
             <Route
               exact
-              path="/payment"
+              path="/success/:id"
               render={(props) =>
                 isLoggedIn() ? (
                   <LandingPage
                     {...props}
-                    pathName="payment"
+                    pathName="success"
                     showSideBar={false}
                     isAuthed={isLoggedIn}
                   />
@@ -33,12 +33,12 @@ function App() {
             />
             <Route
               exact
-              path="/success/:id"
+              path="/bank-account/success"
               render={(props) =>
                 isLoggedIn() ? (
                   <LandingPage
                     {...props}
-                    pathName="success"
+                    pathName="bank-account/success"
                     showSideBar={false}
                     isAuthed={isLoggedIn}
                   />
@@ -122,38 +122,50 @@ function App() {
             <Route
               exact
               path="/bookings"
-              render={(props) => (
-                <LandingPage
-                  {...props}
-                  pathName="bookings"
-                  showSideBar={false}
-                  isAuthed={true}
-                />
-              )}
+              render={(props) =>
+                isLoggedIn() ? (
+                  <LandingPage
+                    {...props}
+                    pathName="bookings"
+                    showSideBar={false}
+                    isAuthed={isLoggedIn}
+                  />
+                ) : (
+                  <Redirect to="/login" />
+                )
+              }
             />
             <Route
               exact
               path="/upcomingJobs"
-              render={(props) => (
-                <LandingPage
-                  {...props}
-                  pathName="upcomingJobs"
-                  showSideBar={false}
-                  isAuthed={true}
-                />
-              )}
+              render={(props) =>
+                isLoggedIn() ? (
+                  <LandingPage
+                    {...props}
+                    pathName="upcomingJobs"
+                    showSideBar={false}
+                    isAuthed={isLoggedIn}
+                  />
+                ) : (
+                  <Redirect to="/login" />
+                )
+              }
             />
             <Route
               exact
               path="/completedJobs"
-              render={(props) => (
-                <LandingPage
-                  {...props}
-                  pathName="completedJobs"
-                  showSideBar={false}
-                  isAuthed={true}
-                />
-              )}
+              render={(props) =>
+                isLoggedIn() ? (
+                  <LandingPage
+                    {...props}
+                    pathName="completedJobs"
+                    showSideBar={false}
+                    isAuthed={isLoggedIn}
+                  />
+                ) : (
+                  <Redirect to="/login" />
+                )
+              }
             />
             <Route
               exact
@@ -164,6 +176,22 @@ function App() {
                     {...props}
                     pathName="payment"
                     showSideBar={true}
+                    isAuthed={isLoggedIn}
+                  />
+                ) : (
+                  <Redirect to="/login" />
+                )
+              }
+            />
+            <Route
+              exact
+              path="/payment/add"
+              render={(props) =>
+                isLoggedIn() ? (
+                  <LandingPage
+                    {...props}
+                    pathName="payment/add"
+                    showSideBar={false}
                     isAuthed={isLoggedIn}
                   />
                 ) : (
