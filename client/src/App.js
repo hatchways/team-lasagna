@@ -229,7 +229,7 @@ function App() {
             />
             <Route
               exact
-              path="/sitter-profile"
+              path="/sitter-profile/:user"
               render={(props) => (
                 <LandingPage
                   {...props}
