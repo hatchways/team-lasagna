@@ -50,7 +50,6 @@ module.exports.charge = async (req, res) => {
     if (!request || !customer || !sitter) {
       return res.status(404).json({ msg: "Invalid request." });
     }
-
     const paymentMethods = await stripe.paymentMethods.list({
       customer: customer.customerId,
       type: "card",
@@ -61,7 +60,7 @@ module.exports.charge = async (req, res) => {
       currency: "cad",
       customer: customer.customerId,
       description: "Loving Sitter pet care one-time service",
-      application_fee_amount: amount * 0.2,
+      application_fee_amount: 5 + Math.floor(amount * 0.2),
       transfer_data: {
         destination: sitter.accountId,
       },
