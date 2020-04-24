@@ -83,7 +83,7 @@ const Success = ({ match }) => {
           </CardContent>
         </Grid>
         <Grid item xs={12} align="center">
-          <Link to="/">return Home</Link>
+          <Link to="/payment">return Back</Link>
         </Grid>
       </Card>
     </>

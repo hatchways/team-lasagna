@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const profileSchema = new mongoose.Schema({
   available: {
     type: Boolean,
-    default: true,
+    default: false,
   },
   firstName: {
     type: String,
