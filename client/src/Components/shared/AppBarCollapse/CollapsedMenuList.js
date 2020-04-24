@@ -28,7 +28,9 @@ const CollapsedMenuList = forwardRef((props, ref) => {
   const [profileId, setProfileId] = useState("");
 
   useEffect(() => {
-    setProfileId(JSON.parse(localStorage.getItem("profile"))._id);
+    if (localStorage.getItem("profile")) {
+      setProfileId(JSON.parse(localStorage.getItem("profile"))._id);
+    }
     setAuthed(props.isAuthenticated());
   }, [props.isAuthenticated()]);
   // dropdown events END
