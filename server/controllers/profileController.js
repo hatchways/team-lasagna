@@ -3,7 +3,7 @@ const { validationResult } = require("express-validator");
 
 module.exports.getProfileList = async (req, res, next) => {
   try {
-    const profiles = await Profile.find();
+    const profiles = await Profile.find({available:true});
     if (!profiles) {
       return res.status(404).json({ err: "No profiles founds" });
     }
