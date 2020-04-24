@@ -40,10 +40,10 @@ module.exports.getProfileByUserId = async (req, res, next) => {
 module.exports.updateProfile = async (req, res, next) => {
   const errors = validationResult(req);
   //check validators
-  if (!errors.isEmpty()) {
-    console.log(errors);
-    return res.status(400).send({ msg: "Invalid submission", errors });
-  }
+  // if (!errors.isEmpty()) {
+  //   console.log(errors);
+  //   return res.status(400).send({ msg: "Invalid submission", errors });
+  // }
   try {
     const updatedProfile = await Profile.findById(req.params.id);
     if (!updatedProfile)

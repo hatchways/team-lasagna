@@ -1,12 +1,12 @@
 import React from 'react';
 import { TextField } from '@material-ui/core'
 
-export default function TextFieldInput({id, name, label, variant, rows, value, onChange}) {
+export default function TextFieldInput({id, name, label, variant, rows, required, value, onChange}) {
     let bigTextArea = ''
     if(rows) {
         bigTextArea = (
             <TextField
-            required
+            required={required}
             id={id}
             name={name}
             label={label}
@@ -22,7 +22,7 @@ export default function TextFieldInput({id, name, label, variant, rows, value, o
         bigTextArea = (
         <TextField
           multiline
-          required
+          required={required}
           id={id}
           name={name}
           label={label}

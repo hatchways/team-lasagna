@@ -250,8 +250,8 @@ export default function ProfilePhoto({ setPictureChanged }) {
       </Typography>
       <GridList cols={2} spacing={10} className={classes.pics}>
         {aboutProcessing &&
-          profile.aboutPics.map((pic) => (
-            <div className={classes.aboutPictures} style={{ height: "100%" }}>
+          profile.aboutPics.map((pic, i) => (
+            <div key={i} className={classes.aboutPictures} style={{ height: "100%" }}>
               <img
                 className={classes.aboutImgs}
                 alt="about-photo"
