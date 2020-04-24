@@ -126,8 +126,8 @@ function BookSitter({ profile, userProfile }) {
     const start = getDate(data.pickupDate, data.pickupTime);
     const end = getDate(data.dropoffDate, data.dropoffTime);
     const body = {
-      userId: profile.user,
-      sitterId: userProfile.user,
+      userId: userProfile.user,
+      sitterId: profile.user,
       start: start,
       end: end,
       accepted: false,

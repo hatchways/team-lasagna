@@ -3,16 +3,19 @@ const { check } = require("express-validator");
 const validate = [
   check("firstName")
     .exists()
+    .trim()
     .matches(/^[a-zA-Z]+$/)
     .withMessage("First name is required"),
   check("lastName")
     .exists()
+    .trim()
     .matches(/^[a-zA-Z]+$/)
     .withMessage("Last name is required"),
   check("phone")
     .optional()
+    .trim()
     .if((value, { req }) => req.body.phone)
-    .custom(value => {
+    .custom((value) => {
       // false if does not pass
       // simple validation for length and 10 digits or empty string
       return (value.length === 10 && value.match(/^\d{10}$/)) || value === "";
