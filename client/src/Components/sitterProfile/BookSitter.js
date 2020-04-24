@@ -133,12 +133,21 @@ function BookSitter({ profile, userProfile }) {
       accepted: false,
       declined: false,
     };
-    const res = await axios.post("/request", body);
-    if (res.status === 200) {
-      setReqSuccess(true);
-    } else {
+    try {
+      const res = await axios.post("/request", body);
+      if (res.status === 200) {
+        setReqSuccess(true);
+      } else {
+        console.log("here");
+        setResErr(true);
+        setResErrMsg(res.msg);
+      }
+    } catch (err) {
+      console.log(err);
       setResErr(true);
-      setResErrMsg(res.msg);
+      setResErrMsg(
+        "Please make sure to set up your Credit Card details to Create Request"
+      );
     }
   };
   return (
