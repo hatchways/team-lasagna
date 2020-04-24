@@ -3,7 +3,7 @@ const { validationResult } = require("express-validator");
 
 module.exports.getProfileList = async (req, res, next) => {
   try {
-    const profiles = await Profile.find();
+    const profiles = await Profile.find({available:true});
     if (!profiles) {
       return res.status(404).json({ err: "No profiles founds" });
     }
@@ -40,10 +40,10 @@ module.exports.getProfileByUserId = async (req, res, next) => {
 module.exports.updateProfile = async (req, res, next) => {
   const errors = validationResult(req);
   //check validators
-  if (!errors.isEmpty()) {
-    console.log(errors);
-    return res.status(400).send({ msg: "Invalid submission", errors });
-  }
+  // if (!errors.isEmpty()) {
+  //   console.log(errors);
+  //   return res.status(400).send({ msg: "Invalid submission", errors });
+  // }
   try {
     const updatedProfile = await Profile.findById(req.params.id);
     if (!updatedProfile)

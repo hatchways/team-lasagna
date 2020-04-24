@@ -1,4 +1,5 @@
 const Request = require("../models/Request");
+const Profile = require("../models/Profile")
 const { validationResult } = require("express-validator");
 
 module.exports.updateAllDocs = async(req, res, next) => {
@@ -149,13 +150,13 @@ module.exports.updateRequest = async (req, res, next) => {
 };
 
 module.exports.createRequest = async (req, res, next) => {
-  //const date = new Date()
   const errors = validationResult(req);
   //check validators
   if (!errors.isEmpty()) {
     console.log(errors);
     return res.status(400).send({ msg: "Invalid submission", errors });
   }
+
   const {
     userId,
     sitterId,
@@ -166,6 +167,15 @@ module.exports.createRequest = async (req, res, next) => {
     cancelled,
     completed
   } = req.body;
+
+  // Check if user have customer Id (bank account set up on the platform to allow charging) first.
+  //console.log(userId)
+  const petOwnerAccountSetUp = await Profile.findOne({user: userId, customerId: { $ne: '' }})
+  console.log(petOwnerAccountSetUp)
+  if (!petOwnerAccountSetUp) {
+    return res.status(404).send({ msg: "Setup your Credit Card details to Create Request"});
+  }
+
   // if you need to limit time for each dog sitting
 
   // let hourDiff = (new Date(end).getTime() - new Date(start).getTime()) /60*60*1000
