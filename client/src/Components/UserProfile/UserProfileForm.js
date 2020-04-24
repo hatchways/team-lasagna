@@ -190,13 +190,6 @@ export default function UserProfile() {
 
   return (
     <form onSubmit={handleSubmitForm}>
-      <Grid item xs={12} align="center">
-        {processing && <Alert severity="info">Loading...</Alert>}
-        {error && <Alert severity="error">Error! Please try again...</Alert>}
-        {success && (
-          <Alert severity="success">User Profile successfully updated!</Alert>
-        )}
-      </Grid>
       <Grid item xs={12}>
         <Grid container justify="flex-start" className={classes.availableSpace}>
           <FormControl fullWidth className={classes.margin}>
@@ -368,6 +361,11 @@ export default function UserProfile() {
           </Button>
         </Typography>
       </CardContent>
+      {processing && <Alert severity="info">Loading...</Alert>}
+      {error && <Alert severity="error">Error! Please try again...</Alert>}
+      {success && (
+        <Alert severity="success">User Profile successfully updated!</Alert>
+      )}
     </form>
   );
 }
