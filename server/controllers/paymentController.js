@@ -45,11 +45,12 @@ module.exports.charge = async (req, res) => {
   let paymentIntent;
   try {
     const request = await Request.findById(request_id);
-    const customer = await Profile.find({ user: request.user_id });
-    const sitter = await Profile.find({ user: request.sitter_id });
+    const customer = await Profile.findOne({ user: request.user_id });
+    const sitter = await Profile.findOne({ user: request.sitter_id });
     if (!request || !customer || !sitter) {
       return res.status(404).json({ msg: "Invalid request." });
     }
+
     const paymentMethods = await stripe.paymentMethods.list({
       customer: customer.customerId,
       type: "card",

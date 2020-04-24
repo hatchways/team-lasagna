@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
 const MenuList = ({ isAuthenticated, pictureChanged }) => {
   // let profile = {};
   const classes = useStyles();
-  const [profilePic, setProfilePic] = useState("");
+  const [profile, setProfile] = useState({});
   const [anchorEl, setAnchorEl] = useState(null);
   const [authed, setAuthed] = useState(false);
 
@@ -42,7 +42,7 @@ const MenuList = ({ isAuthenticated, pictureChanged }) => {
           "/profile/user/" + decoded._id,
           authService.authHeader()
         );
-        setProfilePic(profile.data.profilePic);
+        setProfile(profile.data);
       } catch (err) {
         console.log(err);
       }
@@ -78,7 +78,11 @@ const MenuList = ({ isAuthenticated, pictureChanged }) => {
           <Link href="/" className={classes.toolbarLink}>
             Profile Listing
           </Link>
-          <Avatar alt="Remy Sharp" src={profilePic} onClick={handleClick} />
+          <Avatar
+            alt="Remy Sharp"
+            src={profile.profilePic}
+            onClick={handleClick}
+          />
           <Menu
             keepMounted
             open={open}
@@ -99,9 +103,17 @@ const MenuList = ({ isAuthenticated, pictureChanged }) => {
               },
             }}
           >
+            <MenuItem>
+              <Link
+                href={`/sitter-profile/${profile._id}`}
+                className={classes.toolbarLink}
+              >
+                My Profile
+              </Link>
+            </MenuItem>
             <MenuItem value={10} onClick={handleClose}>
               <Link href="/editProfile" className={classes.toolbarLink}>
-                My Profile
+                Edit Profile
               </Link>
             </MenuItem>
             <MenuItem value={20} onClick={handleClose}>

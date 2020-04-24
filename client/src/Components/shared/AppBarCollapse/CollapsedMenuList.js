@@ -25,8 +25,10 @@ const CollapsedMenuList = forwardRef((props, ref) => {
   const classes = useStyles();
   // let profile = {};
   const [authed, setAuthed] = useState(false);
+  const [profileId, setProfileId] = useState("");
 
   useEffect(() => {
+    setProfileId(JSON.parse(localStorage.getItem("profile"))._id);
     setAuthed(props.isAuthenticated());
   }, [props.isAuthenticated()]);
   // dropdown events END
@@ -45,8 +47,16 @@ const CollapsedMenuList = forwardRef((props, ref) => {
             </Link>
           </MenuItem>
           <MenuItem>
-            <Link href="/editProfile" className={classes.toolbarLink}>
+            <Link
+              href={`/sitter-profile/${profileId}`}
+              className={classes.toolbarLink}
+            >
               My Profile
+            </Link>
+          </MenuItem>
+          <MenuItem>
+            <Link href="/editProfile" className={classes.toolbarLink}>
+              Edit Profile
             </Link>
           </MenuItem>
           <MenuItem>
@@ -86,11 +96,6 @@ const CollapsedMenuList = forwardRef((props, ref) => {
         </>
       ) : (
         <>
-          <MenuItem>
-            <Link href="#" className={classes.toolbarLink} onClick={logout}>
-              Become a Sitter
-            </Link>
-          </MenuItem>
           <MenuItem>
             <Link
               href="/signup"
