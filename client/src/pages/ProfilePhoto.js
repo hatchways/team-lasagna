@@ -246,7 +246,7 @@ export default function ProfilePhoto({ setPictureChanged }) {
         About Me Photos
       </Typography>
       <GridList cols={2} spacing={10} className={classes.pics}>
-        {aboutProcessing &&
+        {profile.aboutPics &&
           profile.aboutPics.map((pic, i) => (
             <div
               key={i}
