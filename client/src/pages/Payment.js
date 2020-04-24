@@ -60,6 +60,7 @@ export default function Payment() {
           {card.brand ? (
             <>
               <Cards
+                cvc="123"
                 issuer={card.brand}
                 expiry={
                   card.exp_month < 10

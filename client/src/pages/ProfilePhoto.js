@@ -9,7 +9,6 @@ import {
   Typography,
   Button,
   IconButton,
-  Container,
 } from "@material-ui/core";
 import DeleteIcon from "@material-ui/icons/Delete";
 import Fab from "@material-ui/core/Fab";
@@ -81,23 +80,17 @@ export default function ProfilePhoto({ setPictureChanged }) {
     getProfile();
     //    console.log(profile.profilePic)
     //    console.log(profile.aboutPics)
-  }, [id]);
-  useEffect(() => {
-    if (profile.aboutPics) {
-      setAboutProcessing(true);
-    }
-  }, [profile]);
+  }, [id, success]);
 
   async function getProfile() {
     try {
+      console.log("get");
       const fetchedProfile = await axios.get(
         "http://localhost:3001/profile/" + id
       );
       // console.log(fetchedProfiles);
       if (fetchedProfile.data) {
         setProfile(fetchedProfile.data);
-        console.log(profile.profilePic);
-        console.log(profile.aboutPics);
       }
     } catch (err) {
       console.log(err);
@@ -126,7 +119,7 @@ export default function ProfilePhoto({ setPictureChanged }) {
   };
   const handleAboutFileUpload = async (event) => {
     setAboutDelSuccess(false);
-    setAboutProcessing(false);
+    setAboutProcessing(true);
     setAboutSuccess(false);
     setSuccess(false);
     setAboutError(false);
@@ -142,9 +135,11 @@ export default function ProfilePhoto({ setPictureChanged }) {
       );
       setProfile(res.data);
       setAboutSuccess(true);
+      setAboutProcessing(false);
     } catch (err) {
       setAboutSuccess(false);
       setAboutError(true);
+      setAboutProcessing(false);
       console.log(err);
     }
   };
@@ -171,7 +166,7 @@ export default function ProfilePhoto({ setPictureChanged }) {
     console.log(url);
     console.log("test");
     setAboutDelSuccess(false);
-    setAboutProcessing(false);
+    setAboutProcessing(true);
     setAboutSuccess(false);
     setSuccess(false);
     setAboutError(false);
@@ -186,8 +181,10 @@ export default function ProfilePhoto({ setPictureChanged }) {
       setProfile(res.data);
       console.log(res);
       setAboutDelSuccess(true);
+      setAboutProcessing(false);
     } catch (err) {
       setAboutError(true);
+      setAboutProcessing(false);
     }
   }
 
@@ -251,7 +248,11 @@ export default function ProfilePhoto({ setPictureChanged }) {
       <GridList cols={2} spacing={10} className={classes.pics}>
         {aboutProcessing &&
           profile.aboutPics.map((pic, i) => (
-            <div key={i} className={classes.aboutPictures} style={{ height: "100%" }}>
+            <div
+              key={i}
+              className={classes.aboutPictures}
+              style={{ height: "100%" }}
+            >
               <img
                 className={classes.aboutImgs}
                 alt="about-photo"
@@ -287,6 +288,7 @@ export default function ProfilePhoto({ setPictureChanged }) {
             Picture successfully uploaded!
           </Alert>
         )}
+        {aboutProcessing && <Alert severity="info">Loading...</Alert>}
         {aboutDelSuccess && (
           <Alert className={classes.aboutAlert} severity="success">
             Picture successfully deleted!
