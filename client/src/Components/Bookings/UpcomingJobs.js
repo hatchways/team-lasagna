@@ -98,7 +98,7 @@ export default function UpcomingJobs() {
       setProcessing(false);
       setSuccess(true);
     } catch (error) {
-      alert('error')
+      //alert('error')
       setSuccess(false);
       setProcessing(false);
       setError(true);
