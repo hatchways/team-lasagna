@@ -80,11 +80,15 @@ export default function ProfilePhoto({ setPictureChanged }) {
     getProfile();
     //    console.log(profile.profilePic)
     //    console.log(profile.aboutPics)
-  }, [id, success]);
+  }, [id]);
+  useEffect(() => {
+    if (profile.aboutPics) {
+      setAboutProcessing(true);
+    }
+  }, [profile]);
 
   async function getProfile() {
     try {
-      console.log("get");
       const fetchedProfile = await axios.get(
         "http://localhost:3001/profile/" + id
       );
@@ -119,7 +123,7 @@ export default function ProfilePhoto({ setPictureChanged }) {
   };
   const handleAboutFileUpload = async (event) => {
     setAboutDelSuccess(false);
-    setAboutProcessing(true);
+    setAboutProcessing(false);
     setAboutSuccess(false);
     setSuccess(false);
     setAboutError(false);
@@ -135,11 +139,9 @@ export default function ProfilePhoto({ setPictureChanged }) {
       );
       setProfile(res.data);
       setAboutSuccess(true);
-      setAboutProcessing(false);
     } catch (err) {
       setAboutSuccess(false);
       setAboutError(true);
-      setAboutProcessing(false);
       console.log(err);
     }
   };
@@ -166,7 +168,7 @@ export default function ProfilePhoto({ setPictureChanged }) {
     console.log(url);
     console.log("test");
     setAboutDelSuccess(false);
-    setAboutProcessing(true);
+    setAboutProcessing(false);
     setAboutSuccess(false);
     setSuccess(false);
     setAboutError(false);
@@ -181,10 +183,8 @@ export default function ProfilePhoto({ setPictureChanged }) {
       setProfile(res.data);
       console.log(res);
       setAboutDelSuccess(true);
-      setAboutProcessing(false);
     } catch (err) {
       setAboutError(true);
-      setAboutProcessing(false);
     }
   }
 
@@ -247,6 +247,7 @@ export default function ProfilePhoto({ setPictureChanged }) {
       </Typography>
       <GridList cols={2} spacing={10} className={classes.pics}>
         {aboutProcessing &&
+          profile.aboutPics &&
           profile.aboutPics.map((pic, i) => (
             <div
               key={i}
@@ -288,7 +289,6 @@ export default function ProfilePhoto({ setPictureChanged }) {
             Picture successfully uploaded!
           </Alert>
         )}
-        {aboutProcessing && <Alert severity="info">Loading...</Alert>}
         {aboutDelSuccess && (
           <Alert className={classes.aboutAlert} severity="success">
             Picture successfully deleted!
