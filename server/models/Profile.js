@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const profileSchema = new mongoose.Schema({
   available: {
     type: Boolean,
-    default: true,
+    default: false,
   },
   firstName: {
     type: String,
@@ -80,7 +80,7 @@ const profileSchema = new mongoose.Schema({
       tuesdays: false,
       wednesdays: false,
       thursdays: false,
-      friday: false,
+      fridays: false,
       saturdays: false,
     },
   },

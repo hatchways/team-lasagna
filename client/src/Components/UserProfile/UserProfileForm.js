@@ -190,13 +190,6 @@ export default function UserProfile() {
 
   return (
     <form onSubmit={handleSubmitForm}>
-      <Grid item xs={12} align="center">
-        {processing && <Alert severity="info">Loading...</Alert>}
-        {error && <Alert severity="error">Error! Please try again...</Alert>}
-        {success && (
-          <Alert severity="success">User Profile successfully updated!</Alert>
-        )}
-      </Grid>
       <Grid item xs={12}>
         <Grid container justify="flex-start" className={classes.availableSpace}>
           <FormControl fullWidth className={classes.margin}>
@@ -205,6 +198,7 @@ export default function UserProfile() {
               id="standard-adornment-amount"
               value={inputs.hourlyRate}
               name="hourlyRate"
+              required
               onChange={handleInputChange}
               startAdornment={
                 <InputAdornment position="start">$</InputAdornment>
@@ -220,6 +214,7 @@ export default function UserProfile() {
             id="firstName"
             name="firstName"
             label="First name"
+            required={true}
             value={inputs.firstName}
             onChange={handleInputChange}
           />
@@ -229,6 +224,7 @@ export default function UserProfile() {
             id="lastName"
             name="lastName"
             label="Last name"
+            required={true}
             value={inputs.lastName}
             onChange={handleInputChange}
           />
@@ -237,6 +233,7 @@ export default function UserProfile() {
           <FormControl variant="outlined" className={classes.formControl}>
             <InputLabel id="demo-simple-select-outlined">Gender</InputLabel>
             <Select
+              required
               id="demo-simple-select-outlined"
               value={gender}
               name="gender"
@@ -268,6 +265,7 @@ export default function UserProfile() {
             id="phone"
             name="phone"
             label="Phone Number"
+            required={true}
             value={inputs.phone}
             onChange={handleInputChange}
           />
@@ -277,6 +275,7 @@ export default function UserProfile() {
             id="address1"
             name="address1"
             label="Address line 1"
+            required={true}
             value={inputs.address1}
             onChange={handleInputChange}
           />
@@ -286,6 +285,7 @@ export default function UserProfile() {
             id="address2"
             name="address2"
             label="Address line 2"
+            required={false}
             value={inputs.address2}
             onChange={handleInputChange}
           />
@@ -295,6 +295,7 @@ export default function UserProfile() {
             id="city"
             name="city"
             label="City"
+            required={false}
             value={inputs.city}
             onChange={handleInputChange}
           />
@@ -304,6 +305,7 @@ export default function UserProfile() {
             id="state"
             name="province"
             label="State/Province/Region"
+            required={true}
             value={inputs.province}
             onChange={handleInputChange}
           />
@@ -313,6 +315,7 @@ export default function UserProfile() {
             id="zip"
             name="zipCode"
             label="Zip / Postal code"
+            required={true}
             value={inputs.zipCode}
             onChange={handleInputChange}
           />
@@ -322,6 +325,7 @@ export default function UserProfile() {
             id="country"
             name="country"
             label="Country"
+            required={true}
             value={inputs.country}
             onChange={handleInputChange}
           />
@@ -333,6 +337,7 @@ export default function UserProfile() {
             label="Tell us about yourself"
             rows="4"
             variant="outlined"
+            required={false}
             onChange={handleInputChange}
             value={inputs.about}
           />
@@ -356,6 +361,11 @@ export default function UserProfile() {
           </Button>
         </Typography>
       </CardContent>
+      {processing && <Alert severity="info">Loading...</Alert>}
+      {error && <Alert severity="error">Error! Please try again...</Alert>}
+      {success && (
+        <Alert severity="success">User Profile successfully updated!</Alert>
+      )}
     </form>
   );
 }

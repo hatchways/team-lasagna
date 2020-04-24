@@ -1,9 +1,49 @@
 const Profile = require("../models/Profile");
 const { validationResult } = require("express-validator");
 
-module.exports.getProfileList = async (req, res, next) => {
+// Just for data normalization not for use.
+module.exports.updateAllDocs = async(req, res, next) => {
   try {
-    const profiles = await Profile.find();
+    let updatedValues = await Profile.updateMany({}, { $set: {
+      availability: {sundays: false, mondays: false, tuesdays: false, wednesdays: false, thursdays: false, fridays: false, saturdays: false }
+      } 
+    });
+
+    if (!updatedValues) {
+      return res.status(404).json({ msg: "Profiles not found" });
+    }
+    res.status(200).json({ updatedValues, msg: "Successfully updated all Profiles" });
+  } catch (error) {
+    res.status(400).json("Unable to Perform");
+  }
+}
+
+module.exports.getProfileList = async (req, res, next) => {
+  let dayOfWeek;
+  switch(new Date().getDay()) {
+    case 0:
+      dayOfWeek = 'sundays'
+      break;
+    case 1:
+      dayOfWeek ='mondays'
+      break;
+    case 2:
+      dayOfWeek = 'tuesdays'
+      break;
+    case 3:
+      dayOfWeek = 'wednesdays'
+      break;
+    case 4:
+      dayOfWeek = 'thursdays'
+      break;
+    case 5:
+      dayOfWeek = 'fridays'
+      break;
+    case 6:
+      dayOfWeek = 'saturdays'
+  }
+  try {
+    const profiles = await Profile.find({available:true });
     if (!profiles) {
       return res.status(404).json({ err: "No profiles founds" });
     }
@@ -40,10 +80,10 @@ module.exports.getProfileByUserId = async (req, res, next) => {
 module.exports.updateProfile = async (req, res, next) => {
   const errors = validationResult(req);
   //check validators
-  if (!errors.isEmpty()) {
-    console.log(errors);
-    return res.status(400).send({ msg: "Invalid submission", errors });
-  }
+  // if (!errors.isEmpty()) {
+  //   console.log(errors);
+  //   return res.status(400).send({ msg: "Invalid submission", errors });
+  // }
   try {
     const updatedProfile = await Profile.findById(req.params.id);
     if (!updatedProfile)
