@@ -80,7 +80,7 @@ const profileSchema = new mongoose.Schema({
       tuesdays: false,
       wednesdays: false,
       thursdays: false,
-      friday: false,
+      fridays: false,
       saturdays: false,
     },
   },
