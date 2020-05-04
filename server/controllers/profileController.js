@@ -5,7 +5,7 @@ const { validationResult } = require("express-validator");
 module.exports.updateAllDocs = async(req, res, next) => {
   try {
     let updatedValues = await Profile.updateMany({}, { $set: {
-      availability: {sundays: false, mondays: false, tuesdays: false, wednesdays: false, thursdays: false, fridays: false, saturdays: false }
+      availability: {sundays: false, mondays: false, tuesdays: false, wednesdays: false, thursdays: false, fridays: false, saturdays: true }
       } 
     });
 
@@ -42,8 +42,15 @@ module.exports.getProfileList = async (req, res, next) => {
     case 6:
       dayOfWeek = 'saturdays'
   }
+  
+  let que = `availability.`.concat(dayOfWeek)
+  let query = {available:true}
+  query[que] = true
+  //console.log(query);
+
   try {
-    const profiles = await Profile.find({available:true });
+    //const profiles = await Profile.find({available:true });
+    const profiles = await Profile.find(query)
     if (!profiles) {
       return res.status(404).json({ err: "No profiles founds" });
     }
