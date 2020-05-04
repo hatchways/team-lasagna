@@ -1,6 +1,14 @@
 # Loving Sitter
 This Web Application helps your furry family members with a massive community of pet lovers, offering pet sitting, dog walking, grooming & boarding services. Whatever you and your pet are into, we’re into it, too. And we’ve got your back. Anytime. Anywhere.
 
+## Getting Started
+### Prerequisites
+* [Node.js](https://nodejs.org/en/)
+* [npm](https://www.npmjs.com/)
+### Installing
+* Cloning this repo: run git clone https://github.com/hatchways/team-lasagna.git
+* Installing dependencies: run npm install in ```\server``` AND ```\client``` directories
+
 ## Technologies
 #### Server-side
 * [Node.js](https://nodejs.org/en/)
@@ -18,4 +26,6 @@ This Web Application helps your furry family members with a massive community of
 * [Din](https://github.com/langdin)
 * [Ayo](https://github.com/hiroyalty)
 * [Frank](https://github.com/xiezihen)
-* [Bonnie](https://github.com/bonnieli) - Team Lead
+
+## Acknowledgements
+* Guidance from [Bonnie](https://github.com/bonnieli)
