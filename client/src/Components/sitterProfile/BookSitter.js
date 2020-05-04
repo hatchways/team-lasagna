@@ -175,7 +175,7 @@ function BookSitter({ profile, userProfile }) {
                 format="MM/dd/yyyy"
                 margin="normal"
                 id="date-picker-inline"
-                label="Pickup"
+                label="DROP IN"
                 value={values.pickupDate}
                 onChange={handleChange("pickupDate")}
                 className={classes.picker}
@@ -207,7 +207,7 @@ function BookSitter({ profile, userProfile }) {
                 format="MM/dd/yyyy"
                 margin="normal"
                 id="date-picker-inline"
-                label="Drop-off"
+                label="DROP OFF"
                 value={dates.dropoffDate}
                 onChange={handleChange("dropoffDate")}
                 className={classes.picker}
