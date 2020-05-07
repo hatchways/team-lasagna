@@ -7,7 +7,7 @@ This Web Application helps your furry family members with a massive community of
 * [npm](https://www.npmjs.com/)
 ### Installing
 * Cloning this repo: run git clone https://github.com/hatchways/team-lasagna.git
-* Installing dependencies: run npm install in ```\server``` AND ```\client``` directories
+* Installing dependencies: run ```npm install``` in ```\server``` AND ```\client``` directories
 
 ## Technologies
 #### Server-side
