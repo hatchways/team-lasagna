@@ -146,7 +146,7 @@ function BookSitter({ profile, userProfile }) {
       console.log(err);
       setResErr(true);
       setResErrMsg(
-        "Please make sure to set up your Credit Card details to Create Request"
+        "Cannot create this request"
       );
     }
   };
