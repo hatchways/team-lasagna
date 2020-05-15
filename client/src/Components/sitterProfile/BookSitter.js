@@ -92,6 +92,7 @@ function BookSitter({ profile, userProfile }) {
       };
     });
   };
+
   const getDate = (date, time) => {
     const full = new Date();
     full.setDate(date.getDate());
@@ -138,18 +139,27 @@ function BookSitter({ profile, userProfile }) {
       if (res.status === 200) {
         setReqSuccess(true);
       } else {
-        console.log("here");
         setResErr(true);
         setResErrMsg(res.msg);
       }
     } catch (err) {
-      console.log(err);
       setResErr(true);
-      setResErrMsg(
-        "Cannot create this request"
-      );
+      setResErrMsg("Cannot create this request");
     }
   };
+  console.log(profile.availability);
+  function disableDays(date) {
+    return (
+      (date.getDay() === 0 && !profile.availability.sundays) ||
+      (date.getDay() === 1 && !profile.availability.mondays) ||
+      (date.getDay() === 2 && !profile.availability.tuesdays) ||
+      (date.getDay() === 3 && !profile.availability.wednesdays) ||
+      (date.getDay() === 4 && !profile.availability.thursdays) ||
+      (date.getDay() === 5 && !profile.availability.fridays) ||
+      (date.getDay() === 6 && !profile.availability.saturdays)
+    );
+  }
+
   return (
     <div className={classes.bookingContainer}>
       <Paper className={classes.bookSitterPaper}>
@@ -176,6 +186,7 @@ function BookSitter({ profile, userProfile }) {
                 margin="normal"
                 id="date-picker-inline"
                 label="DROP IN"
+                disablePast="true"
                 value={values.pickupDate}
                 onChange={handleChange("pickupDate")}
                 className={classes.picker}
@@ -184,6 +195,7 @@ function BookSitter({ profile, userProfile }) {
                 }}
                 error={errors.hasOwnProperty("pickupDate")}
                 helperText={errors.pickupDate && errors.pickupDate.message}
+                shouldDisableDate={disableDays}
               />
               <KeyboardTimePicker
                 margin="normal"
@@ -216,6 +228,7 @@ function BookSitter({ profile, userProfile }) {
                 }}
                 error={errors.hasOwnProperty("dropoffDate")}
                 helperText={errors.dropoffDate && errors.dropoffDate.message}
+                shouldDisableDate={disableDays}
               />
               <KeyboardTimePicker
                 margin="normal"
