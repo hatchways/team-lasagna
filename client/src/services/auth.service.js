@@ -46,6 +46,7 @@ function logout() {
   localStorage.clear();
   currentUserSubject.next(null);
 }
+
 function authHeader() {
   // return authorization header with jwt token
   const currentUser = authService.currentUserValue;
@@ -55,6 +56,7 @@ function authHeader() {
     return {};
   }
 }
+
 async function getUserProfile() {
   const currentUser = authService.currentUserValue;
   if (currentUser) {

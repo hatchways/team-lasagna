@@ -18,23 +18,48 @@ function Copyright() {
 }
 
 const useStyles = makeStyles((theme) => ({
-  footer: {
-    padding: theme.spacing(2, 1),
-    marginTop: '4%',
-    backgroundColor: 'white'
-      //theme.palette.type === 'light' ? theme.palette.grey[200] : theme.palette.grey[800],
+  forceFooter: {
+    backgroundColor: "white",
+    borderTop: "1px solid #E7E7E7",
+    marginTop: "20px",
+    textAlign: "center",
+    padding: "5px",
+    position: "absolute",
+    left: "-1",
+    bottom: "-1",
+    width: "100%",
   },
+  footer: {
+    backgroundColor: "white",
+    borderTop: "1px solid #E7E7E7",
+    marginTop: "20px",
+    textAlign: "center",
+    padding: "5px",
+    position: "absolute",
+    left: "0",
+    bottom: "0",
+    width: "100%",
+  }
 }));
 
-export default function StickyFooter() {
+export default function StickyFooter(props) {
   const classes = useStyles();
+  let Footing = (<footer className={classes.footer}>
+            <Container maxWidth="sm">
+              <Typography variant="body1">Contact us for more.</Typography>
+              <Copyright />
+            </Container>
+          </footer>)
+  if(props.force) {
+    Footing = (<footer className={classes.forceFooter}>
+      <Container maxWidth="sm">
+        <Typography variant="body1">Contact us for more.</Typography>
+        <Copyright />
+      </Container>
+    </footer>)
+  }
 
   return (
-      <footer className={classes.footer}>
-        <Container maxWidth="sm">
-          <Typography variant="body1">Beacause we love dogs.</Typography>
-          <Copyright />
-        </Container>
-      </footer>
+    Footing
   );
 }

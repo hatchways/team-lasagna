@@ -5,7 +5,7 @@ const { validationResult } = require("express-validator");
 module.exports.updateAllDocs = async(req, res, next) => {
   try {
     let updatedValues = await Profile.updateMany({}, { $set: {
-      availability: {sundays: false, mondays: false, tuesdays: false, wednesdays: false, thursdays: false, fridays: false, saturdays: true }
+      availability: {sundays: true, mondays: true, tuesdays: true, wednesdays: true, thursdays: true, fridays: true, saturdays: true }
       } 
     });
 
